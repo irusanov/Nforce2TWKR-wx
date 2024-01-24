@@ -58,7 +58,7 @@ BEGIN_EVENT_TABLE(Nforce2TWKRFrame,wxFrame)
     //*)
 END_EVENT_TABLE()
 
-Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent,wxWindowID id)
+Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id)
 {
     //(Initialize(Nforce2TWKRFrame)
     if (!InitOpenLibSys(&m_hOpenLibSys)) {
@@ -76,15 +76,27 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent,wxWindowID id)
         exit(-1);
     }
 
-    // MenuBar
-    wxMenuBar* menuBar = new wxMenuBar();
-
     // App icon
     appIcon = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, -1, -1);
     appIcon16x16 = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, 16, 16);
     // Create main frame and menu bar
-    Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
+    Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX), _T("id"));
     SetIcon(appIcon16x16);
+    SetClientSize(wxSize(380,480));
+    SetTitle(_("NForce2 TWKR " + GetAppVersion()));
+    this->Center(wxCENTER_ON_SCREEN);
+
+    // MainPanel
+    mainTabs = new wxNotebook(this, wxID_ANY);
+    dramPanel = new wxPanel(mainTabs);
+    chipsetPanel = new wxPanel(mainTabs);
+    infoPanel = new wxPanel(mainTabs);
+    mainTabs->AddPage(dramPanel, _T("DRAM"), true);
+    mainTabs->AddPage(chipsetPanel, _T("Chipset"), false);
+    mainTabs->AddPage(infoPanel, _T("Info"), false);
+
+    // MenuBar
+    wxMenuBar* menuBar = new wxMenuBar();
 
     // File menu
     wxMenu* menuFile = new wxMenu();
@@ -208,8 +220,7 @@ void Nforce2TWKRFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
     wxAboutDialogInfo aboutInfo;
     aboutInfo.SetIcon(appIcon);
     aboutInfo.SetName("NForce2 TWKR");
-    wxString versionString = wxString::Format(wxT("%d"), (int)AutoVersion::MAJOR) + "." + wxString::Format(wxT("%d"), (int)AutoVersion::MINOR) + "." + wxString::Format(wxT("%d"), (int)AutoVersion::BUILD);
-    aboutInfo.SetVersion(versionString);
+    aboutInfo.SetVersion(GetAppVersion());
     aboutInfo.SetDescription(_("A new generation tweaker for\n NVidia nForce2 motherboards."));
     aboutInfo.SetCopyright("(C) 2019-2024 Ivan Rusanov");
     aboutInfo.SetWebSite("https://github.com/irusanov/Nforce2TWKR-wx");

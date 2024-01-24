@@ -3021,7 +3021,8 @@
 	<wx/app.h>
 	<windows.h>
 
-1706134080 c:\git\nforce2twkr-wx\nforce2twkrmain.h
+1706138088 c:\git\nforce2twkr-wx\nforce2twkrmain.h
+	<string>
 	"utils/Utils.h"
 	"utils/Nforce2Pll.h"
 	"utils/QueryPerformance.h"
@@ -3029,11 +3030,12 @@
 	"Constants.h"
 	"version.h"
 	<wx/wx.h>
-	<string>
+	<wx/notebook.h>
 
-1706132287 c:\git\nforce2twkr-wx\utils\utils.h
+1706137386 c:\git\nforce2twkr-wx\utils\utils.h
 	<string>
 	<windows.h>
+	<wx/string.h>
 
 1706132287 c:\git\nforce2twkr-wx\utils\nforce2pll.h
 	<map>
@@ -3056,7 +3058,7 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1706134978 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1706138711 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
@@ -3079,10 +3081,72 @@
 	"Nforce2Pll.h"
 	<System.SysUtils.hpp>
 
-1706132287 source:c:\git\nforce2twkr-wx\utils\utils.cpp
+1706137412 source:c:\git\nforce2twkr-wx\utils\utils.cpp
 	"../libs/OlsApiInitExt.h"
 	"Utils.h"
 	"../Constants.h"
+	"../version.h"
 
-1706134898 c:\git\nforce2twkr-wx\version.h
+1706137946 c:\git\nforce2twkr-wx\version.h
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\notebook.h
+	"wx/defs.h"
+	"wx/bookctrl.h"
+	"wx/univ/notebook.h"
+	"wx/msw/notebook.h"
+	"wx/generic/notebook.h"
+	"wx/gtk/notebook.h"
+	"wx/gtk1/notebook.h"
+	"wx/osx/notebook.h"
+	"wx/cocoa/notebook.h"
+	"wx/os2/notebook.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\bookctrl.h
+	"wx/defs.h"
+	"wx/control.h"
+	"wx/dynarray.h"
+	"wx/withimages.h"
+	"wx/notebook.h"
+	"wx/choicebk.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\withimages.h
+	"wx/defs.h"
+	"wx/icon.h"
+	"wx/imaglist.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\choicebk.h
+	"wx/defs.h"
+	"wx/bookctrl.h"
+	"wx/choice.h"
+	"wx/containr.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\univ\notebook.h
+	"wx/arrstr.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\msw\notebook.h
+	"wx/control.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\generic\notebook.h
+	"wx/event.h"
+	"wx/control.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\gtk\notebook.h
+	"wx/list.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\gtk1\notebook.h
+	"wx/list.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\osx\notebook.h
+	"wx/event.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\cocoa\notebook.h
+	"wx/cocoa/NSTabView.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\cocoa\nstabview.h
+	"wx/hashmap.h"
+	"wx/cocoa/ObjcAssociate.h"
+	"wx/cocoa/ObjcRef.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\os2\notebook.h
+	"wx/control.h"
 

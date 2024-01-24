@@ -4,6 +4,7 @@
 #pragma once
 #include <string>
 #include <windows.h>
+#include <wx/string.h>
 
 using namespace std;
 
@@ -26,6 +27,8 @@ unsigned int ReadPciReg(unsigned int pciDev);
 bool WritePciReg(unsigned int pciDev, unsigned int value);
 
 string GetCpuName();
+
+wxString GetAppVersion();
 
 #endif // header guard
 

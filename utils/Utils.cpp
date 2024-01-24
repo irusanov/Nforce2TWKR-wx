@@ -1,6 +1,7 @@
 #include "../libs/OlsApiInitExt.h"
 #include "Utils.h"
 #include "../Constants.h"
+#include "../version.h"
 
 unsigned int SetBits(unsigned int val, int offset, int n, unsigned int newValue) {
     return (val & ~(((1U << n) - 1) << offset)) | (newValue << offset);
@@ -77,4 +78,8 @@ string GetCpuName() {
     trim(model);
 
     return model;
+}
+
+wxString GetAppVersion() {
+    return wxString::Format(wxT("%d"), (int)AutoVersion::MAJOR) + "." + wxString::Format(wxT("%d"), (int)AutoVersion::MINOR) + "." + wxString::Format(wxT("%d"), (int)AutoVersion::BUILD);
 }

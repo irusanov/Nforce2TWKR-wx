@@ -12,6 +12,7 @@
 
 using namespace std;
 //(*Headers(Nforce2TWKRFrame)
+#include <string>
 #include "utils/Utils.h"
 #include "utils/Nforce2Pll.h"
 #include "utils/QueryPerformance.h"
@@ -19,7 +20,7 @@ using namespace std;
 #include "Constants.h"
 #include "version.h"
 #include <wx/wx.h>
-#include <string>
+#include <wx/notebook.h>
 //*)
 
 class Nforce2TWKRFrame: public wxFrame
@@ -90,6 +91,10 @@ class Nforce2TWKRFrame: public wxFrame
 
         //(*Declarations(Nforce2TWKRFrame)
         wxStatusBar* statusBar;
+        wxPanel* dramPanel;
+        wxPanel* chipsetPanel;
+        wxPanel* infoPanel;
+        wxNotebook* mainTabs;
         //*)
 
         DECLARE_EVENT_TABLE()
