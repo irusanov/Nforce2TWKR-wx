@@ -1,5 +1,5 @@
-#ifndef HEADER_8AE401334D36BF21
-#define HEADER_8AE401334D36BF21
+#ifndef NFORCE2TWKRMAIN_H
+#define NFORCE2TWKRMAIN_H
 
 /***************************************************************
  * Name:      Nforce2TWKRMain.h
@@ -10,9 +10,6 @@
  * License:
  **************************************************************/
 
-#ifndef NFORCE2TWKRMAIN_H
-#define NFORCE2TWKRMAIN_H
-
 using namespace std;
 //(*Headers(Nforce2TWKRFrame)
 #include "utils/Utils.h"
@@ -20,6 +17,7 @@ using namespace std;
 #include "utils/QueryPerformance.h"
 #include "utils/CPUDetection.h"
 #include "Constants.h"
+#include "version.h"
 #include <wx/wx.h>
 #include <string>
 //*)
@@ -98,5 +96,4 @@ class Nforce2TWKRFrame: public wxFrame
 };
 
 #endif // NFORCE2TWKRMAIN_H
-#endif // header guard
 

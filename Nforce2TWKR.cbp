@@ -73,12 +73,21 @@
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="utils/CPUDetection.h" />
 		<Unit filename="utils/Nforce2Pll.cpp" />
 		<Unit filename="utils/Nforce2Pll.h" />
+		<Unit filename="utils/QueryPerformance.h" />
 		<Unit filename="utils/Utils.cpp" />
 		<Unit filename="utils/Utils.h" />
+		<Unit filename="version.h" />
 		<Unit filename="wxsmith/Nforce2TWKRframe.wxs" />
 		<Extensions>
+			<AutoVersioning>
+				<Scheme minor_max="999" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
+				<Settings autoincrement="1" date_declarations="1" use_define="0" update_manifest="0" do_auto_increment="0" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+				<Code header_guard="VERSION_H" namespace="AutoVersion" prefix="" />
+			</AutoVersioning>
 			<debugger>
 				<remote_debugging target="Release">
 					<options conn_type="2" additional_cmds="q" additional_shell_cmds_before='$(APPPATH)\dosboxw95\w95launcher.bat &quot;$(PROJECT_DIR)$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).exe&quot;' />

@@ -1,5 +1,5 @@
-#ifndef HEADER_76C6ED38EBB04B7E
-#define HEADER_76C6ED38EBB04B7E
+#ifndef NFORCE2TWKRAPP_H
+#define NFORCE2TWKRAPP_H
 
 /***************************************************************
  * Name:      Nforce2TWKRApp.h
@@ -9,9 +9,6 @@
  * Copyright: Ivan Rusanov (https://github.com/irusanov)
  * License:
  **************************************************************/
-
-#ifndef NFORCE2TWKRAPP_H
-#define NFORCE2TWKRAPP_H
 
 #include <wx/app.h>
 #include <windows.h>
@@ -23,5 +20,4 @@ class Nforce2TWKRApp : public wxApp
 };
 
 #endif // NFORCE2TWKRAPP_H
-#endif // header guard 
 

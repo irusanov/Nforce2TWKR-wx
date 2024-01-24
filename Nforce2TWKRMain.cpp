@@ -208,10 +208,11 @@ void Nforce2TWKRFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
     wxAboutDialogInfo aboutInfo;
     aboutInfo.SetIcon(appIcon);
     aboutInfo.SetName("NForce2 TWKR");
-    aboutInfo.SetVersion(_("2.0"));
-    // aboutInfo.SetDescription(_("My wxWidgets-based application!"));
+    wxString versionString = wxString::Format(wxT("%d"), (int)AutoVersion::MAJOR) + "." + wxString::Format(wxT("%d"), (int)AutoVersion::MINOR) + "." + wxString::Format(wxT("%d"), (int)AutoVersion::BUILD);
+    aboutInfo.SetVersion(versionString);
+    aboutInfo.SetDescription(_("A new generation tweaker for\n NVidia nForce2 motherboards."));
     aboutInfo.SetCopyright("(C) 2019-2024 Ivan Rusanov");
-    // aboutInfo.SetWebSite("http://myapp.org");
+    aboutInfo.SetWebSite("https://github.com/irusanov/Nforce2TWKR-wx");
 
     wxAboutBox(aboutInfo);
 }

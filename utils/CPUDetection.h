@@ -1,5 +1,5 @@
-#ifndef HEADER_FD89E67C36F2E66A
-#define HEADER_FD89E67C36F2E66A
+#ifndef CPU_DETECTION_H
+#define CPU_DETECTION_H
 
 #include <algorithm>
 #include <string>

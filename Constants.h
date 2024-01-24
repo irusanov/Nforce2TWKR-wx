@@ -1,3 +1,6 @@
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
 // linux/include/asm-generic/bitsperlong.h
 #if defined(_WIN64)
 #define BITS_PER_LONG 64
@@ -56,3 +59,4 @@
 #define NF2_DRAM_CFG1_ACCESS_MASK     0xffcfe1ff
 // Set bits 20 and [12:3] to 0, additionally bit 21 needs to be set to 1
 #define NF2_DRAM_CFG2_ACCESS_MASK     0xffefe007
+#endif // CONSTANTS_H
