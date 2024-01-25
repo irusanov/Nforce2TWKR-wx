@@ -88,11 +88,49 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
     dramPanel = new wxPanel(mainTabs);
     chipsetPanel = new wxPanel(mainTabs);
     infoPanel = new wxPanel(mainTabs);
-    mainTabs->AddPage(dramPanel, _T("DRAM"), true);
-    mainTabs->AddPage(chipsetPanel, _T("Chipset"), false);
-    mainTabs->AddPage(infoPanel, _T("Info"), false);
 
-    wxStaticBox* timingsGroupBox = new wxStaticBox(dramPanel, wxID_ANY, "Timings", wxDefaultPosition, wxSize(70, -1));
+    // DRAM page START
+    wxBoxSizer* dramPanelSizer = new wxBoxSizer(wxHORIZONTAL);
+
+    // Left part: StaticBox
+    wxStaticBoxSizer* staticBoxLeft = new wxStaticBoxSizer(wxVERTICAL, dramPanel, "Timings");
+    TTimingComboBox* timingComboBox = new TTimingComboBox(dramPanel, wxID_ANY);
+    timingComboBox->SetLabel("Test");
+    timingComboBox->SetMin(0);
+    timingComboBox->SetMax(7);
+
+    // Right part: Two StaticBoxes vertically
+    wxBoxSizer* rightVerticalSizer = new wxBoxSizer(wxVERTICAL);
+
+    wxStaticBoxSizer* staticBoxTopRight = new wxStaticBoxSizer(wxVERTICAL, dramPanel, "Advanced");
+
+    wxStaticBoxSizer* staticBoxBottomRight = new wxStaticBoxSizer(wxVERTICAL, dramPanel, "ROMSIP");
+
+    rightVerticalSizer->Add(staticBoxTopRight, 2, wxEXPAND | wxBOTTOM, 0);
+    rightVerticalSizer->Add(staticBoxBottomRight, 1, wxEXPAND | wxTOP, 10);
+
+    dramPanelSizer->Add(staticBoxLeft, 1, wxEXPAND | wxALL, 5);
+    dramPanelSizer->Add(rightVerticalSizer, 2, wxEXPAND | wxALL, 5);
+
+    dramPanel->SetSizer(dramPanelSizer);
+
+    wxColor bgColor = wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE);
+    this->SetBackgroundColour(bgColor);
+
+    staticBoxLeft->Add(timingComboBox, 0, wxEXPAND | wxALL, 5);
+    staticBoxBottomRight->Add(button, 0, wxEXPAND);
+
+    // Add the first page (dramPanel) to the notebook (mainTabs)
+    mainTabs->AddPage(dramPanel, _T("DRAM"), true);
+    // DRAM page END
+
+    mainTabs->AddPage(chipsetPanel, _T("Chipset"));
+    mainTabs->AddPage(infoPanel, _T("Info"));
+
+    // Set mainTabs as the main sizer for the frame
+    wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
+    mainSizer->Add(mainTabs, 1, wxEXPAND | wxLEFT, 2);
+    SetSizer(mainSizer);
 
     // MenuBar
     wxMenuBar* menuBar = new wxMenuBar();
