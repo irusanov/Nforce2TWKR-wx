@@ -1,5 +1,8 @@
+# CodeBlocks
 bin/
 obj/
+*.layout
+
 # Prerequisites
 *.d
 
