@@ -3,6 +3,8 @@
 
 #include <string>
 
+using namespace std;
+
 // MANID Register, MSR C001_001Eh
 typedef struct {
     unsigned char reticleSite; // [9-8]

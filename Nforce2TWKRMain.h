@@ -18,7 +18,7 @@ using namespace std;
 #include "utils/Utils.h"
 #include "utils/Nforce2Pll.h"
 #include "utils/QueryPerformance.h"
-#include "utils/CPUDetection.h"
+#include "Cpu.h"
 #include "version.h"
 #include <wx/wx.h>
 #include <wx/notebook.h>
@@ -32,8 +32,8 @@ public:
     wxIcon appIcon16x16;
     wxIcon appIcon64x64;
     wxIcon appIcon;
+    Cpu* cpu;
     Nforce2Pll pll;
-    cpu_info_t cpu_info;
     QueryPerformance qpc;
 
 private:
