@@ -39,6 +39,7 @@ private:
     //(Handlers(Nforce2TWKRFrame)
     void OnQuit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
+    void OnButtonClick(wxCommandEvent& event);
     //)
 
     //(Identifiers(Nforce2TWKRFrame)
@@ -56,6 +57,7 @@ private:
     wxPanel* chipsetPanel;
     wxPanel* infoPanel;
     wxNotebook* mainTabs;
+    TAdvancedEdit* advancedEdit;
     //)
 
     DECLARE_EVENT_TABLE()

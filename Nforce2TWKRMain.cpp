@@ -48,6 +48,7 @@ const long Nforce2TWKRFrame::STATUSBAR_ID = wxNewId();
 BEGIN_EVENT_TABLE(Nforce2TWKRFrame, wxFrame)
     EVT_MENU(MENU_QUIT_ID, Nforce2TWKRFrame::OnQuit)
     EVT_MENU(MENU_ABOUT_ID, Nforce2TWKRFrame::OnAbout)
+    EVT_BUTTON(wxID_ANY, Nforce2TWKRFrame::OnButtonClick)
 END_EVENT_TABLE()
 
 Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
@@ -117,7 +118,12 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
     wxColor bgColor = wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE);
     this->SetBackgroundColour(bgColor);
 
+    advancedEdit = new TAdvancedEdit(dramPanel, wxID_ANY);
+    advancedEdit->SetValue(_("FF"));
+    wxButton* button = new wxButton(dramPanel, wxID_ANY, "Get Value");
+
     staticBoxLeft->Add(timingComboBox, 0, wxEXPAND | wxALL, 5);
+    staticBoxTopRight->Add(advancedEdit, 0, wxEXPAND);
     staticBoxBottomRight->Add(button, 0, wxEXPAND);
 
     // Add the first page (dramPanel) to the notebook (mainTabs)
@@ -173,6 +179,12 @@ Nforce2TWKRFrame::~Nforce2TWKRFrame() {
     trayIcon->Destroy();
     delete cpu;
     DeinitOpenLibSys(&m_hOpenLibSys);
+}
+
+void Nforce2TWKRFrame::OnButtonClick(wxCommandEvent& event) {
+    wxString value = advancedEdit->GetValue();
+    //wxMessageBox("Current Value: " + value, "TAdvancedEdit Value");
+    wxMessageBox(wxString::Format("%s", advancedEdit->IsModified() ? "true" : "false"));
 }
 
 void Nforce2TWKRFrame::OnQuit(wxCommandEvent& event) {
