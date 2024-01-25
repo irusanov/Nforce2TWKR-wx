@@ -20,6 +20,7 @@ using namespace std;
 #include "version.h"
 #include <wx/wx.h>
 #include <wx/notebook.h>
+#include <wx/taskbar.h>
 #include "TAdvancedEdit.h"
 
 class Nforce2TWKRFrame: public wxFrame {
@@ -49,6 +50,7 @@ private:
     bool __fastcall InitSystemInfo();
 
     //(Declarations(Nforce2TWKRFrame)
+    wxTaskBarIcon* trayIcon;
     wxStatusBar* statusBar;
     wxPanel* dramPanel;
     wxPanel* chipsetPanel;

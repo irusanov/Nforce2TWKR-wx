@@ -3021,7 +3021,7 @@
 	<wx/app.h>
 	<windows.h>
 
-1706191681 c:\git\nforce2twkr-wx\nforce2twkrmain.h
+1706211963 c:\git\nforce2twkr-wx\nforce2twkrmain.h
 	<string>
 	"Constants.h"
 	"Types.h"
@@ -3030,6 +3030,7 @@
 	"version.h"
 	<wx/wx.h>
 	<wx/notebook.h>
+	<wx/taskbar.h>
 	"TTimingComboBox.h"
 	"TAdvancedEdit.h"
 
@@ -3059,7 +3060,7 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1706191785 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1706224313 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
@@ -3185,6 +3186,27 @@
 	"Constants.h"
 	"../utils/CPUDetection.h"
 	"../utils/Utils.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\taskbar.h
+	"wx/defs.h"
+	"wx/event.h"
+	"wx/msw/taskbar.h"
+	"wx/gtk/taskbar.h"
+	"wx/unix/taskbarx11.h"
+	"wx/osx/taskbarosx.h"
+	"wx/cocoa/taskbar.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\msw\taskbar.h
+	"wx/icon.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\gtk\taskbar.h
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\unix\taskbarx11.h
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\osx\taskbarosx.h
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\cocoa\taskbar.h
+	"wx/icon.h"
 
 1706224491 c:\git\nforce2twkr-wx\include\tadvancededit.h
 	<wx/wx.h>

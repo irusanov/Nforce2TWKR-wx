@@ -72,6 +72,10 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
     Nforce2TWKRFrame::appIcon = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, -1, -1);
     Nforce2TWKRFrame::appIcon16x16 = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, 16, 16);
     Nforce2TWKRFrame::appIcon64x64 = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, 64, 64);
+
+    trayIcon = new wxTaskBarIcon();
+    trayIcon->SetIcon(appIcon);
+
     // Create main frame and menu bar
     Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX), _T("id"));
     SetIcon(appIcon16x16);
@@ -121,12 +125,14 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
     int __wxStatusBarStyles_1[1] = { wxSB_NORMAL };
     statusBar->SetFieldsCount(1, __wxStatusBarWidths_1);
     statusBar->SetStatusStyles(1, __wxStatusBarStyles_1);
+    statusBar->SetDoubleBuffered(true);
     SetStatusBar(statusBar);
 
     wxLogStatus(_T("OK"));
 }
 
 Nforce2TWKRFrame::~Nforce2TWKRFrame() {
+    trayIcon->Destroy();
     DeinitOpenLibSys(&m_hOpenLibSys);
 }
 
