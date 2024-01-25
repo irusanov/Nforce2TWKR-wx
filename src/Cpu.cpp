@@ -1,3 +1,4 @@
+#include <math.h>
 #include "Cpu.h"
 #include "ols/OlsApiInitExt.h"
 #include "Constants.h"
@@ -6,12 +7,67 @@
 
 Cpu::Cpu()
 {
+    if (!pll.init()) {
+        throw "Not a nForce2 chipset!";
+    }
     InitSystemInfo();
 }
 
 Cpu::~Cpu()
 {
     //dtor
+}
+
+// Refresh frequency related parameters
+void __fastcall Cpu::RefreshCpuSpeed() {
+    unsigned long eax = 0, edx = 0;
+    // timing_def_t def;
+    unsigned int pciAddress, regValue, value;
+
+    // Read current FSB
+    cpuInfo.fsbFromPll = pll.nforce2_fsb_read(0);
+    // Measure current CPU frequency
+    cpuInfo.frequency = qpc.MeasureCPUFrequency();
+
+    // Update current FID and VID
+    if (Rdmsr(MSR_K7_FID_VID_STATUS, &eax, &edx)) {
+        cpuInfo.currVid = GetBits(edx, 0, 6);
+        cpuInfo.currFid = GetBits(eax, 0, 6);
+    }
+
+    // @TODO: Implement GetFID
+    // cpuInfo.fid = GetFID();
+    cpuInfo.fid = 110;
+
+    // FID from chipset is 4 bits and covers up to 12.5x
+    // CurrFID from MSR_K7_FID_VID_STATUS is also unreliable
+    // Calculate multiplier from CPU frequency and FSB (from PLL)
+    if (cpuInfo.fsbFromPll > 0) {
+        cpuInfo.multi = floor(((cpuInfo.frequency / cpuInfo.fsbFromPll) * 2) + 0.5) / 2;
+    }
+    else {
+        cpuInfo.multi = fid_codes[cpuInfo.fid] / 10.0;
+    }
+
+    cpuInfo.fsb = cpuInfo.frequency / cpuInfo.multi;
+    targetFsb = cpuInfo.fsb;
+
+    /*
+    // Get FSB:DRAM ratio
+    def = GetDefByName(timingDefs, COUNT_OF(timingDefs), "FsbDramRatio");
+    pciAddress = MakePciAddress(def.bus, def.device, def.function, def.reg);
+    regValue = ReadPciReg(pciAddress);
+    value = GetBits(regValue, def.offset, def.bits);
+
+    cpu_info.fsbDiv = value & 0xf;
+    cpu_info.dramDiv = value >> 4 & 0xf;
+
+    if (cpu_info.fsbDiv > 0 && cpu_info.dramDiv > 0) {
+        cpu_info.dram = cpu_info.fsb * cpu_info.dramDiv / cpu_info.fsbDiv;
+    }
+
+    RefreshPciFrequency();
+    */
 }
 
 bool __fastcall Cpu::InitSystemInfo() {
@@ -69,8 +125,7 @@ bool __fastcall Cpu::InitSystemInfo() {
     decode_amd_model_string(cpuInfo.cpuName);
     // decode_amd_model_string("Athlon XP-M");
 
-    // @TODO: Implement RefreshCpuSpeed
-    //RefreshCpuSpeed();
+    RefreshCpuSpeed();
 
     switch(cpuInfo.cpuid) {
     default:

@@ -5,6 +5,26 @@
 
 using namespace std;
 
+typedef enum {
+    Spitfire,
+    Morgan,
+    Applebred,
+    Thunderbird,
+    Palomino,
+    Thoroughbred,
+    Barton,
+} CodeName;
+
+typedef struct {
+    string name;
+    unsigned int bus;
+    unsigned int device;
+    unsigned int fn;
+    unsigned int reg;
+    unsigned int offset;
+    unsigned int bits;
+} timing_def_t;
+
 // MANID Register, MSR C001_001Eh
 typedef struct {
     unsigned char reticleSite; // [9-8]

@@ -59,4 +59,14 @@
 #define NF2_DRAM_CFG1_ACCESS_MASK     0xffcfe1ff
 // Set bits 20 and [12:3] to 0, additionally bit 21 needs to be set to 1
 #define NF2_DRAM_CFG2_ACCESS_MASK     0xffefe007
+
+// https://github.com/torvalds/linux/blob/master/drivers/cpufreq/powernow-k7.c#L78
+// 0x0 - 0x1f. 0 - 31
+const int fid_codes[32] = {
+    110, 115, 120, 125, 50, 55, 60, 65,
+    70, 75, 80, 85, 90, 95, 100, 105,
+    30, 190, 40, 200, 130, 135, 140, 210,
+    150, 225, 160, 165, 170, 180, 230, 240,
+};
+
 #endif // CONSTANTS_H

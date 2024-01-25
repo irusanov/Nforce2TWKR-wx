@@ -61,12 +61,12 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
         exit(-1);
     }
 
-    if(!pll.init()) {
-        wxMessageBox(_T("Not a NForce2 chipset!"), _T("Error"), wxOK_DEFAULT | wxICON_ERROR);
+    try {
+        this->cpu = new Cpu();
+    } catch (const char* s) {
+        wxMessageBox(_T(s), _T("Error"), wxOK_DEFAULT | wxICON_ERROR);
         exit(-1);
     }
-
-    this->cpu = new Cpu();
 
     // App icon
     Nforce2TWKRFrame::appIcon = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, -1, -1);

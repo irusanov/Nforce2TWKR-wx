@@ -3021,13 +3021,11 @@
 	<wx/app.h>
 	<windows.h>
 
-1706190131 c:\git\nforce2twkr-wx\nforce2twkrmain.h
+1706191681 c:\git\nforce2twkr-wx\nforce2twkrmain.h
 	<string>
 	"Constants.h"
 	"Types.h"
 	"utils/Utils.h"
-	"utils/Nforce2Pll.h"
-	"utils/QueryPerformance.h"
 	"Cpu.h"
 	"version.h"
 	<wx/wx.h>
@@ -3059,7 +3057,7 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1706187207 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1706191785 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
@@ -3154,10 +3152,10 @@
 1706184698 c:\git\nforce2twkr-wx\types.h
 	<string>
 
-1706185834 c:\git\nforce2twkr-wx\include\types.h
+1706190967 c:\git\nforce2twkr-wx\include\types.h
 	<string>
 
-1706133948 c:\git\nforce2twkr-wx\include\constants.h
+1706191015 c:\git\nforce2twkr-wx\include\constants.h
 
 1706184032 c:\git\nforce2twkr-wx\include\version.h
 
@@ -3173,6 +3171,16 @@
 
 1706185834 c:\git\nforce2twkr-wx\include\ols\olsdef.h
 
-1706190116 c:\git\nforce2twkr-wx\include\cpu.h
+1706192071 c:\git\nforce2twkr-wx\include\cpu.h
 	"Types.h"
+	"../utils/Nforce2Pll.h"
+	"../utils/QueryPerformance.h"
+
+1706192168 source:c:\git\nforce2twkr-wx\src\cpu.cpp
+	<math.h>
+	"Cpu.h"
+	"ols/OlsApiInitExt.h"
+	"Constants.h"
+	"../utils/CPUDetection.h"
+	"../utils/Utils.h"
 

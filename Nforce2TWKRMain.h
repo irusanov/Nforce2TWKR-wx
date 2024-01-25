@@ -16,8 +16,6 @@ using namespace std;
 #include "Constants.h"
 #include "Types.h"
 #include "utils/Utils.h"
-#include "utils/Nforce2Pll.h"
-#include "utils/QueryPerformance.h"
 #include "Cpu.h"
 #include "version.h"
 #include <wx/wx.h>
@@ -33,8 +31,6 @@ public:
     wxIcon appIcon64x64;
     wxIcon appIcon;
     Cpu* cpu;
-    Nforce2Pll pll;
-    QueryPerformance qpc;
 
 private:
 
