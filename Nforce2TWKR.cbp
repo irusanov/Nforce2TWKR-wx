@@ -31,6 +31,7 @@
 					<Add option="-DwxUSE_DPI_AWARE_MANIFEST=2" />
 					<Add directory="$(#wx30)/include" />
 					<Add directory="$(#wx30)/lib/gcc_lib/msw" />
+					<Add directory="include" />
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
@@ -57,6 +58,7 @@
 					<Add library="libcomctl32.a" />
 					<Add library="libwsock32.a" />
 					<Add directory="$(#wx30)/lib/gcc_lib" />
+					<Add directory="include" />
 				</Linker>
 			</Target>
 		</Build>

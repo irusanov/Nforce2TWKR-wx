@@ -11,7 +11,6 @@ class Cpu
         Cpu();
         virtual ~Cpu();
 
-
     protected:
         cpu_info_t cpuInfo;
         Nforce2Pll pll;

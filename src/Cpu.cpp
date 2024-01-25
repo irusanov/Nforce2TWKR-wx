@@ -15,7 +15,8 @@ Cpu::Cpu()
 
 Cpu::~Cpu()
 {
-    //dtor
+    delete &pll;
+    delete &qpc;
 }
 
 // Refresh frequency related parameters

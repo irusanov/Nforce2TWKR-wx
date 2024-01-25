@@ -133,6 +133,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
 
 Nforce2TWKRFrame::~Nforce2TWKRFrame() {
     trayIcon->Destroy();
+    delete cpu;
     DeinitOpenLibSys(&m_hOpenLibSys);
 }
 
