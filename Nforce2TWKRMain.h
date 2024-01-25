@@ -20,6 +20,7 @@ using namespace std;
 #include "version.h"
 #include <wx/wx.h>
 #include <wx/notebook.h>
+#include "TAdvancedEdit.h"
 
 class Nforce2TWKRFrame: public wxFrame {
 public:

@@ -3030,6 +3030,8 @@
 	"version.h"
 	<wx/wx.h>
 	<wx/notebook.h>
+	"TTimingComboBox.h"
+	"TAdvancedEdit.h"
 
 1706186069 c:\git\nforce2twkr-wx\utils\utils.h
 	<string>
@@ -3183,4 +3185,11 @@
 	"Constants.h"
 	"../utils/CPUDetection.h"
 	"../utils/Utils.h"
+
+1706224491 c:\git\nforce2twkr-wx\include\tadvancededit.h
+	<wx/wx.h>
+
+1706224207 source:c:\git\nforce2twkr-wx\src\tadvancededit.cpp
+	"TAdvancedEdit.h"
+	<wx/wx.h>
 

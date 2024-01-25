@@ -66,6 +66,7 @@
 		<Unit filename="Nforce2TWKRMain.h" />
 		<Unit filename="include/Constants.h" />
 		<Unit filename="include/Cpu.h" />
+		<Unit filename="include/TAdvancedEdit.h" />
 		<Unit filename="include/Types.h" />
 		<Unit filename="include/ols/OlsApi.h" />
 		<Unit filename="include/ols/OlsApiInit.h" />
@@ -76,6 +77,7 @@
 			<Option compilerVar="WINDRES" />
 		</Unit>
 		<Unit filename="src/Cpu.cpp" />
+		<Unit filename="src/TAdvancedEdit.cpp" />
 		<Unit filename="utils/CPUDetection.h" />
 		<Unit filename="utils/Nforce2Pll.cpp" />
 		<Unit filename="utils/Nforce2Pll.h" />
