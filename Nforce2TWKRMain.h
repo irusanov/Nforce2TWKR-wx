@@ -11,93 +11,55 @@
  **************************************************************/
 
 using namespace std;
-//(*Headers(Nforce2TWKRFrame)
+
 #include <string>
+#include "Constants.h"
+#include "Types.h"
 #include "utils/Utils.h"
 #include "utils/Nforce2Pll.h"
 #include "utils/QueryPerformance.h"
 #include "utils/CPUDetection.h"
-#include "Constants.h"
 #include "version.h"
 #include <wx/wx.h>
 #include <wx/notebook.h>
-//*)
 
-class Nforce2TWKRFrame: public wxFrame
-{
-    public:
+class Nforce2TWKRFrame: public wxFrame {
+public:
+    Nforce2TWKRFrame(wxWindow* parent, wxWindowID id = -1);
+    virtual ~Nforce2TWKRFrame();
 
-        // MANID Register, MSR C001_001Eh
-        typedef struct {
-            unsigned char reticleSite; // [9-8]
-            unsigned char majorRev; // [7-4]
-            unsigned char minorRev; // [3-0]
-        } man_id_t;
+    HMODULE m_hOpenLibSys;
+    wxIcon appIcon16x16;
+    wxIcon appIcon64x64;
+    wxIcon appIcon;
+    Nforce2Pll pll;
+    cpu_info_t cpu_info;
+    QueryPerformance qpc;
 
-        typedef struct {
-            unsigned int cpuid;
-            string codeName;
-            string cpuName;
-            unsigned char family;
-            unsigned char model;
-            unsigned char extFamily;
-            unsigned char extModel;
-            unsigned char stepping;
-            unsigned char patchLevel;
-            double frequency;
-            double fsbFromPll;
-            double fsb;
-            double multi;
-            double dram;
-            unsigned int pciMul;
-            unsigned int pciDiv;
-            unsigned char fsbDiv;
-            unsigned char dramDiv;
-            unsigned int maxVid;
-            unsigned int startVid;
-            unsigned int currVid;
-            unsigned int maxFid;
-            unsigned int startFid;
-            unsigned int currFid;
-            unsigned int fid;
-            bool MP;
-            int l1DataCache;
-            int l1InstCache;
-            int l1Cache;
-            int l2Cache;
-            man_id_t manID;
-        } cpu_info_t;
+private:
 
-        Nforce2TWKRFrame(wxWindow* parent,wxWindowID id = -1);
-        virtual ~Nforce2TWKRFrame();
-        Nforce2Pll pll;
-        cpu_info_t cpu_info;
-        QueryPerformance qpc;
+    //(Handlers(Nforce2TWKRFrame)
+    void OnQuit(wxCommandEvent& event);
+    void OnAbout(wxCommandEvent& event);
+    //)
 
-    private:
+    //(Identifiers(Nforce2TWKRFrame)
+    static const long MENU_QUIT_ID;
+    static const long MENU_ABOUT_ID;
+    static const long STATUSBAR_ID;
+    //)
 
-        //(*Handlers(Nforce2TWKRFrame)
-        void OnQuit(wxCommandEvent& event);
-        void OnAbout(wxCommandEvent& event);
-        //*)
+    bool __fastcall InitSystemInfo();
 
-        //(*Identifiers(Nforce2TWKRFrame)
-        static const long idMenuQuit;
-        static const long idMenuAbout;
-        static const long ID_STATUSBAR1;
-        //*)
+    //(Declarations(Nforce2TWKRFrame)
+    wxStatusBar* statusBar;
+    wxPanel* dramPanel;
+    wxPanel* chipsetPanel;
+    wxPanel* infoPanel;
+    wxNotebook* mainTabs;
+    //)
 
-        bool __fastcall InitSystemInfo();
-
-        //(*Declarations(Nforce2TWKRFrame)
-        wxStatusBar* statusBar;
-        wxPanel* dramPanel;
-        wxPanel* chipsetPanel;
-        wxPanel* infoPanel;
-        wxNotebook* mainTabs;
-        //*)
-
-        DECLARE_EVENT_TABLE()
+    DECLARE_EVENT_TABLE()
 };
 
 #endif // NFORCE2TWKRMAIN_H

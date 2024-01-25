@@ -1,3 +1,6 @@
+#ifndef HEADER_9E41476BC91C077B
+#define HEADER_9E41476BC91C077B
+
 #pragma once
 
 class QueryPerformance {
@@ -28,7 +31,7 @@ public:
         double frequency = -1;
         int retries = 6;
 
-        while (frequency < 0 && retries > 0) {
+        while(frequency < 0 && retries > 0) {
             Rdtsc(&eax, &edx);
             long rdtscStart = eax;
             long qpcStart = GetQPCTime();
@@ -46,9 +49,11 @@ public:
             retries--;
         }
 
-        if (frequency == -1)
+        if(frequency == -1)
             return 0;
 
         return frequency;
     }
 };
+#endif // header guard
+

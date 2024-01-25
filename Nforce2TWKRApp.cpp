@@ -9,25 +9,20 @@
 
 #include "Nforce2TWKRApp.h"
 
-//(*AppHeaders
+//(AppHeaders
 #include "Nforce2TWKRMain.h"
 #include <wx/image.h>
-//*)
+//)
 
 IMPLEMENT_APP(Nforce2TWKRApp);
 
-bool Nforce2TWKRApp::OnInit()
-{
-    //(*AppInitialize
+bool Nforce2TWKRApp::OnInit() {
     bool wxsOK = true;
     wxInitAllImageHandlers();
-    if ( wxsOK )
-    {
+    if(wxsOK) {
         Nforce2TWKRFrame* Frame = new Nforce2TWKRFrame(0);
         Frame->Show();
         SetTopWindow(Frame);
     }
-    //*)
     return wxsOK;
-
 }

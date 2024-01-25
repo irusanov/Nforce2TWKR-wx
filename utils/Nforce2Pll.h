@@ -15,7 +15,7 @@
 #define NFORCE2_PLL(mul, div) (0x100000 | (mul << 8) | div)
 
 #include <map>
-#include "../libs/OlsApiInitExt.h"
+#include "ols/OlsApiInitExt.h"
 // #define DEBUG_CONSOLE
 /* Delay in ms between FSB changes */
 // #define NFORCE2_DELAY 10
@@ -39,5 +39,5 @@ public:
     static std::pair<double, int>GetPrevPll(double fsb);
     static std::pair<double, int>GetNextPll(double fsb);
 };
-#endif // header guard 
+#endif // header guard
 

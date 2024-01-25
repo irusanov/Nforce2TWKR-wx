@@ -22,9 +22,10 @@
 					<Add option="-DwxUSE_UNICODE=0" />
 					<Add option="-DNDEBUG" />
 					<Add option="-DwxDEBUG_LEVEL=0" />
-					<Add option="-D_DEBUG=1" />
+					<Add option="-D_DEBUG" />
 					<Add directory="$(#wx30)/include" />
 					<Add directory="$(#wx30)/lib/gcc_lib/msw" />
+					<Add directory="include" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add option="-DwxUSE_DPI_AWARE_MANIFEST=2" />
@@ -59,17 +60,17 @@
 				</Linker>
 			</Target>
 		</Build>
-		<Unit filename="Constants.h" />
 		<Unit filename="Nforce2TWKRApp.cpp" />
 		<Unit filename="Nforce2TWKRApp.h" />
 		<Unit filename="Nforce2TWKRMain.cpp" />
 		<Unit filename="Nforce2TWKRMain.h" />
-		<Unit filename="libs/OlsApi.def" />
-		<Unit filename="libs/OlsApi.h" />
-		<Unit filename="libs/OlsApiInit.h" />
-		<Unit filename="libs/OlsApiInitDef.h" />
-		<Unit filename="libs/OlsApiInitExt.h" />
-		<Unit filename="libs/OlsDef.h" />
+		<Unit filename="include/Constants.h" />
+		<Unit filename="include/Types.h" />
+		<Unit filename="include/ols/OlsApi.h" />
+		<Unit filename="include/ols/OlsApiInit.h" />
+		<Unit filename="include/ols/OlsApiInitDef.h" />
+		<Unit filename="include/ols/OlsApiInitExt.h" />
+		<Unit filename="include/ols/OlsDef.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>

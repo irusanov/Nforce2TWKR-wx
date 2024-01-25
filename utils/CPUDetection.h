@@ -5,7 +5,7 @@
 #include <string>
 #include <cctype>
 #include <wx/string.h>
-#include "../Constants.h"
+#include "Constants.h"
 
 using namespace std;
 
@@ -19,22 +19,22 @@ struct match_entry_t {
 };
 
 enum _cpu_bits_t {
-    _M_          = BIT_ULL( 0 ),
-    _MP_         = BIT_ULL( 1 ),
-    _XP_         = BIT_ULL( 2 ),
-    _LV_         = BIT_ULL( 3 ),
-    _NX_         = BIT_ULL( 4 ),
-    _SFF_        = BIT_ULL( 5 ),
-    _4_          = BIT_ULL( 6 ),
-    MOBILE_      = BIT_ULL( 7 ),
-    ATHLON_      = BIT_ULL( 8 ),
-    DURON_       = BIT_ULL( 9 ),
-    SEMPRON_     = BIT_ULL( 10 ),
-    GEODE_       = BIT_ULL( 11 ),
+    _M_          = BIT_ULL(0),
+    _MP_         = BIT_ULL(1),
+    _XP_         = BIT_ULL(2),
+    _LV_         = BIT_ULL(3),
+    _NX_         = BIT_ULL(4),
+    _SFF_        = BIT_ULL(5),
+    _4_          = BIT_ULL(6),
+    MOBILE_      = BIT_ULL(7),
+    ATHLON_      = BIT_ULL(8),
+    DURON_       = BIT_ULL(9),
+    SEMPRON_     = BIT_ULL(10),
+    GEODE_       = BIT_ULL(11),
 };
 
 static std::string to_lower(std::string s) {
-    for (std::size_t i = 0; i < s.length(); ++i) {
+    for(std::size_t i = 0; i < s.length(); ++i) {
         s[i] = static_cast<char>(std::tolower(static_cast<unsigned char>(s[i])));
     }
 
@@ -45,7 +45,10 @@ static bool decode_amd_model_string(string name) {
     unsigned int i = 0;
     unsigned int bits = 0x0;
 
-    const struct { unsigned int bit; const string search; } bit_matchtable[] = {
+    const struct {
+        unsigned int bit;
+        const string search;
+    } bit_matchtable[] = {
         { _M_,       " XP-M"   },
         { _MP_,      " MP"     },
         { _XP_,      " XP"     },
@@ -60,8 +63,8 @@ static bool decode_amd_model_string(string name) {
         { GEODE_,    "Geode"   },
     };
 
-    for (i = 0; i < COUNT_OF(bit_matchtable); i++) {
-        if (to_lower(name).find(to_lower(bit_matchtable[i].search)) != std::string::npos)
+    for(i = 0; i < COUNT_OF(bit_matchtable); i++) {
+        if(to_lower(name).find(to_lower(bit_matchtable[i].search)) != std::string::npos)
             bits |= bit_matchtable[i].bit;
     }
 

@@ -31,7 +31,7 @@ static HANDLE handle;
 Nforce2Pll::Nforce2Pll(void) {
     // possibleFsb = GenerateFsbTable();
 #ifdef DEBUG_CONSOLE
-    if (!handle) {
+    if(!handle) {
         AllocConsole();
         handle = GetStdHandle(STD_OUTPUT_HANDLE);
     }
@@ -45,13 +45,13 @@ bool Nforce2Pll::init() {
     possibleFsb = nforce2_gen_fsb_table();
 
 #ifdef DEBUG_CONSOLE
-    for (const auto&[k, v] : possibleFsb) {
-        text = Format("%.2f: 0x%x", ARRAYOFCONST(((long double)k, v))) + "\n";
+    for(const auto&[k, v] : possibleFsb) {
+        text = Format("%.2f: 0x%x", ARRAYOFCONST(((long double) k, v))) + "\n";
         WriteConsole(handle, text.c_str(), text.Length(), 0, 0);
     }
 #endif
 
-    if (nforce2_dev == 0xFFFFFFFF) {
+    if(nforce2_dev == 0xFFFFFFFF) {
 #ifndef _DEBUG
         return false;
 #endif
@@ -71,7 +71,7 @@ double Nforce2Pll::nforce2_calc_fsb(int pll) {
     mul = (pll >> 8) & 0xff;
     div = pll & 0xff;
 
-    if (div > 0)
+    if(div > 0)
         return ceil((25.0 * mul / div) * 100.0) / 100.0;
 
     return 0;
@@ -90,17 +90,17 @@ int Nforce2Pll::nforce2_calc_pll(double fsb) {
     int tfsb = round(fsb);
 
     /* Try to calculate multiplier and divider up to 4 times */
-    while (((mul == 0) || (div == 0)) && (tried <= 3)) {
-        for (xdiv = 2; xdiv <= 0x80; xdiv++)
-            for (xmul = 0x1; xmul <= 0xfe; xmul++)
-                if (nforce2_calc_fsb(NFORCE2_PLL(xmul, xdiv)) == tfsb + tried) {
+    while(((mul == 0) || (div == 0)) && (tried <= 3)) {
+        for(xdiv = 2; xdiv <= 0x80; xdiv++)
+            for(xmul = 0x1; xmul <= 0xfe; xmul++)
+                if(nforce2_calc_fsb(NFORCE2_PLL(xmul, xdiv)) == tfsb + tried) {
                     mul = xmul;
                     div = xdiv;
                 }
         tried++;
     }
 
-    if ((mul == 0) || (div == 0))
+    if((mul == 0) || (div == 0))
         return -1;
 
     return NFORCE2_PLL(mul, div);
@@ -119,7 +119,7 @@ void Nforce2Pll::nforce2_write_pll(int pll) {
     WritePciConfigDwordEx(nforce2_dev, NFORCE2_PLLADR, 0);
 
     /* Now write the value in all 64 registers */
-    for (temp = 0; temp <= 0x3f; temp++)
+    for(temp = 0; temp <= 0x3f; temp++)
         WritePciConfigDwordEx(nforce2_dev, NFORCE2_PLLREG, pll);
 }
 
@@ -135,7 +135,7 @@ double Nforce2Pll::nforce2_fsb_read(int bootfsb) {
     /* Get chipset boot FSB from subdevice 5 (FSB at boot-time) */
     nforce2_sub5 = FindPciDeviceById(PCI_VENDOR_ID_NVIDIA, 0x01EF, 0);
 
-    if (!nforce2_sub5)
+    if(!nforce2_sub5)
         return 0;
 
     ReadPciConfigDwordEx(nforce2_sub5, NFORCE2_BOOTFSB, (DWORD *) &fsb);
@@ -143,9 +143,9 @@ double Nforce2Pll::nforce2_fsb_read(int bootfsb) {
     fsb /= 1000000;
 
     /* Check if PLL register is already set */
-    ReadPciConfigByteEx(nforce2_dev, NFORCE2_PLLENABLE, (BYTE *)&temp);
+    ReadPciConfigByteEx(nforce2_dev, NFORCE2_PLLENABLE, (BYTE *) &temp);
 
-    if (bootfsb || !temp)
+    if(bootfsb || !temp)
         return ceil(fsb * 100.0) / 100.0;
 
     /* Use PLL register FSB value */
@@ -162,13 +162,13 @@ int Nforce2Pll::nforce2_set_fsb_pll(double tfsb, int tpll) {
     pair<double, int>p;
 
     /* First write? Then set actual value */
-    ReadPciConfigByteEx(nforce2_dev, NFORCE2_PLLENABLE, (BYTE *)&temp);
+    ReadPciConfigByteEx(nforce2_dev, NFORCE2_PLLENABLE, (BYTE *) &temp);
 
-    if (!temp) {
+    if(!temp) {
         fsb = nforce2_fsb_read(0);
         pll = nforce2_calc_pll(fsb);
 
-        if (pll < 0)
+        if(pll < 0)
             return -1;
 
         nforce2_write_pll(pll);
@@ -181,11 +181,10 @@ int Nforce2Pll::nforce2_set_fsb_pll(double tfsb, int tpll) {
     fsb = nforce2_fsb_read(0);
     diff = tfsb - fsb;
 
-    while (pll != tpll) {
-        if (diff > 0) {
+    while(pll != tpll) {
+        if(diff > 0) {
             p = GetNextPll(fsb);
-        }
-        else {
+        } else {
             p = GetPrevPll(fsb);
         }
 
@@ -218,18 +217,18 @@ int Nforce2Pll::nforce2_set_fsb(double fsb) {
      } */
     tfsb = nforce2_fsb_read(0);
 
-    if (!tfsb) {
+    if(!tfsb) {
         // MessageBox(NULL, L"Error while reading the FSB!", L"Error", MB_ICONERROR | MB_OK);
         return -1;
     }
 
     /* First write? Then set actual value */
-    ReadPciConfigByteEx(nforce2_dev, NFORCE2_PLLENABLE, (BYTE *)&temp);
+    ReadPciConfigByteEx(nforce2_dev, NFORCE2_PLLENABLE, (BYTE *) &temp);
 
-    if (!temp) {
+    if(!temp) {
         pll = nforce2_calc_pll(tfsb);
 
-        if (pll < 0)
+        if(pll < 0)
             return -1;
 
         nforce2_write_pll(pll);
@@ -240,11 +239,11 @@ int Nforce2Pll::nforce2_set_fsb(double fsb) {
     WritePciConfigByteEx(nforce2_dev, NFORCE2_PLLENABLE, temp);
     diff = tfsb - fsb;
 
-    if (!diff)
+    if(!diff)
         return 0;
 
-    while ((tfsb != fsb) && (tfsb <= 350) && (tfsb >= 50)) {
-        if (diff < 0)
+    while((tfsb != fsb) && (tfsb <= 350) && (tfsb >= 50)) {
+        if(diff < 0)
             tfsb++;
         else
             tfsb--;
@@ -252,7 +251,7 @@ int Nforce2Pll::nforce2_set_fsb(double fsb) {
         /* Calculate the PLL reg. value */
         pll = nforce2_calc_pll(tfsb);
 
-        if (pll == -1)
+        if(pll == -1)
             return -1;
 
         nforce2_write_pll(pll);
@@ -271,16 +270,16 @@ map<double, int>Nforce2Pll::nforce2_gen_fsb_table() {
     map<double, int>fsbMap;
     map<double, int>::iterator it;
 
-    for (xdiv = 2; xdiv <= 0x80; xdiv++) {
-        for (xmul = 0xf0; xmul <= 0xfe; xmul++) {
+    for(xdiv = 2; xdiv <= 0x80; xdiv++) {
+        for(xmul = 0xf0; xmul <= 0xfe; xmul++) {
             int pll = NFORCE2_PLL(xmul, xdiv);
             double fsb = nforce2_calc_fsb(pll) * 1.00225;
 
-            if (fsb >= 30.0 && fsb <= 350.0) {
+            if(fsb >= 30.0 && fsb <= 350.0) {
                 it = fsbMap.find(fsb);
 
-                if (it == fsbMap.end()) {
-                    fsbMap.insert(pair<double,int>(fsb, pll));
+                if(it == fsbMap.end()) {
+                    fsbMap.insert(pair<double, int> (fsb, pll));
                 }
             }
         }
@@ -292,32 +291,32 @@ map<double, int>Nforce2Pll::nforce2_gen_fsb_table() {
 pair<double, int>Nforce2Pll::GetPrevPll(double fsb) {
     map<double, int>::reverse_iterator it;
 
-    for (it = possibleFsb.rbegin(); it != possibleFsb.rend(); ++it) {
-        if (fsb - it->first >= 0.05) {
+    for(it = possibleFsb.rbegin(); it != possibleFsb.rend(); ++it) {
+        if(fsb - it->first >= 0.05) {
 #ifdef DEBUG_CONSOLE
-            text = Format("Prev PLL: %.2f", ARRAYOFCONST(((long double)it->first))) + "\n";
+            text = Format("Prev PLL: %.2f", ARRAYOFCONST(((long double) it->first))) + "\n";
             WriteConsole(handle, text.c_str(), text.Length(), 0, 0);
 #endif
-            return pair<double,int>(it->first, it->second);
+            return pair<double, int> (it->first, it->second);
         }
     }
-    return pair<double,int>(0, 0);
+    return pair<double, int> (0, 0);
 }
 
 pair<double, int>Nforce2Pll::GetNextPll(double fsb) {
     map<double, int>::iterator it;
 
-    for (it = possibleFsb.begin(); it != possibleFsb.end(); it++) {
-        if (it->first - fsb >= 0.05) {
+    for(it = possibleFsb.begin(); it != possibleFsb.end(); it++) {
+        if(it->first - fsb >= 0.05) {
 #ifdef DEBUG_CONSOLE
-            text = Format("Next PLL: %.2f", ARRAYOFCONST(((long double)it->first))) + "\n";
+            text = Format("Next PLL: %.2f", ARRAYOFCONST(((long double) it->first))) + "\n";
             WriteConsole(handle, text.c_str(), text.Length(), 0, 0);
 #endif
-            return pair<double,int>(it->first, it->second);
+            return pair<double, int> (it->first, it->second);
         }
     }
 
-    return pair<double,int>(0, 0);
+    return pair<double, int> (0, 0);
 }
 
 Nforce2Pll::~Nforce2Pll(void) {

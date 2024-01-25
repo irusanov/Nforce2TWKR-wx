@@ -30,5 +30,7 @@ string GetCpuName();
 
 wxString GetAppVersion();
 
+wxString GetBuildDate();
+
 #endif // header guard
 

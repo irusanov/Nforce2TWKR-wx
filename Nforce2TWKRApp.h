@@ -13,10 +13,9 @@
 #include <wx/app.h>
 #include <windows.h>
 
-class Nforce2TWKRApp : public wxApp
-{
-    public:
-        virtual bool OnInit();
+class Nforce2TWKRApp : public wxApp {
+public:
+    virtual bool OnInit();
 };
 
 #endif // NFORCE2TWKRAPP_H

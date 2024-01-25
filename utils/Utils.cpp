@@ -1,6 +1,6 @@
-#include "../libs/OlsApiInitExt.h"
+#include "ols/OlsApiInitExt.h"
 #include "Utils.h"
-#include "../Constants.h"
+#include "Constants.h"
 #include "../version.h"
 
 unsigned int SetBits(unsigned int val, int offset, int n, unsigned int newValue) {
@@ -8,7 +8,7 @@ unsigned int SetBits(unsigned int val, int offset, int n, unsigned int newValue)
 }
 
 unsigned int GetBits(unsigned int val, int offset, int n) {
-     return (val >> offset) & ~(~0U << n);
+    return (val >> offset) & ~(~0U << n);
 }
 
 unsigned int MakePciAddress(int bus, int device, int fn, int offset) {
@@ -29,11 +29,9 @@ string IntToStr(DWORD val) {
     return GetStringPart(part1) + GetStringPart(part2) + GetStringPart(part3) + GetStringPart(part4);
 }
 
-string trim(string& str)
-{
+string trim(string& str) {
     size_t first = str.find_first_not_of(' ');
-    if (string::npos == first)
-    {
+    if(string::npos == first) {
         return str;
     }
     size_t last = str.find_last_not_of(' ');
@@ -41,10 +39,10 @@ string trim(string& str)
 }
 
 bool __fastcall Contains(const string* arr, int arraySize, string value) {
-    for (int i = 0; i < arraySize; i++) {
-         if (arr[i] == value) {
+    for(int i = 0; i < arraySize; i++) {
+        if(arr[i] == value) {
             return true;
-         }
+        }
     }
     return false;
 }
@@ -55,7 +53,7 @@ bool WritePciReg(unsigned int pciDev, unsigned int value) {
 }
 
 string GetStringPart(BYTE val) {
-    if (val != 0) {
+    if(val != 0) {
         string s(1, val);
         return s;
     }
@@ -66,13 +64,13 @@ string GetCpuName() {
     string model = "";
     DWORD eax = 0, ebx = 0, ecx = 0, edx = 0;
 
-    if (Cpuid(0x80000002, &eax, &ebx, &ecx, &edx))
+    if(Cpuid(0x80000002, &eax, &ebx, &ecx, &edx))
         model = model + IntToStr(eax) + IntToStr(ebx) + IntToStr(ecx) + IntToStr(edx);
 
-    if (Cpuid(0x80000003, &eax, &ebx, &ecx, &edx))
+    if(Cpuid(0x80000003, &eax, &ebx, &ecx, &edx))
         model = model + IntToStr(eax) + IntToStr(ebx) + IntToStr(ecx) + IntToStr(edx);
 
-    if (Cpuid(0x80000004, &eax, &ebx, &ecx, &edx))
+    if(Cpuid(0x80000004, &eax, &ebx, &ecx, &edx))
         model = model + IntToStr(eax) + IntToStr(ebx) + IntToStr(ecx) + IntToStr(edx);
 
     trim(model);
@@ -81,5 +79,9 @@ string GetCpuName() {
 }
 
 wxString GetAppVersion() {
-    return wxString::Format(wxT("%d"), (int)AutoVersion::MAJOR) + "." + wxString::Format(wxT("%d"), (int)AutoVersion::MINOR) + "." + wxString::Format(wxT("%d"), (int)AutoVersion::BUILD);
+    return wxString::Format("%s %s", AutoVersion::FULLVERSION_STRING, AutoVersion::STATUS);
+}
+
+wxString GetBuildDate() {
+    return wxString::Format("%s.%s.%s", AutoVersion::DATE, AutoVersion::MONTH, AutoVersion::YEAR);
 }

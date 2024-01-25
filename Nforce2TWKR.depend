@@ -3012,34 +3012,35 @@
 	<wx/string.h>
 	"../Constants.h"
 
-1706132287 source:c:\git\nforce2twkr-wx\nforce2twkrapp.cpp
+1706186070 source:c:\git\nforce2twkr-wx\nforce2twkrapp.cpp
 	"Nforce2TWKRApp.h"
 	"Nforce2TWKRMain.h"
 	<wx/image.h>
 
-1706132567 c:\git\nforce2twkr-wx\nforce2twkrapp.h
+1706185834 c:\git\nforce2twkr-wx\nforce2twkrapp.h
 	<wx/app.h>
 	<windows.h>
 
-1706138088 c:\git\nforce2twkr-wx\nforce2twkrmain.h
+1706186069 c:\git\nforce2twkr-wx\nforce2twkrmain.h
 	<string>
+	"Constants.h"
+	"Types.h"
 	"utils/Utils.h"
 	"utils/Nforce2Pll.h"
 	"utils/QueryPerformance.h"
 	"utils/CPUDetection.h"
-	"Constants.h"
 	"version.h"
 	<wx/wx.h>
 	<wx/notebook.h>
 
-1706137386 c:\git\nforce2twkr-wx\utils\utils.h
+1706186069 c:\git\nforce2twkr-wx\utils\utils.h
 	<string>
 	<windows.h>
 	<wx/string.h>
 
-1706132287 c:\git\nforce2twkr-wx\utils\nforce2pll.h
+1706186069 c:\git\nforce2twkr-wx\utils\nforce2pll.h
 	<map>
-	"../libs/OlsApiInitExt.h"
+	"ols/OlsApiInitExt.h"
 
 1706132287 c:\git\nforce2twkr-wx\libs\olsapiinitext.h
 	"OlsApiInitDef.h"
@@ -3047,24 +3048,24 @@
 1706132287 c:\git\nforce2twkr-wx\libs\olsapiinitdef.h
 	<windows.h>
 
-1706132287 c:\git\nforce2twkr-wx\utils\queryperformance.h
+1706186069 c:\git\nforce2twkr-wx\utils\queryperformance.h
 
-1706133857 c:\git\nforce2twkr-wx\utils\cpudetection.h
+1706186069 c:\git\nforce2twkr-wx\utils\cpudetection.h
 	<algorithm>
 	<string>
 	<cctype>
 	<wx/string.h>
-	"../Constants.h"
+	"Constants.h"
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1706138711 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1706187207 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
 	<wx/intl.h>
 	<wx/string.h>
-	"libs/OlsApiInit.h"
+	"ols/OlsApiInit.h"
 
 1706133334 c:\git\nforce2twkr-wx\libs\olsapiinit.h
 	"OlsDef.h"
@@ -3075,19 +3076,19 @@
 1706132287 source:c:\git\nforce2twkr-wx\resource.rc
 	"wx/msw/wx.rc"
 
-1706132287 source:c:\git\nforce2twkr-wx\utils\nforce2pll.cpp
+1706186069 source:c:\git\nforce2twkr-wx\utils\nforce2pll.cpp
 	<math.h>
 	"Utils.h"
 	"Nforce2Pll.h"
 	<System.SysUtils.hpp>
 
-1706137412 source:c:\git\nforce2twkr-wx\utils\utils.cpp
-	"../libs/OlsApiInitExt.h"
+1706186069 source:c:\git\nforce2twkr-wx\utils\utils.cpp
+	"ols/OlsApiInitExt.h"
 	"Utils.h"
-	"../Constants.h"
+	"Constants.h"
 	"../version.h"
 
-1706137946 c:\git\nforce2twkr-wx\version.h
+1706185834 c:\git\nforce2twkr-wx\version.h
 
 1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\notebook.h
 	"wx/defs.h"
@@ -3149,4 +3150,26 @@
 
 1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\os2\notebook.h
 	"wx/control.h"
+
+1706184698 c:\git\nforce2twkr-wx\types.h
+	<string>
+
+1706185834 c:\git\nforce2twkr-wx\include\types.h
+	<string>
+
+1706133948 c:\git\nforce2twkr-wx\include\constants.h
+
+1706184032 c:\git\nforce2twkr-wx\include\version.h
+
+1706185424 c:\git\nforce2twkr-wx\include\ols\olsapiinitext.h
+	"OlsApiInitDef.h"
+
+1706186069 c:\git\nforce2twkr-wx\include\ols\olsapiinitdef.h
+	<windows.h>
+
+1706186175 c:\git\nforce2twkr-wx\include\ols\olsapiinit.h
+	"OlsDef.h"
+	"OlsApiInitDef.h"
+
+1706185834 c:\git\nforce2twkr-wx\include\ols\olsdef.h
 

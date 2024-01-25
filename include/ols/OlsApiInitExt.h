@@ -1,3 +1,6 @@
+#ifndef HEADER_3B10B77EDC9CE88
+#define HEADER_3B10B77EDC9CE88
+
 //-----------------------------------------------------------------------------
 //     Author : hiyohiyo
 //       Mail : hiyohiyo@crystalmark.info
@@ -98,3 +101,5 @@ extern _ReadDmiMemory ReadDmiMemory;
 extern _ReadPhysicalMemory ReadPhysicalMemory;
 extern _WritePhysicalMemory WritePhysicalMemory;
 #endif
+#endif // header guard 
+
