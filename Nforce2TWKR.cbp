@@ -69,6 +69,7 @@
 		<Unit filename="include/Constants.h" />
 		<Unit filename="include/Cpu.h" />
 		<Unit filename="include/TAdvancedEdit.h" />
+		<Unit filename="include/TTimingComboBox.h" />
 		<Unit filename="include/Types.h" />
 		<Unit filename="include/ols/OlsApi.h" />
 		<Unit filename="include/ols/OlsApiInit.h" />
@@ -80,6 +81,7 @@
 		</Unit>
 		<Unit filename="src/Cpu.cpp" />
 		<Unit filename="src/TAdvancedEdit.cpp" />
+		<Unit filename="src/TTimingComboBox.cpp" />
 		<Unit filename="utils/CPUDetection.h" />
 		<Unit filename="utils/Nforce2Pll.cpp" />
 		<Unit filename="utils/Nforce2Pll.h" />

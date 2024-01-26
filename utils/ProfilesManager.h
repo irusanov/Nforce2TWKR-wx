@@ -1,248 +1,65 @@
-#pragma once
+#ifndef PROFILESMANAGER_H
+#define PROFILESMANAGER_H
 
 #define VERSION_MAJOR 1
 #define VERSION_MINOR 3
 
-#include <vcl.h>
-#include <IniFiles.hpp>
-#include "Components\TAdvancedEdit\TAdvancedEdit.h"
-#include "Components\TTimingComboBox\TTimingComboBox.h"
+#include <wx/wx.h>
+#include <wx/fileconf.h>
+#include <wx/stdpaths.h>
+#include "TAdvancedEdit.h"
+#include "TTimingComboBox.h"
 
-const String timings[14] = {
-    "TRCDR", "TRCDW", "TRP", "TRAS", "TRC", "TRFC", "TDOE", "TRRD", "TWTP", "TWTR", "TREXT", "TRTP", "TRTW", "TREF"};
+using namespace std;
 
-const String advanced[5] = {"AutoPrecharge", "SuperBypass", "DataScavengedRate", "DriveStrengthMode", "BurstMode"};
+struct profile_options_t {
+    wxString name;
+    wxString author;
+    wxString comment;
+    bool timings;
+    bool dssr;
+    bool advanced;
+    bool romsip;
+};
 
-const String dssr[9] = {
-    "DIMM0DrvStrA", "DIMM0DrvStrB", "DIMM0SlewRate", "DIMM1DrvStrA", "DIMM1DrvStrB", "DIMM1SlewRate", "DIMM2DrvStrA",
-    "DIMM2DrvStrB", "DIMM2SlewRate"};
-
-const String romsip[15] = {
-    "Romsip48", "Romsip4C", "Romsip4D", "Romsip50", "Romsip65", "Romsip66", "Romsip67", "Romsip68", "Romsip69",
-    "Romsip6A", "Romsip6B", "Romsip6C", "Romsip6D", "Romsip6F", "Romsip74"};
+struct profile_metadata_t {
+    int versionMajor;
+    int versionMinor;
+    wxString path;
+    profile_options_t options;
+};
 
 class ProfilesManager {
 private:
-    UnicodeString DefaultPath = ExtractFilePath(Application->ExeName) + "profiles\\";
+    wxString DefaultPath;
 
-    void CreateDirIfNotPresent(UnicodeString DirPath) {
-        if (!DirectoryExists(DirPath, false)) {
-            CreateDir(DirPath);
-        }
-    }
+    void CreateDirIfNotPresent(const wxString& DirPath);
 
-    void SaveTimings(TIniFile* ini, String section, const String *names, int size) {
-        int i, value;
-        TTimingComboBox* combo;
+    void SaveTimings(wxFileConfig* ini, const wxString& section, const wxString* names, int size);
 
-        for (i = 0; i < size; i++) {
-            combo = static_cast<TTimingComboBox*>(Application->FindComponent("MainForm")->FindComponent(names[i]));
+    void LoadTimings(wxFileConfig* ini, const wxString& section, const wxString* names, int size);
 
-            if (combo != NULL) {
-                if (combo->CustomValue) {
-                    value = (unsigned int) combo->ItemValue;
-                }
-                else {
-                    value = (unsigned int) combo->Value;
-                }
+    void SaveRomsipValues(wxFileConfig* ini, const wxString& section, const wxString* names, int size);
 
-                ini->WriteInteger(section, names[i], value);
-            }
-        }
-    }
-
-    void LoadTimings(TIniFile* ini, String section, const String *names, int size) {
-        int i, value, currentValue;
-        TTimingComboBox* combo;
-
-        for (i = 0; i < size; i++) {
-            value = ini->ReadInteger(section, names[i], -1);
-
-            if (value == -1)
-                continue;
-
-            combo = static_cast<TTimingComboBox*>(Application->FindComponent("MainForm")->FindComponent(names[i]));
-
-            if (combo != NULL) {
-                if (combo->CustomValue)
-                    currentValue = combo->ItemValue;
-                else
-                    currentValue = combo->Value;
-
-                if (currentValue != value) {
-                    if (combo->CustomValue)
-                        combo->ItemValue = value;
-                    else
-                        combo->Value = value;
-
-                    combo->setChanged();
-                }
-            }
-        }
-    }
-
-    void SaveRomsipValues(TIniFile* ini, String section, const String *names, int size) {
-        int i;
-        TAdvancedEdit* box;
-
-        for (i = 0; i < size; i++) {
-            box = static_cast<TAdvancedEdit*>(Application->FindComponent("MainForm")->FindComponent(names[i]));
-
-            if (box != NULL) {
-                ini->WriteString(section, StringReplace(names[i], "Romsip", "", TReplaceFlags()), box->Text);
-            }
-        }
-    }
-
-    void LoadRomsipValues(TIniFile* ini, String section, const String *names, int size) {
-        int i;
-        String value;
-        TAdvancedEdit* box; ;
-
-        for (i = 0; i < size; i++) {
-            value = ini->ReadString(section, StringReplace(names[i], "Romsip", "", TReplaceFlags()), "");
-
-            if (value == "")
-                continue;
-
-            box = static_cast<TAdvancedEdit*>(Application->FindComponent("MainForm")->FindComponent(names[i]));
-
-            if (box != NULL) {
-                box->Text = value;
-            }
-        }
-    }
+    void LoadRomsipValues(wxFileConfig* ini, const wxString& section, const wxString* names, int size);
 
 public:
-    typedef struct {
-        String name;
-        String author;
-        String comment;
-        bool timings;
-        bool dssr;
-        bool advanced;
-        bool romsip;
-    } profile_options_t;
+    ProfilesManager();
 
-    typedef struct {
-        int versionMajor;
-        int versionMinor;
-        String path;
-        profile_options_t options;
-    } profile_metadata_t;
+    wxString GetDefaultPath();
 
-    UnicodeString GetDefaultPath() {
-        return DefaultPath;
-    }
+    profile_metadata_t ReadMetadata(const wxString& FilePath);
 
-    profile_metadata_t readMetadata(UnicodeString FilePath) {
-        TIniFile *iniFile = new TIniFile(FilePath);
+    void WriteMetadata(wxFileConfig* ini, const profile_options_t& Opts);
 
-        previewMetadata.path = FilePath;
+    void Load(const wxString& FilePath, const profile_options_t& Opts);
 
-        previewMetadata.versionMajor = iniFile->ReadInteger("PMVersion", "Major", 0);
-        previewMetadata.versionMinor = iniFile->ReadInteger("PMVersion", "Minor", 0);
-        previewMetadata.options.name = iniFile->ReadString("Metadata", "Name", "");
-        previewMetadata.options.author = iniFile->ReadString("Metadata", "Author", "");
-        previewMetadata.options.comment = iniFile->ReadString("Metadata", "Comment", "");
+    bool Save(const wxString& FilePath, const profile_options_t& Opts);
 
-        previewMetadata.options.timings = iniFile->SectionExists("Timings");
-        previewMetadata.options.dssr = iniFile->SectionExists("DSSR");
-        previewMetadata.options.advanced = iniFile->SectionExists("Advanced");
-        previewMetadata.options.romsip = iniFile->SectionExists("ROMSIP");
-
-        delete iniFile;
-
-        return previewMetadata;
-    }
-
-    void writeMetadata(TIniFile* ini, profile_options_t Opts) {
-        ini->WriteString("PMVersion", "Major", VERSION_MAJOR);
-        ini->WriteString("PMVersion", "Minor", VERSION_MINOR);
-        ini->WriteString("Metadata", "Name", Opts.name);
-        ini->WriteString("Metadata", "Author", Opts.author);
-        ini->WriteString("Metadata", "Comment", Opts.comment);
-    }
-
-    void load(UnicodeString FilePath, profile_options_t Opts) {
-        TIniFile *iniFile = new TIniFile(FilePath);
-
-        if (Opts.timings) {
-            LoadTimings(iniFile, "Timings", timings, COUNT_OF(timings));
-        }
-
-        if (Opts.dssr) {
-            LoadTimings(iniFile, "DSSR", dssr, COUNT_OF(dssr));
-        }
-
-        if (Opts.advanced) {
-            LoadTimings(iniFile, "Advanced", advanced, COUNT_OF(advanced));
-        }
-
-        if (Opts.romsip) {
-            LoadRomsipValues(iniFile, "ROMSIP", romsip, COUNT_OF(romsip));
-        }
-
-        delete iniFile;
-    }
-
-    bool save(UnicodeString FilePath, profile_options_t Opts) {
-        TIniFile *iniFile = new TIniFile(FilePath);
-
-        if (FileExists(FilePath)) {
-            String msg = "Profile already exists. Do you want to overwrite it?";
-
-            if (MessageDlg(msg, mtConfirmation, mbOKCancel, 0) != mrOk) {
-                delete iniFile;
-                return false;
-            }
-
-            // Save existing name, author and comment
-            if (Opts.name.Length() == 0) {
-                Opts.name = iniFile->ReadString("Metadata", "Name", "");
-            }
-
-            if (Opts.author.Length() == 0) {
-                Opts.author = iniFile->ReadString("Metadata", "Author", "");
-            }
-
-            if (Opts.comment.Length() == 0) {
-                Opts.comment = iniFile->ReadString("Metadata", "Comment", "");
-            }
-
-            iniFile->EraseSection("Timings");
-            iniFile->EraseSection("DSSR");
-            iniFile->EraseSection("Advanced");
-            iniFile->EraseSection("ROMSIP");
-        }
-
-        writeMetadata(iniFile, Opts);
-
-        if (Opts.timings) {
-            SaveTimings(iniFile, "Timings", timings, COUNT_OF(timings));
-        }
-
-        if (Opts.dssr) {
-            SaveTimings(iniFile, "DSSR", dssr, COUNT_OF(dssr));
-        }
-
-        if (Opts.advanced) {
-            SaveTimings(iniFile, "Advanced", advanced, COUNT_OF(advanced));
-        }
-
-        if (Opts.romsip) {
-            SaveRomsipValues(iniFile, "ROMSIP", romsip, COUNT_OF(romsip));
-        }
-
-        delete iniFile;
-
-        return true;
-    }
-
-    void init() {
-        CreateDirIfNotPresent(DefaultPath);
-    }
+    void Init();
 
     // Preload profile data
-    profile_metadata_t previewMetadata;
+    profile_metadata_t PreviewMetadata;
 };
+#endif // PROFILESMANAGER_H
+

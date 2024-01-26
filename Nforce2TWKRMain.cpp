@@ -69,6 +69,9 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
         exit(-1);
     }
 
+    settings.Load();
+    profiles.Init();
+
     // App icon
     Nforce2TWKRFrame::appIcon = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, -1, -1);
     Nforce2TWKRFrame::appIcon16x16 = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, 16, 16);
@@ -176,6 +179,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
 }
 
 Nforce2TWKRFrame::~Nforce2TWKRFrame() {
+    settings.Save();
     trayIcon->Destroy();
     delete cpu;
     DeinitOpenLibSys(&m_hOpenLibSys);

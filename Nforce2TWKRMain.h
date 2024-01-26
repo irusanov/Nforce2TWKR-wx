@@ -21,6 +21,9 @@ using namespace std;
 #include <wx/wx.h>
 #include <wx/notebook.h>
 #include <wx/taskbar.h>
+#include "AppSettings.h"
+#include "utils/ProfilesManager.h"
+#include "TTimingComboBox.h"
 #include "TAdvancedEdit.h"
 
 class Nforce2TWKRFrame: public wxFrame {
@@ -33,6 +36,8 @@ public:
     wxIcon appIcon64x64;
     wxIcon appIcon;
     Cpu* cpu;
+    AppSettings settings;
+    ProfilesManager profiles;
 
 private:
 
