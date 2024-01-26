@@ -44,12 +44,14 @@ private:
     //(Handlers(Nforce2TWKRFrame)
     void OnQuit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
+    void OnOpenSettings(wxCommandEvent& event);
     void OnButtonClick(wxCommandEvent& event);
     //)
 
     //(Identifiers(Nforce2TWKRFrame)
     static const long MENU_QUIT_ID;
     static const long MENU_ABOUT_ID;
+    static const long MENU_SETTINGS_ID;
     static const long STATUSBAR_ID;
     //)
 

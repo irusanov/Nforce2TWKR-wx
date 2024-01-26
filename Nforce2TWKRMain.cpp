@@ -13,6 +13,7 @@
 #include <wx/intl.h>
 #include <wx/string.h>
 #include "ols/OlsApiInit.h"
+#include "dialogs/SettingsWindow.h"
 
 //helper functions
 enum wxbuildinfoformat {
@@ -42,12 +43,14 @@ wxString wxbuildinfo(wxbuildinfoformat format) {
 // IDs
 const long Nforce2TWKRFrame::MENU_QUIT_ID = wxNewId();
 const long Nforce2TWKRFrame::MENU_ABOUT_ID = wxNewId();
+const long Nforce2TWKRFrame::MENU_SETTINGS_ID = wxNewId();
 const long Nforce2TWKRFrame::STATUSBAR_ID = wxNewId();
 
 // Static events, add menus here
 BEGIN_EVENT_TABLE(Nforce2TWKRFrame, wxFrame)
     EVT_MENU(MENU_QUIT_ID, Nforce2TWKRFrame::OnQuit)
     EVT_MENU(MENU_ABOUT_ID, Nforce2TWKRFrame::OnAbout)
+    EVT_MENU(MENU_SETTINGS_ID, Nforce2TWKRFrame::OnOpenSettings)
     EVT_BUTTON(wxID_ANY, Nforce2TWKRFrame::OnButtonClick)
 END_EVENT_TABLE()
 
@@ -155,7 +158,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
 
     // Tools menu
     wxMenu* menuTools = new wxMenu();
-    menuTools->Append(new wxMenuItem(menuTools, wxID_ANY, _T("Options\tCtrl+P"), _T("Open settings dialog"), wxITEM_NORMAL));
+    menuTools->Append(new wxMenuItem(menuTools, MENU_SETTINGS_ID, _T("Options\tCtrl+P"), _T("Open settings dialog"), wxITEM_NORMAL));
     menuTools->Append(new wxMenuItem(menuTools, wxID_ANY, _T("Auto Validation Bot\tCtrl+B"), _T("Open Auto Validation Bot"), wxITEM_NORMAL));
     menuBar->Append(menuTools, _T("&Tools"));
 
@@ -193,6 +196,11 @@ void Nforce2TWKRFrame::OnButtonClick(wxCommandEvent& event) {
 
 void Nforce2TWKRFrame::OnQuit(wxCommandEvent& event) {
     Close();
+}
+
+void Nforce2TWKRFrame::OnOpenSettings(wxCommandEvent& event) {
+    SettingsWindow* settingsDialog = new SettingsWindow(this, _("Settings"), settings);
+    settingsDialog->ShowWindowModal();
 }
 
 void Nforce2TWKRFrame::OnAbout(wxCommandEvent& WXUNUSED(event)) {
