@@ -13,7 +13,9 @@
 #include <wx/intl.h>
 #include <wx/string.h>
 #include "ols/OlsApiInit.h"
+#include "dialogs/ProfilePreloadWindow.h"
 #include "dialogs/SettingsWindow.h"
+#include "dialogs/ValidationBotWindow.h"
 
 //helper functions
 enum wxbuildinfoformat {
@@ -103,8 +105,8 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
     wxStaticBoxSizer* staticBoxLeft = new wxStaticBoxSizer(wxVERTICAL, dramPanel, "Timings");
     TTimingComboBox* timingComboBox = new TTimingComboBox(dramPanel, wxID_ANY);
     timingComboBox->SetLabel("Test");
-    timingComboBox->SetMin(0);
-    timingComboBox->SetMax(7);
+    // timingComboBox->SetMin(0);
+    // timingComboBox->SetMax(7);
 
     // Right part: Two StaticBoxes vertically
     wxBoxSizer* rightVerticalSizer = new wxBoxSizer(wxVERTICAL);
@@ -124,11 +126,22 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
     wxColor bgColor = wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE);
     this->SetBackgroundColour(bgColor);
 
+    wxArrayString choices;
+    choices.Add("111");
+    choices.Add("123");
+    choices.Add("333");
+
+    wxComboBox* combo = new wxComboBox(dramPanel, wxID_ANY, "123", wxDefaultPosition, wxDefaultSize, choices, wxCB_READONLY);
+    CustomComboBox* customComboBox = new CustomComboBox(dramPanel, wxID_ANY, "123", wxDefaultPosition, wxDefaultSize, choices);
+
     advancedEdit = new TAdvancedEdit(dramPanel, wxID_ANY);
     advancedEdit->SetValue(_("FF"));
     wxButton* button = new wxButton(dramPanel, wxID_ANY, "Get Value");
 
     staticBoxLeft->Add(timingComboBox, 0, wxEXPAND | wxALL, 5);
+    staticBoxLeft->Add(combo, 0, wxEXPAND | wxALL, 5);
+    staticBoxLeft->Add(customComboBox, 0, wxALL, 5);
+
     staticBoxTopRight->Add(advancedEdit, 0, wxEXPAND);
     staticBoxBottomRight->Add(button, 0, wxEXPAND);
 
@@ -188,10 +201,18 @@ Nforce2TWKRFrame::~Nforce2TWKRFrame() {
     DeinitOpenLibSys(&m_hOpenLibSys);
 }
 
+// Demo component click
 void Nforce2TWKRFrame::OnButtonClick(wxCommandEvent& event) {
     wxString value = advancedEdit->GetValue();
     //wxMessageBox("Current Value: " + value, "TAdvancedEdit Value");
     wxMessageBox(wxString::Format("%s", advancedEdit->IsModified() ? "true" : "false"));
+
+    ProfilePreloadWindow* preloadWindow = new ProfilePreloadWindow(this, "Load Profile");
+    preloadWindow->ShowModal();
+    //delete preloadWindow;
+
+    ValidationBotDialog* botDialog = new ValidationBotDialog(this, _("Auto Validation Bot"), settings);
+    botDialog->ShowWindowModal();
 }
 
 void Nforce2TWKRFrame::OnQuit(wxCommandEvent& event) {
@@ -199,7 +220,7 @@ void Nforce2TWKRFrame::OnQuit(wxCommandEvent& event) {
 }
 
 void Nforce2TWKRFrame::OnOpenSettings(wxCommandEvent& event) {
-    SettingsWindow* settingsDialog = new SettingsWindow(this, _("Settings"), settings);
+    SettingsWindow* settingsDialog = new SettingsWindow(this, _("Options"), settings);
     settingsDialog->ShowWindowModal();
 }
 

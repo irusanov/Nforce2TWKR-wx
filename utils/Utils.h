@@ -20,7 +20,7 @@ string IntToStr(DWORD val);
 
 string trim(string& str);
 
-bool __fastcall Contains(const string* arr, int arraySize, string value);
+bool Contains(const string* arr, int arraySize, string value);
 
 unsigned int ReadPciReg(unsigned int pciDev);
 

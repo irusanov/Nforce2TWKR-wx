@@ -72,10 +72,13 @@
 		<Unit filename="include/AppSettings.h" />
 		<Unit filename="include/Constants.h" />
 		<Unit filename="include/Cpu.h" />
+		<Unit filename="include/CustomComboBox.h" />
 		<Unit filename="include/TAdvancedEdit.h" />
 		<Unit filename="include/TTimingComboBox.h" />
 		<Unit filename="include/Types.h" />
+		<Unit filename="include/dialogs/ProfilePreloadWindow.h" />
 		<Unit filename="include/dialogs/SettingsWindow.h" />
+		<Unit filename="include/dialogs/ValidationBotWindow.h" />
 		<Unit filename="include/ols/OlsApi.h" />
 		<Unit filename="include/ols/OlsApiInit.h" />
 		<Unit filename="include/ols/OlsApiInitDef.h" />
@@ -86,9 +89,12 @@
 		</Unit>
 		<Unit filename="src/AppSettings.cpp" />
 		<Unit filename="src/Cpu.cpp" />
+		<Unit filename="src/CustomComboBox.cpp" />
 		<Unit filename="src/TAdvancedEdit.cpp" />
 		<Unit filename="src/TTimingComboBox.cpp" />
+		<Unit filename="src/dialogs/ProfilePreloadWindow.cpp" />
 		<Unit filename="src/dialogs/SettingsWindow.cpp" />
+		<Unit filename="src/dialogs/ValidationBotWindow.cpp" />
 		<Unit filename="utils/AppSettings.h" />
 		<Unit filename="utils/CPUDetection.h" />
 		<Unit filename="utils/Nforce2Pll.cpp" />

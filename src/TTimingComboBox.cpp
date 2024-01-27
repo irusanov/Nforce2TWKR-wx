@@ -1,131 +1,132 @@
+// TTimingComboBox.cpp
+
 #include "TTimingComboBox.h"
 
 TTimingComboBox::TTimingComboBox(wxWindow* parent, wxWindowID id,
                                  const wxPoint& pos,
                                  const wxSize& size,
+                                 const wxArrayString& choices,
                                  long style,
                                  const wxValidator& validator,
                                  const wxString& name)
-    : wxChoice(parent, id, pos, size, 0, NULL, style, validator, name) {
-    Init();
+    : wxOwnerDrawnComboBox(parent, id, wxEmptyString, pos, size, choices, style, validator, name),
+      tMin(0),
+      tMax(10),
+      tValue(0),
+      tIndex(0),
+      tChanged(false)
+{
+    originalBackground = GetBackgroundColour();
+
+    SetBackgroundColour(originalBackground);
+    SetEditable(false);
+    SetCursor(wxCursor(wxCURSOR_DEFAULT));
+
+    CreateItems();
+
+    Bind(wxEVT_COMBOBOX, &TTimingComboBox::OnComboBox, this);
+    Bind(wxEVT_COMBOBOX_DROPDOWN, &TTimingComboBox::OnDropDown, this);
+    Bind(wxEVT_COMBOBOX_CLOSEUP, &TTimingComboBox::OnCloseUp, this);
+    Bind(wxEVT_PAINT, &TTimingComboBox::OnPaint, this);
 }
 
-TTimingComboBox::~TTimingComboBox() {
-    // Destructor
-}
-
-void TTimingComboBox::Init() {
-    tMin = 0;
-    tMax = 100; // Set your desired maximum value
-    tCustomItems = false;
-    tCustomValue = true;
-    tValue = 0;
-    tIndex = -1;
-    tChanged = false;
-
-    Bind(wxEVT_CHOICE, &TTimingComboBox::OptionChange, this);
-    Bind(wxEVT_COMBOBOX_DROPDOWN, &TTimingComboBox::DropDown, this);
-    Bind(wxEVT_COMBOBOX_CLOSEUP, &TTimingComboBox::CloseUp, this);
-}
-
-void TTimingComboBox::OptionChange(wxCommandEvent& event) {
-    tChanged = tIndex != GetSelection();
-    SetBackgroundColour(tChanged ? *wxLIGHT_GREY : *wxWHITE);
-}
-
-void TTimingComboBox::DropDown(wxCommandEvent& event) {
-    SetBackgroundColour(*wxWHITE);
-}
-
-void TTimingComboBox::CloseUp(wxCommandEvent& event) {
-    if (tChanged) {
-        SetBackgroundColour(*wxLIGHT_GREY);
+void TTimingComboBox::CreateItems()
+{
+    for (int i = tMin; i <= tMax; i++)
+    {
+        Append(wxString::Format("%d", i));
     }
 }
 
-void TTimingComboBox::SetMin(int value) {
-    if (value >= 0) {
-        tMin = value;
+/*
+void TTimingComboBox::OnDrawItem(wxDC& dc, const wxRect& rect, int item, int flags) const
+{
+    dc.SetBrush(wxBrush(GetBackgroundColour()));
+    dc.SetPen(wxPen(GetBackgroundColour()));
 
-        if (!tCustomItems) {
-            Clear();
+    // Customize the drawing of items if needed
+    wxOwnerDrawnComboBox::OnDrawItem(dc, rect, item, flags);
+}
+*/
 
-            for (int i = tMin; i <= tMax; i++) {
-                Append(wxString::Format(wxT("%d"), i), new TimingComboBoxData(i));
-            }
-        }
-    }
+void TTimingComboBox::OnDropDown(wxCommandEvent& event)
+{
+    SetBackgroundColour(originalBackground);
+    Refresh();
+    event.Skip();
 }
 
-void TTimingComboBox::SetMax(int value) {
-    if (value > 0 && value > tMin) {
-        tMax = value;
-
-        if (!tCustomItems) {
-            Clear();
-
-            for (int i = tMin; i <= tMax; i++) {
-                Append(wxString::Format(wxT("%d"), i), new TimingComboBoxData(i));
-            }
-        }
+void TTimingComboBox::OnCloseUp(wxCommandEvent& event)
+{
+    if (tChanged)
+    {
+        SetBackgroundColour(*wxYELLOW);
     }
+    Refresh();
+    event.Skip();
 }
 
-void TTimingComboBox::SetValue(int value) {
-    if (value >= 0) {
+void TTimingComboBox::OnComboBox(wxCommandEvent& event)
+{
+    tChanged = (tIndex != GetSelection());
+    SetBackgroundColour(tChanged ? *wxYELLOW : originalBackground);
+    Refresh();
+    event.Skip();
+}
+
+void TTimingComboBox::SetValue(int value)
+{
+    if (value >= tMin && value <= tMax)
+    {
         SetSelection(value - tMin);
         tValue = value;
         tIndex = GetSelection();
         tChanged = false;
-        SetBackgroundColour(*wxWHITE);
+        SetBackgroundColour(originalBackground);
+        Refresh();
     }
 }
 
-void TTimingComboBox::SetItemValue(int value) {
-    if (!tCustomValue) {
-        return;
-    }
+void TTimingComboBox::SetItemValue(int value)
+{
+    if (value >= tMin && value <= tMax)
+    {
+        int index = FindString(wxString::Format("%d", value));
 
-    if (value >= 0) {
-        int index = FindString(wxString::Format(wxT("%d"), value));
-
-        if (index != wxNOT_FOUND) {
-            SetSelection(index);
-            tIndex = index;
-        } else {
+        if (index == wxNOT_FOUND)
+        {
             index = 0;
-            for (size_t i = 0; i < GetCount(); i++) {
-                TimingComboBoxData* data = dynamic_cast<TimingComboBoxData*>(GetClientObject(i));
-                if (data && value > data->GetValue()) {
+            for (int i = 0; i < GetCount(); i++)
+            {
+                if (value > wxAtoi(GetString(i)))
+                {
                     index++;
                 }
             }
 
-            TimingComboBoxData* data = new TimingComboBoxData(value);
-            Insert(wxString::Format(wxT("%d"), value), index, data);
-            SetSelection(index);
+            Insert(wxString::Format("%d", value), index);
         }
 
+        SetSelection(index);
+        tIndex = index;
         tValue = value;
         tChanged = false;
-        SetBackgroundColour(*wxWHITE);
+        SetBackgroundColour(originalBackground);
+        Refresh();
     }
 }
 
-void TTimingComboBox::SetChanged() {
+void TTimingComboBox::SetChanged()
+{
     tChanged = true;
-    SetBackgroundColour(*wxLIGHT_GREY);
+    SetBackgroundColour(*wxYELLOW);
+    Refresh();
 }
 
-void TTimingComboBox::OnPaint(wxPaintEvent& event) {
-    wxPaintDC dc(this);
-
-    wxRect rect = GetClientRect();
-
-    wxBrush brush(GetBackgroundColour());
-    dc.SetBackground(brush);
-    dc.Clear();
-
-    // Call the base class handler
+void TTimingComboBox::OnPaint(wxPaintEvent& event)
+{
     event.Skip();
+    SetSelection(0, 0);
+    HideCaret(NULL);
+    SetCursor(wxCursor(wxCURSOR_DEFAULT));
 }

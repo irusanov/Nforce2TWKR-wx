@@ -57,7 +57,7 @@
 	"wx/msw/winundef.h"
 	"wx/features.h"
 
-1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\platform.h
+1706293047 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\platform.h
 	<unistd.h>
 	<TargetConditionals.h>
 	<AvailabilityMacros.h>
@@ -3021,7 +3021,7 @@
 	<wx/app.h>
 	<windows.h>
 
-1706233620 c:\git\nforce2twkr-wx\nforce2twkrmain.h
+1706317150 c:\git\nforce2twkr-wx\nforce2twkrmain.h
 	<string>
 	"Constants.h"
 	"Types.h"
@@ -3035,8 +3035,9 @@
 	"utils/ProfilesManager.h"
 	"TTimingComboBox.h"
 	"TAdvancedEdit.h"
+	"CustomComboBox.h"
 
-1706186069 c:\git\nforce2twkr-wx\utils\utils.h
+1706238538 c:\git\nforce2twkr-wx\utils\utils.h
 	<string>
 	<windows.h>
 	<wx/string.h>
@@ -3062,14 +3063,16 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1706233575 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1706324181 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
 	<wx/intl.h>
 	<wx/string.h>
 	"ols/OlsApiInit.h"
+	"dialogs/ProfilePreloadWindow.h"
 	"dialogs/SettingsWindow.h"
+	"dialogs/ValidationBotWindow.h"
 
 1706133334 c:\git\nforce2twkr-wx\libs\olsapiinit.h
 	"OlsDef.h"
@@ -3086,7 +3089,7 @@
 	"Nforce2Pll.h"
 	<System.SysUtils.hpp>
 
-1706186069 source:c:\git\nforce2twkr-wx\utils\utils.cpp
+1706238548 source:c:\git\nforce2twkr-wx\utils\utils.cpp
 	"ols/OlsApiInitExt.h"
 	"Utils.h"
 	"Constants.h"
@@ -3211,14 +3214,14 @@
 1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\cocoa\taskbar.h
 	"wx/icon.h"
 
-1706203919 c:\git\nforce2twkr-wx\include\ttimingcombobox.h
+1706352625 c:\git\nforce2twkr-wx\include\ttimingcombobox.h
 	<wx/wx.h>
-	<wx/choice.h>
+	<wx/odcombo.h>
 
-1706203866 source:c:\git\nforce2twkr-wx\src\ttimingcombobox.cpp
+1706352391 source:c:\git\nforce2twkr-wx\src\ttimingcombobox.cpp
 	"TTimingComboBox.h"
 
-1706225485 c:\git\nforce2twkr-wx\include\tadvancededit.h
+1706293084 c:\git\nforce2twkr-wx\include\tadvancededit.h
 	<wx/wx.h>
 
 1706224658 source:c:\git\nforce2twkr-wx\src\tadvancededit.cpp
@@ -3291,10 +3294,63 @@
 1706228602 source:c:\git\nforce2twkr-wx\utils\profilesmanager.cpp
 	"ProfilesManager.h"
 
+1706230206 source:c:\git\nforce2twkr-wx\include\profileprealoadwindow.cpp
+	<wx/wx.h>
+	"../Nforce2TWKRMain.h"
+	"../utils/ProfilesManager.h"
+
+1706230294 source:c:\git\nforce2twkr-wx\src\profilepreloadwindow.cpp
+	"dialogs/ProfilePreloadWindow.h"
+
+1706230669 c:\git\nforce2twkr-wx\include\dialogs\profilepreloadwindow.h
+	<wx/wx.h>
+	"../../Nforce2TWKRMain.h"
+	"../../utils/ProfilesManager.h"
+
 1706233259 c:\git\nforce2twkr-wx\include\dialogs\settingswindow.h
 	<wx/wx.h>
 	"AppSettings.h"
 
+1706231124 source:c:\git\nforce2twkr-wx\src\dialogs\profilepreloadwindow.cpp
+	"dialogs/ProfilePreloadWindow.h"
+
 1706234993 source:c:\git\nforce2twkr-wx\src\dialogs\settingswindow.cpp
 	"dialogs/SettingsWindow.h"
+
+1706236589 c:\git\nforce2twkr-wx\include\dialogs\validationbotwindow.h
+	<wx/wx.h>
+	<wx/timer.h>
+	"AppSettings.h"
+
+1706237802 source:c:\git\nforce2twkr-wx\src\dialogs\validationbotwindow.cpp
+	"dialogs/ValidationBotWindow.h"
+
+1706317122 source:c:\git\nforce2twkr-wx\customcombobox.cpp
+	"CustomComboBox.h"
+
+1706323017 c:\git\nforce2twkr-wx\include\customcombobox.h
+	<wx/wx.h>
+	<wx/odcombo.h>
+
+1706352156 source:c:\git\nforce2twkr-wx\src\customcombobox.cpp
+	"CustomComboBox.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\odcombo.h
+	"wx/defs.h"
+	"wx/combo.h"
+	"wx/ctrlsub.h"
+	"wx/vlbox.h"
+	"wx/timer.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\vlbox.h
+	"wx/vscroll.h"
+	"wx/bitmap.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\vscroll.h
+	"wx/panel.h"
+	"wx/position.h"
+	"wx/scrolwin.h"
+
+1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\position.h
+	"wx/gdicmn.h"
 

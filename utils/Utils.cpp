@@ -38,7 +38,7 @@ string trim(string& str) {
     return str.substr(first, (last - first + 1));
 }
 
-bool __fastcall Contains(const string* arr, int arraySize, string value) {
+bool Contains(const string* arr, int arraySize, string value) {
     for(int i = 0; i < arraySize; i++) {
         if(arr[i] == value) {
             return true;

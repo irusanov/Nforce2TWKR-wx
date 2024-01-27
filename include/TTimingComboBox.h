@@ -1,55 +1,44 @@
-#ifndef HEADER_A6FCFEEAB0C09B6
-#define HEADER_A6FCFEEAB0C09B6
-
-#pragma once
+#ifndef T_TIMING_COMBO_BOX_H
+#define T_TIMING_COMBO_BOX_H
 
 #include <wx/wx.h>
-#include <wx/choice.h>
+#include <wx/odcombo.h>
 
-class TimingComboBoxData : public wxObject {
+class TTimingComboBox : public wxOwnerDrawnComboBox
+{
 public:
-    TimingComboBoxData(long value) : m_value(value) {}
-    long GetValue() const { return m_value; }
-
-private:
-    long m_value;
-};
-
-class TTimingComboBox : public wxChoice {
-public:
-    TTimingComboBox(wxWindow* parent, wxWindowID id = wxID_ANY,
+    TTimingComboBox(wxWindow* parent,
+                    wxWindowID id = wxID_ANY,
                     const wxPoint& pos = wxDefaultPosition,
                     const wxSize& size = wxDefaultSize,
+                    const wxArrayString& choices = wxArrayString(),
                     long style = 0,
                     const wxValidator& validator = wxDefaultValidator,
-                    const wxString& name = wxChoiceNameStr);
+                    const wxString& name = "TTimingComboBox");
 
-    // Destructor
-    virtual ~TTimingComboBox();
 
-    // Setters
-    void SetMin(int value);
-    void SetMax(int value);
     void SetValue(int value);
     void SetItemValue(int value);
     void SetChanged();
 
 private:
-    void Init();
-    void OptionChange(wxCommandEvent& event);
-    void DropDown(wxCommandEvent& event);
-    void CloseUp(wxCommandEvent& event);
-    void OnPaint(wxPaintEvent& event);
+    wxColour originalBackground;
 
-    int tMin;
-    int tMax;
-    bool tCustomItems;
-    bool tCustomValue;
+    int tMin = 0; // Replace tMin and tMax with your actual minimum and maximum values
+    int tMax = 10; // Replace tMin and tMax with your actual minimum and maximum values
+
     int tValue;
     int tIndex;
     bool tChanged;
 
-    // DECLARE_EVENT_TABLE();
-};
-#endif // header guard
+    void CreateItems();
+    // void OnDrawItem(wxDC& dc, const wxRect& rect, int item, int flags) const override;
+    void OnDropDown(wxCommandEvent& event);
+    void OnCloseUp(wxCommandEvent& event);
+    void OnComboBox(wxCommandEvent& event);
+    void OnPaint(wxPaintEvent& event);
 
+    // wxDECLARE_EVENT_TABLE();
+};
+
+#endif // T_TIMING_COMBO_BOX_H
