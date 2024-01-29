@@ -3065,7 +3065,7 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1706498569 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1706502009 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
@@ -3365,7 +3365,7 @@
 	"dialogs/ProfilePreloadWindow.h"
 	"dialogs/ValidationBotWindow.h"
 
-1706498633 source:c:\git\nforce2twkr-wx\src\panels\drampanel.cpp
+1706505710 source:c:\git\nforce2twkr-wx\src\panels\drampanel.cpp
 	"panels/DramPanel.h"
 
 1706451964 c:\git\nforce2twkr-wx\include\panels\drampanel.h
@@ -3375,7 +3375,7 @@
 	"CustomComboBox.h"
 	"TAdvancedEdit.h"
 
-1706498093 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
+1706503395 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
 	"InfoPanel.h"
 
 1706500519 c:\git\nforce2twkr-wx\include\panels\infopanel.h

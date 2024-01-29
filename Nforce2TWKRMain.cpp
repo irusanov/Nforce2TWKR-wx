@@ -93,7 +93,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL) {
     // Create main frame and menu bar
     Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX), _T("id"));
     SetIcon(appIcon16x16);
-    SetClientSize(wxSize(380, 480));
+    SetClientSize(wxSize(380, 472));
     SetTitle(_("NForce2 TWKR " + GetAppVersion()));
     Center(wxCENTER_ON_SCREEN);
 
@@ -113,7 +113,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL) {
 
     // Set mainTabs as the main sizer for the frame
     wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
-    mainSizer->Add(mainTabs, 1, wxEXPAND | wxLEFT, 2);
+    mainSizer->Add(mainTabs, 1, wxEXPAND | wxALL, 1);
     SetSizer(mainSizer);
 
     // MenuBar

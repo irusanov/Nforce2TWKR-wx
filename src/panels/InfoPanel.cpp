@@ -12,6 +12,7 @@ void InfoPanel::OnSetFocus(wxFocusEvent& event) {
     event.Skip(false);
 }
 
+// Label helper
 void InfoPanel::Label(wxBoxSizer* sizer, wxWindow* parent, wxString label = wxEmptyString, int width = -1, bool expand = false) {
     if (sizer == wxNullPtr)
         return;
@@ -21,6 +22,7 @@ void InfoPanel::Label(wxBoxSizer* sizer, wxWindow* parent, wxString label = wxEm
         expand ? 1 : 0, wxALIGN_RIGHT | wxALIGN_CENTER_VERTICAL | wxALL, 0);
 }
 
+// Text field helper
 void InfoPanel::TextBox(wxBoxSizer* sizer, wxWindow* parent, wxString value = wxEmptyString, int width = -1, bool expand = false) {
     if (sizer == wxNullPtr)
         return;
@@ -33,7 +35,7 @@ void InfoPanel::TextBox(wxBoxSizer* sizer, wxWindow* parent, wxString value = wx
     // wxFont font = textCtrl->GetFont();
     // font.SetPointSize(font.GetPointSize() - 1);
     // textCtrl->SetFont(font);
-    sizer->Add(textCtrl, expand ? 1 : 0, wxEXPAND | wxLEFT, 10);
+    sizer->Add(textCtrl, expand ? 1 : 0, wxEXPAND | wxLEFT, 5);
 }
 
 void InfoPanel::AddControls() {
@@ -72,7 +74,7 @@ void InfoPanel::AddControls() {
     Label(s4, staticBoxCPU, _("Ext Model"), -1, true);
     TextBox(s4, staticBoxCPU, wxString::Format("%d", cpuInfo.extModel), 35);
     Label(s4, staticBoxCPU, _("Man Rev"), 80);
-    TextBox(s4, staticBoxCPU, wxString::Format("%d", cpuInfo.manID), 35);
+    TextBox(s4, staticBoxCPU, wxString::Format("%d", cpuInfo.manID.minorRev), 35);
     cpuGroupSizer->Add(s4, 0, wxEXPAND | wxALL, INFO_PANEL_ROW_SPACING);
 
     mainSizer->Add(cpuGroupSizer, 0, wxEXPAND | wxALL, 5);
@@ -91,7 +93,7 @@ void InfoPanel::AddControls() {
 
     wxBoxSizer* s6 = new wxBoxSizer(wxHORIZONTAL);
     Label(s6, staticBoxClocks, _("Multi"), 60);
-    TextBox(s6, staticBoxClocks, wxString::Format("x %.2f", cpuInfo.multi), 80);
+    TextBox(s6, staticBoxClocks, wxString::Format("x %.1f", cpuInfo.multi), 80);
     clocksGroupSizer->Add(s6, 0, wxEXPAND | wxALL, INFO_PANEL_ROW_SPACING);
 
     wxBoxSizer* s7 = new wxBoxSizer(wxHORIZONTAL);
@@ -109,7 +111,7 @@ void InfoPanel::AddControls() {
     TextBox(s9, staticBoxClocks, wxString::Format("%d:%d", cpuInfo.fsbDiv, cpuInfo.dramDiv), 80);
     clocksGroupSizer->Add(s9, 0, wxEXPAND | wxALL, INFO_PANEL_ROW_SPACING);
 
-    rowSizer->Add(clocksGroupSizer, 1, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 5);
+    rowSizer->Add(clocksGroupSizer, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 5);
 
     // "Cache"
     wxStaticBoxSizer* cacheGroupSizer = new wxStaticBoxSizer(wxVERTICAL, this, _("Cache"));
@@ -117,7 +119,7 @@ void InfoPanel::AddControls() {
 
     wxBoxSizer* s10 = new wxBoxSizer(wxHORIZONTAL);
     Label(s10, staticBoxCache, _("L1 Data"), -1, true);
-    TextBox(s10, staticBoxCache, wxString::Format("%.d KBytes", cpuInfo.l1Cache), 80);
+    TextBox(s10, staticBoxCache, wxString::Format("%.d KBytes", cpuInfo.l1DataCache), 80);
     cacheGroupSizer->Add(s10, 0, wxEXPAND | wxALL, INFO_PANEL_ROW_SPACING);
 
     wxBoxSizer* s11 = new wxBoxSizer(wxHORIZONTAL);
@@ -127,7 +129,7 @@ void InfoPanel::AddControls() {
 
     wxBoxSizer* s12 = new wxBoxSizer(wxHORIZONTAL);
     Label(s12, staticBoxCache, _("Level 1"), -1, true);
-    TextBox(s12, staticBoxCache, wxString::Format("%.d KBytes", cpuInfo.l1DataCache), 80);
+    TextBox(s12, staticBoxCache, wxString::Format("%.d KBytes", cpuInfo.l1Cache), 80);
     cacheGroupSizer->Add(s12, 0, wxEXPAND | wxALL, INFO_PANEL_ROW_SPACING);
 
     wxBoxSizer* s13 = new wxBoxSizer(wxHORIZONTAL);
@@ -135,7 +137,7 @@ void InfoPanel::AddControls() {
     TextBox(s13, staticBoxCache, wxString::Format("%.d KBytes", cpuInfo.l2Cache), 80);
     cacheGroupSizer->Add(s13, 0, wxEXPAND | wxALL, INFO_PANEL_ROW_SPACING);
 
-    rowSizer->Add(cacheGroupSizer, 1, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 5);
+    rowSizer->Add(cacheGroupSizer, 1, wxEXPAND | wxRIGHT | wxBOTTOM, 5);
 
     // Add the row sizer to the main sizer
     mainSizer->Add(rowSizer, 0, wxEXPAND);
@@ -144,5 +146,5 @@ void InfoPanel::AddControls() {
     SetSizerAndFit(mainSizer);
 
     // Center the frame on the screen
-    Centre();
+    Center();
 }
