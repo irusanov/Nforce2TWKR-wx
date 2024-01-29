@@ -20,7 +20,7 @@ Cpu::~Cpu()
 }
 
 // Refresh frequency related parameters
-void __fastcall Cpu::RefreshCpuSpeed() {
+void Cpu::RefreshCpuSpeed() {
     unsigned long eax = 0, edx = 0;
     // timing_def_t def;
     unsigned int pciAddress, regValue, value;
@@ -71,7 +71,7 @@ void __fastcall Cpu::RefreshCpuSpeed() {
     */
 }
 
-bool __fastcall Cpu::InitSystemInfo() {
+bool Cpu::InitSystemInfo() {
     unsigned long eax = 0, ebx = 0, ecx = 0, edx = 0;
 
     // CPUID information
@@ -134,4 +134,8 @@ bool __fastcall Cpu::InitSystemInfo() {
     }
 
     return true;
+}
+
+const cpu_info_t& Cpu::GetCpuInfo() const {
+    return cpuInfo;
 }

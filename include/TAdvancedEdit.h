@@ -7,10 +7,11 @@
 
 class TAdvancedEdit : public wxTextCtrl {
 public:
-    TAdvancedEdit(wxWindow* parent, wxWindowID id = wxID_ANY,
+    TAdvancedEdit(wxWindow* parent,
+                  const wxString& name = wxTextCtrlNameStr,
                   const wxString& value = wxEmptyString,
-                  const wxPoint& pos = wxDefaultPosition,
-                  const wxString& name = wxTextCtrlNameStr);
+                  const wxPoint& pos = wxDefaultPosition);
+
     void SetValue(const wxString& value) override;
 
 protected:

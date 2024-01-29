@@ -8,14 +8,12 @@ class TTimingComboBox : public wxOwnerDrawnComboBox
 {
 public:
     TTimingComboBox(wxWindow* parent,
-                    wxWindowID id = wxID_ANY,
-                    const wxPoint& pos = wxDefaultPosition,
-                    const wxSize& size = wxDefaultSize,
-                    const wxArrayString& choices = wxArrayString(),
-                    long style = 0,
-                    const wxValidator& validator = wxDefaultValidator,
-                    const wxString& name = "TTimingComboBox");
-
+                  const wxString& name = wxTextCtrlNameStr,
+                  const wxString& value = wxEmptyString,
+                  const wxPoint& pos = wxDefaultPosition,
+                  const wxSize& size = wxDefaultSize,
+                  const int min = 0,
+                  const int max = 7);
 
     void SetValue(int value);
     void SetItemValue(int value);
@@ -24,12 +22,12 @@ public:
 private:
     wxColour originalBackground;
 
-    int tMin = 0; // Replace tMin and tMax with your actual minimum and maximum values
-    int tMax = 10; // Replace tMin and tMax with your actual minimum and maximum values
+    bool isChanged;
+    int tMin;
+    int tMax;
 
     int tValue;
     int tIndex;
-    bool tChanged;
 
     void CreateItems();
     // void OnDrawItem(wxDC& dc, const wxRect& rect, int item, int flags) const override;

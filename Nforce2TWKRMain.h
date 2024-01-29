@@ -26,6 +26,8 @@ using namespace std;
 #include "TTimingComboBox.h"
 #include "TAdvancedEdit.h"
 #include "CustomComboBox.h"
+#include "panels/DramPanel.h"
+#include "panels/InfoPanel.h"
 
 class Nforce2TWKRFrame: public wxFrame {
 public:

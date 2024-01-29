@@ -2,19 +2,19 @@
 
 #include "TTimingComboBox.h"
 
-TTimingComboBox::TTimingComboBox(wxWindow* parent, wxWindowID id,
+TTimingComboBox::TTimingComboBox(wxWindow* parent,
+                                 const wxString& name,
+                                 const wxString& value,
                                  const wxPoint& pos,
                                  const wxSize& size,
-                                 const wxArrayString& choices,
-                                 long style,
-                                 const wxValidator& validator,
-                                 const wxString& name)
-    : wxOwnerDrawnComboBox(parent, id, wxEmptyString, pos, size, choices, style, validator, name),
-      tMin(0),
-      tMax(10),
+                                 const int min,
+                                 const int max)
+    : wxOwnerDrawnComboBox(parent, wxID_ANY, value, pos, size, wxArrayString(), 0, wxDefaultValidator, name),
+      tMin(min),
+      tMax(max),
       tValue(0),
       tIndex(0),
-      tChanged(false)
+      isChanged(false)
 {
     originalBackground = GetBackgroundColour();
 
@@ -58,7 +58,7 @@ void TTimingComboBox::OnDropDown(wxCommandEvent& event)
 
 void TTimingComboBox::OnCloseUp(wxCommandEvent& event)
 {
-    if (tChanged)
+    if (isChanged)
     {
         SetBackgroundColour(*wxYELLOW);
     }
@@ -68,8 +68,8 @@ void TTimingComboBox::OnCloseUp(wxCommandEvent& event)
 
 void TTimingComboBox::OnComboBox(wxCommandEvent& event)
 {
-    tChanged = (tIndex != GetSelection());
-    SetBackgroundColour(tChanged ? *wxYELLOW : originalBackground);
+    isChanged = (tIndex != GetSelection());
+    SetBackgroundColour(isChanged ? *wxYELLOW : originalBackground);
     Refresh();
     event.Skip();
 }
@@ -81,7 +81,7 @@ void TTimingComboBox::SetValue(int value)
         SetSelection(value - tMin);
         tValue = value;
         tIndex = GetSelection();
-        tChanged = false;
+        isChanged = false;
         SetBackgroundColour(originalBackground);
         Refresh();
     }
@@ -96,7 +96,7 @@ void TTimingComboBox::SetItemValue(int value)
         if (index == wxNOT_FOUND)
         {
             index = 0;
-            for (int i = 0; i < GetCount(); i++)
+            for (unsigned int i = 0; i < GetCount(); i++)
             {
                 if (value > wxAtoi(GetString(i)))
                 {
@@ -110,7 +110,7 @@ void TTimingComboBox::SetItemValue(int value)
         SetSelection(index);
         tIndex = index;
         tValue = value;
-        tChanged = false;
+        isChanged = false;
         SetBackgroundColour(originalBackground);
         Refresh();
     }
@@ -118,7 +118,7 @@ void TTimingComboBox::SetItemValue(int value)
 
 void TTimingComboBox::SetChanged()
 {
-    tChanged = true;
+    isChanged = true;
     SetBackgroundColour(*wxYELLOW);
     Refresh();
 }

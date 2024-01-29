@@ -27,6 +27,7 @@
 					<Add directory="$(#wx30)/include" />
 					<Add directory="$(#wx30)/lib/gcc_lib/msw" />
 					<Add directory="include" />
+					<Add directory="include/panels" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add option="-DwxUSE_DPI_AWARE_MANIFEST=2" />
@@ -84,6 +85,11 @@
 		<Unit filename="include/ols/OlsApiInitDef.h" />
 		<Unit filename="include/ols/OlsApiInitExt.h" />
 		<Unit filename="include/ols/OlsDef.h" />
+		<Unit filename="include/panels/DramPanel.h" />
+		<Unit filename="include/panels/InfoPanel.h" />
+		<Unit filename="obj/Release/resource.res">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
@@ -95,6 +101,8 @@
 		<Unit filename="src/dialogs/ProfilePreloadWindow.cpp" />
 		<Unit filename="src/dialogs/SettingsWindow.cpp" />
 		<Unit filename="src/dialogs/ValidationBotWindow.cpp" />
+		<Unit filename="src/panels/DramPanel.cpp" />
+		<Unit filename="src/panels/InfoPanel.cpp" />
 		<Unit filename="utils/AppSettings.h" />
 		<Unit filename="utils/CPUDetection.h" />
 		<Unit filename="utils/Nforce2Pll.cpp" />

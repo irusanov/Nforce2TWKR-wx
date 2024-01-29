@@ -56,7 +56,7 @@ BEGIN_EVENT_TABLE(Nforce2TWKRFrame, wxFrame)
     EVT_BUTTON(wxID_ANY, Nforce2TWKRFrame::OnButtonClick)
 END_EVENT_TABLE()
 
-Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
+Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL) {
     if(!InitOpenLibSys(&m_hOpenLibSys)) {
         wxMessageBox(_T("Error initializing OpenLibSys"), _T("Error"), wxOK_DEFAULT | wxICON_ERROR);
         exit(-1);
@@ -68,7 +68,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
     }
 
     try {
-        this->cpu = new Cpu();
+        cpu = new Cpu();
     } catch (const char* s) {
         wxMessageBox(_T(s), _T("Error"), wxOK_DEFAULT | wxICON_ERROR);
         exit(-1);
@@ -85,70 +85,29 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id) {
     trayIcon = new wxTaskBarIcon();
     trayIcon->SetIcon(appIcon);
 
+    wxFont font = this->GetFont();
+    font.SetFaceName(_T("Tahoma"));
+    font.SetPointSize(8);
+    this->SetFont(font);
+
     // Create main frame and menu bar
     Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX), _T("id"));
     SetIcon(appIcon16x16);
     SetClientSize(wxSize(380, 480));
     SetTitle(_("NForce2 TWKR " + GetAppVersion()));
-    this->Center(wxCENTER_ON_SCREEN);
+    Center(wxCENTER_ON_SCREEN);
 
     // MainPanel
     mainTabs = new wxNotebook(this, wxID_ANY);
-    dramPanel = new wxPanel(mainTabs);
-    chipsetPanel = new wxPanel(mainTabs);
-    infoPanel = new wxPanel(mainTabs);
-
-    // DRAM page START
-    wxBoxSizer* dramPanelSizer = new wxBoxSizer(wxHORIZONTAL);
-
-    // Left part: StaticBox
-    wxStaticBoxSizer* staticBoxLeft = new wxStaticBoxSizer(wxVERTICAL, dramPanel, "Timings");
-    TTimingComboBox* timingComboBox = new TTimingComboBox(dramPanel, wxID_ANY);
-    timingComboBox->SetLabel("Test");
-    // timingComboBox->SetMin(0);
-    // timingComboBox->SetMax(7);
-
-    // Right part: Two StaticBoxes vertically
-    wxBoxSizer* rightVerticalSizer = new wxBoxSizer(wxVERTICAL);
-
-    wxStaticBoxSizer* staticBoxTopRight = new wxStaticBoxSizer(wxVERTICAL, dramPanel, "Advanced");
-
-    wxStaticBoxSizer* staticBoxBottomRight = new wxStaticBoxSizer(wxVERTICAL, dramPanel, "ROMSIP");
-
-    rightVerticalSizer->Add(staticBoxTopRight, 2, wxEXPAND | wxBOTTOM, 0);
-    rightVerticalSizer->Add(staticBoxBottomRight, 1, wxEXPAND | wxTOP, 10);
-
-    dramPanelSizer->Add(staticBoxLeft, 1, wxEXPAND | wxALL, 5);
-    dramPanelSizer->Add(rightVerticalSizer, 2, wxEXPAND | wxALL, 5);
-
-    dramPanel->SetSizer(dramPanelSizer);
 
     wxColor bgColor = wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE);
-    this->SetBackgroundColour(bgColor);
+    SetBackgroundColour(bgColor);
 
-    wxArrayString choices;
-    choices.Add("111");
-    choices.Add("123");
-    choices.Add("333");
+    dramPanel = new DramPanel(mainTabs);
+    chipsetPanel = new wxPanel(mainTabs);
+    infoPanel = new InfoPanel(mainTabs, cpu);
 
-    wxComboBox* combo = new wxComboBox(dramPanel, wxID_ANY, "123", wxDefaultPosition, wxDefaultSize, choices, wxCB_READONLY);
-    CustomComboBox* customComboBox = new CustomComboBox(dramPanel, wxID_ANY, "123", wxDefaultPosition, wxDefaultSize, choices);
-
-    advancedEdit = new TAdvancedEdit(dramPanel, wxID_ANY);
-    advancedEdit->SetValue(_("FF"));
-    wxButton* button = new wxButton(dramPanel, wxID_ANY, "Get Value");
-
-    staticBoxLeft->Add(timingComboBox, 0, wxEXPAND | wxALL, 5);
-    staticBoxLeft->Add(combo, 0, wxEXPAND | wxALL, 5);
-    staticBoxLeft->Add(customComboBox, 0, wxALL, 5);
-
-    staticBoxTopRight->Add(advancedEdit, 0, wxEXPAND);
-    staticBoxBottomRight->Add(button, 0, wxEXPAND);
-
-    // Add the first page (dramPanel) to the notebook (mainTabs)
     mainTabs->AddPage(dramPanel, _T("DRAM"), true);
-    // DRAM page END
-
     mainTabs->AddPage(chipsetPanel, _T("Chipset"));
     mainTabs->AddPage(infoPanel, _T("Info"));
 

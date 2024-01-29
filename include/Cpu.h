@@ -10,16 +10,17 @@ class Cpu
     public:
         Cpu();
         virtual ~Cpu();
+        const cpu_info_t& GetCpuInfo() const;
+        void RefreshCpuSpeed();
 
     protected:
         cpu_info_t cpuInfo;
         Nforce2Pll pll;
         QueryPerformance qpc;
         double targetFsb;
-        void __fastcall RefreshCpuSpeed();
 
     private:
-        bool __fastcall InitSystemInfo();
+        bool InitSystemInfo();
 };
 
 #endif // CPU_H

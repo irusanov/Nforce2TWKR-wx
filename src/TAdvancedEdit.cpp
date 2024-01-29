@@ -3,9 +3,11 @@
 #include "TAdvancedEdit.h"
 #include <wx/wx.h>
 
-TAdvancedEdit::TAdvancedEdit(wxWindow* parent, wxWindowID id, const wxString& value,
-                             const wxPoint& pos, const wxString& name)
-    : wxTextCtrl(parent, id, value, pos, wxSize(26, -1),
+TAdvancedEdit::TAdvancedEdit(wxWindow* parent,
+                             const wxString& name,
+                             const wxString& value,
+                             const wxPoint& pos)
+    : wxTextCtrl(parent, wxID_ANY, value, pos, wxSize(26, 21),
                  (wxTE_CAPITALIZE | wxTE_CENTRE | wxTE_NO_VSCROLL | wxTE_DONTWRAP) & ~wxHSCROLL,
                  wxDefaultValidator,
                  name) {
@@ -14,6 +16,11 @@ TAdvancedEdit::TAdvancedEdit(wxWindow* parent, wxWindowID id, const wxString& va
     SetMaxSize(wxSize(26, -1));
     SetMinSize(wxSize(26, -1));
     SetModified(false);
+
+    // Decrease font size
+    // wxFont font = GetFont();
+    // font.SetPointSize(font.GetPointSize() - 1);
+    // SetFont(font);
 
     savedValue = value.Upper();
     initialBackgroundColor = GetBackgroundColour();
