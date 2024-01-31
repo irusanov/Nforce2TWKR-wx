@@ -1,14 +1,15 @@
-#include "CustomComboBox.h"
+#include "components/CustomComboBox.h"
 
 CustomComboBox::CustomComboBox(wxWindow* parent, wxWindowID id, const wxString& value,
                                const wxPoint& pos, const wxSize& size,
                                const wxArrayString& choices, long style,
                                const wxValidator& validator, const wxString& name)
-    : wxOwnerDrawnComboBox(parent, id, value, pos, size, choices, style, validator, name),
+    : wxComboBox(parent, id, value, pos, size, choices, style, validator, name),
     isDropdownOpen(false)
 {
     SetEditable(false);
     SetCursor(wxCursor(wxCURSOR_DEFAULT));
+    Enable(false);
 
     // Bind events
     Bind(wxEVT_COMBOBOX, &CustomComboBox::OnComboBox, this);
@@ -54,7 +55,7 @@ void CustomComboBox::OnPaint(wxPaintEvent& event)
     SetCursor(wxCursor(wxCURSOR_DEFAULT));
 }
 
-wxBEGIN_EVENT_TABLE(CustomComboBox, wxOwnerDrawnComboBox)
+wxBEGIN_EVENT_TABLE(CustomComboBox, wxComboBox)
     EVT_COMBOBOX(wxID_ANY, CustomComboBox::OnComboBox)
     EVT_COMBOBOX_DROPDOWN(wxID_ANY, CustomComboBox::OnDropDown)
     EVT_COMBOBOX_CLOSEUP(wxID_ANY, CustomComboBox::OnCloseUp)

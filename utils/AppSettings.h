@@ -1,3 +1,6 @@
+#ifndef HEADER_35092C2E32AA7C8D
+#define HEADER_35092C2E32AA7C8D
+
 #pragma once
 
 #include <vcl.h>
@@ -63,8 +66,7 @@ public:
                 Settings->WriteInteger("Options", "WindowTop", SaveWindowPosition ? Application->MainForm->Top : 0);
                 Settings->WriteInteger("Options", "WindowLeft", SaveWindowPosition ? Application->MainForm->Left : 0);
             }
-        }
-        else {
+        } else {
             Settings->WriteInteger("Options", "WindowTop", 0);
             Settings->WriteInteger("Options", "WindowLeft", 0);
         }
@@ -82,3 +84,5 @@ public:
         load();
     }
 };
+#endif // header guard 
+

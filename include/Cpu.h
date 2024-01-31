@@ -5,22 +5,23 @@
 #include "../utils/Nforce2Pll.h"
 #include "../utils/QueryPerformance.h"
 
-class Cpu
-{
-    public:
-        Cpu();
-        virtual ~Cpu();
-        const cpu_info_t& GetCpuInfo() const;
-        void RefreshCpuSpeed();
+class Cpu {
+public:
+    Cpu();
+    virtual ~Cpu();
+    const cpu_info_t& GetCpuInfo() const;
+    void RefreshCpuSpeed();
 
-    protected:
-        cpu_info_t cpuInfo;
-        Nforce2Pll pll;
-        QueryPerformance qpc;
-        double targetFsb;
+protected:
+    cpu_info_t cpuInfo;
+    Nforce2Pll pll;
+    QueryPerformance qpc;
+    double targetFsb;
 
-    private:
-        bool InitSystemInfo();
+private:
+    bool InitSystemInfo();
+    string GetCpuName();
+    static unsigned int GetFID();
 };
 
 #endif // CPU_H

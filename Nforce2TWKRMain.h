@@ -23,11 +23,9 @@ using namespace std;
 #include <wx/taskbar.h>
 #include "AppSettings.h"
 #include "utils/ProfilesManager.h"
-#include "TTimingComboBox.h"
-#include "TAdvancedEdit.h"
-#include "CustomComboBox.h"
 #include "panels/DramPanel.h"
 #include "panels/InfoPanel.h"
+#include "panels/ChipsetPanel.h"
 
 class Nforce2TWKRFrame: public wxFrame {
 public:
@@ -43,12 +41,15 @@ public:
     ProfilesManager profiles;
 
 private:
+    int currentPageIndex;
 
     //(Handlers(Nforce2TWKRFrame)
     void OnQuit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
     void OnOpenSettings(wxCommandEvent& event);
     void OnButtonClick(wxCommandEvent& event);
+    void OnRefreshButtonClick(wxCommandEvent& event);
+    void OnPageChanged(wxBookCtrlEvent& event);
     //)
 
     //(Identifiers(Nforce2TWKRFrame)
@@ -57,8 +58,6 @@ private:
     static const long MENU_SETTINGS_ID;
     static const long STATUSBAR_ID;
     //)
-
-    bool __fastcall InitSystemInfo();
 
     //(Declarations(Nforce2TWKRFrame)
     wxTaskBarIcon* trayIcon;

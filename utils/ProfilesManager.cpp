@@ -131,7 +131,8 @@ void ProfilesManager::WriteMetadata(wxFileConfig* ini, const profile_options_t& 
     ini->Write("PMVersion/Minor", static_cast<long>(VERSION_MINOR));
     ini->Write("Metadata/Name", Opts.name);
     ini->Write("Metadata/Author", Opts.author);
-    ini->Write("Metadata/Comment", Opts.comment);}
+    ini->Write("Metadata/Comment", Opts.comment);
+}
 
 void ProfilesManager::Load(const wxString& FilePath, const profile_options_t& Opts) {
     wxFileConfig iniFile(FilePath);

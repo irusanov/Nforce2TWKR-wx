@@ -53,10 +53,12 @@ BEGIN_EVENT_TABLE(Nforce2TWKRFrame, wxFrame)
     EVT_MENU(MENU_QUIT_ID, Nforce2TWKRFrame::OnQuit)
     EVT_MENU(MENU_ABOUT_ID, Nforce2TWKRFrame::OnAbout)
     EVT_MENU(MENU_SETTINGS_ID, Nforce2TWKRFrame::OnOpenSettings)
-    EVT_BUTTON(wxID_ANY, Nforce2TWKRFrame::OnButtonClick)
+    // EVT_BUTTON(wxID_ANY, Nforce2TWKRFrame::OnButtonClick)
+    EVT_BUTTON(wxID_REFRESH, Nforce2TWKRFrame::OnRefreshButtonClick)
+    EVT_NOTEBOOK_PAGE_CHANGED(wxID_ANY, Nforce2TWKRFrame::OnPageChanged)
 END_EVENT_TABLE()
 
-Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL) {
+Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), currentPageIndex(-1) {
     if(!InitOpenLibSys(&m_hOpenLibSys)) {
         wxMessageBox(_T("Error initializing OpenLibSys"), _T("Error"), wxOK_DEFAULT | wxICON_ERROR);
         exit(-1);
@@ -93,18 +95,20 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL) {
     // Create main frame and menu bar
     Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX), _T("id"));
     SetIcon(appIcon16x16);
-    SetClientSize(wxSize(380, 472));
-    SetTitle(_("NForce2 TWKR " + GetAppVersion()));
+    SetClientSize(wxSize(380, 476));
+    SetTitle(_("NForce2 TWKR " + Utils::GetAppVersion()));
     Center(wxCENTER_ON_SCREEN);
 
     // MainPanel
     mainTabs = new wxNotebook(this, wxID_ANY);
 
     wxColor bgColor = wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE);
-    SetBackgroundColour(bgColor);
+    if (bgColor.IsOk()) {
+        SetBackgroundColour(bgColor);
+    }
 
     dramPanel = new DramPanel(mainTabs);
-    chipsetPanel = new wxPanel(mainTabs);
+    chipsetPanel = new ChipsetPanel(mainTabs);
     infoPanel = new InfoPanel(mainTabs, cpu);
 
     mainTabs->AddPage(dramPanel, _T("DRAM"), true);
@@ -114,6 +118,17 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL) {
     // Set mainTabs as the main sizer for the frame
     wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
     mainSizer->Add(mainTabs, 1, wxEXPAND | wxALL, 1);
+
+    // Buttons
+    wxBoxSizer* buttonSizer = new wxBoxSizer(wxHORIZONTAL);
+    buttonSizer->AddStretchSpacer();
+    wxButton* refreshButton = new wxButton(this, wxID_REFRESH , "Refresh");
+    buttonSizer->Add(refreshButton, 0, wxRIGHT | wxLEFT, 2);
+    wxButton* applyButton = new wxButton(this, wxID_APPLY, "Apply");
+    // applyButton->SetDefault();
+    buttonSizer->Add(applyButton, 0, wxRIGHT, 2);
+    mainSizer->Add(buttonSizer, 0, wxEXPAND | wxBOTTOM, 2);
+
     SetSizer(mainSizer);
 
     // MenuBar
@@ -142,6 +157,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL) {
     SetMenuBar(menuBar);
 
     // Statusbar
+    /*
     statusBar = new wxStatusBar(this, STATUSBAR_ID, 0, _T("ID_STATUSBAR1"));
     int __wxStatusBarWidths_1[1] = { -1 };
     int __wxStatusBarStyles_1[1] = { wxSB_NORMAL };
@@ -149,6 +165,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL) {
     statusBar->SetStatusStyles(1, __wxStatusBarStyles_1);
     statusBar->SetDoubleBuffered(true);
     SetStatusBar(statusBar);
+    */
 
     wxLogStatus(_T("OK"));
 }
@@ -187,10 +204,45 @@ void Nforce2TWKRFrame::OnAbout(wxCommandEvent& WXUNUSED(event)) {
     wxAboutDialogInfo aboutInfo;
     aboutInfo.SetIcon(appIcon64x64);
     aboutInfo.SetName("NForce2 TWKR");
-    aboutInfo.SetVersion(GetAppVersion());
-    aboutInfo.SetDescription(wxString::Format("Build date: %s", GetBuildDate()));
-    aboutInfo.SetCopyright("(C) 2019-2024 Ivan Rusanov");
+    aboutInfo.SetVersion(Utils::GetAppVersion());
+    aboutInfo.SetDescription(wxString::Format("Build date: %s", Utils::GetBuildDate()));
+    aboutInfo.SetCopyright("(C) 2021-2024 Ivan Rusanov");
     aboutInfo.SetWebSite("https://github.com/irusanov/Nforce2TWKR-wx");
 
     wxAboutBox(aboutInfo);
+}
+
+void Nforce2TWKRFrame::OnRefreshButtonClick(wxCommandEvent& event) {
+    // RefreshTimings();
+
+    if (currentPageIndex > 0) {
+        cpu->RefreshCpuSpeed();
+    }
+
+    if (currentPageIndex == 2) {
+        infoPanel->Update();
+    }
+
+    /*
+    if (index == 1) {
+        updateFromButtons = true;
+        TrackBarPll->Position = cpu_info.fsb;
+        TrackBarAgp->Position = cpu_info.pciMul;
+        UpdatePllSlider(cpu_info.fsb, 0);
+        // UpdateAgpSlider(cpu_info.pciBus);
+        updateFromButtons = false;
+    }*/
+}
+
+void Nforce2TWKRFrame::OnPageChanged(wxBookCtrlEvent& event)
+{
+    currentPageIndex = event.GetSelection();
+
+    if (currentPageIndex > 0) {
+        cpu->RefreshCpuSpeed();
+    }
+
+    if (currentPageIndex == 2) {
+        infoPanel->Update();
+    }
 }

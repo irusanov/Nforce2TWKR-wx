@@ -2,10 +2,9 @@
 #define CUSTOM_COMBO_BOX_H
 
 #include <wx/wx.h>
-#include <wx/odcombo.h>
+#include <wx/combo.h>
 
-class CustomComboBox : public wxOwnerDrawnComboBox
-{
+class CustomComboBox : public wxComboBox {
 public:
     CustomComboBox(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString,
                    const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,

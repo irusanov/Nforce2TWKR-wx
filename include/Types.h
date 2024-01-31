@@ -5,7 +5,7 @@
 
 using namespace std;
 
-typedef enum {
+enum CodeName {
     Spitfire,
     Morgan,
     Applebred,
@@ -13,9 +13,9 @@ typedef enum {
     Palomino,
     Thoroughbred,
     Barton,
-} CodeName;
+};
 
-typedef struct {
+struct timing_def_t {
     string name;
     unsigned int bus;
     unsigned int device;
@@ -23,16 +23,16 @@ typedef struct {
     unsigned int reg;
     unsigned int offset;
     unsigned int bits;
-} timing_def_t;
+};
 
 // MANID Register, MSR C001_001Eh
-typedef struct {
+struct man_id_t {
     unsigned char reticleSite; // [9-8]
     unsigned char majorRev; // [7-4]
     unsigned char minorRev; // [3-0]
-} man_id_t;
+};
 
-typedef struct {
+struct cpu_info_t {
     unsigned int cpuid;
     string codeName;
     string cpuName;
@@ -64,6 +64,14 @@ typedef struct {
     int l1Cache;
     int l2Cache;
     man_id_t manID;
-} cpu_info_t;
+};
+
+struct control_def_t {
+    string name;
+    string label;
+    bool editable;
+    unsigned int min;
+    unsigned int max;
+};
 
 #endif // TYPES_H

@@ -1,7 +1,6 @@
 // TAdvancedEdit.cpp
 
-#include "TAdvancedEdit.h"
-#include <wx/wx.h>
+#include "components/TAdvancedEdit.h"
 
 TAdvancedEdit::TAdvancedEdit(wxWindow* parent,
                              const wxString& name,

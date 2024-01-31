@@ -7,8 +7,8 @@
 #include <wx/wx.h>
 #include <wx/fileconf.h>
 #include <wx/stdpaths.h>
-#include "TAdvancedEdit.h"
-#include "TTimingComboBox.h"
+#include "components/TAdvancedEdit.h"
+#include "components/TTimingComboBox.h"
 
 using namespace std;
 

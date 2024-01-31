@@ -4,16 +4,15 @@
 #include <wx/wx.h>
 #include <wx/odcombo.h>
 
-class TTimingComboBox : public wxOwnerDrawnComboBox
-{
+class TTimingComboBox : public wxOwnerDrawnComboBox {
 public:
     TTimingComboBox(wxWindow* parent,
-                  const wxString& name = wxTextCtrlNameStr,
-                  const wxString& value = wxEmptyString,
-                  const wxPoint& pos = wxDefaultPosition,
-                  const wxSize& size = wxDefaultSize,
-                  const int min = 0,
-                  const int max = 7);
+                    const wxString& name = wxTextCtrlNameStr,
+                    const wxString& value = wxEmptyString,
+                    const wxSize& size = wxDefaultSize,
+                    const int min = 0,
+                    const int max = 7,
+                    const bool editable = true);
 
     void SetValue(int value);
     void SetItemValue(int value);
@@ -23,9 +22,9 @@ private:
     wxColour originalBackground;
 
     bool isChanged;
+    bool isOpened;
     int tMin;
     int tMax;
-
     int tValue;
     int tIndex;
 
@@ -35,6 +34,7 @@ private:
     void OnCloseUp(wxCommandEvent& event);
     void OnComboBox(wxCommandEvent& event);
     void OnPaint(wxPaintEvent& event);
+    void OnTextCtrlClick(wxMouseEvent& event);
 
     // wxDECLARE_EVENT_TABLE();
 };

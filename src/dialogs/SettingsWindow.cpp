@@ -1,4 +1,3 @@
-
 #include "dialogs/SettingsWindow.h"
 
 wxBEGIN_EVENT_TABLE(SettingsWindow, wxDialog)

@@ -5,24 +5,56 @@
 #include "../utils/CPUDetection.h"
 #include "../utils/Utils.h"
 
-Cpu::Cpu()
-{
+Cpu::Cpu() {
     if (!pll.init()) {
         throw "Not a nForce2 chipset!";
     }
     InitSystemInfo();
 }
 
-Cpu::~Cpu()
-{
+Cpu::~Cpu() {
     delete &pll;
     delete &qpc;
+}
+
+string Cpu::GetCpuName() {
+    string model = "";
+    DWORD eax = 0, ebx = 0, ecx = 0, edx = 0;
+
+    if(Cpuid(0x80000002, &eax, &ebx, &ecx, &edx))
+        model = model + Utils::IntToStr(eax) + Utils::IntToStr(ebx) + Utils::IntToStr(ecx) + Utils::IntToStr(edx);
+
+    if(Cpuid(0x80000003, &eax, &ebx, &ecx, &edx))
+        model = model + Utils::IntToStr(eax) + Utils::IntToStr(ebx) + Utils::IntToStr(ecx) + Utils::IntToStr(edx);
+
+    if(Cpuid(0x80000004, &eax, &ebx, &ecx, &edx))
+        model = model + Utils::IntToStr(eax) + Utils::IntToStr(ebx) + Utils::IntToStr(ecx) + Utils::IntToStr(edx);
+
+    Utils::trim(model);
+
+    return model;
+}
+
+unsigned int Cpu::GetFID() {
+    timing_def_t def;
+    unsigned int pciAddress;
+    unsigned int regValue;
+    unsigned int value;
+
+    // Get actual FID from chipset
+    def = Utils::GetDefByName(s2kTimings, COUNT_OF(s2kTimings), "FID");
+    pciAddress = Utils::MakePciAddress(def.bus, def.device, def.fn, def.reg);
+    regValue = Utils::ReadPciReg(pciAddress);
+    // if value is 0011 (0x3), ratio is >= 12.5x (FID 0x3)
+    value = Utils::GetBits(regValue, def.offset, def.bits);
+
+    return value;
 }
 
 // Refresh frequency related parameters
 void Cpu::RefreshCpuSpeed() {
     unsigned long eax = 0, edx = 0;
-    // timing_def_t def;
+    timing_def_t def;
     unsigned int pciAddress, regValue, value;
 
     // Read current FSB
@@ -32,43 +64,38 @@ void Cpu::RefreshCpuSpeed() {
 
     // Update current FID and VID
     if (Rdmsr(MSR_K7_FID_VID_STATUS, &eax, &edx)) {
-        cpuInfo.currVid = GetBits(edx, 0, 6);
-        cpuInfo.currFid = GetBits(eax, 0, 6);
+        cpuInfo.currVid = Utils::GetBits(edx, 0, 6);
+        cpuInfo.currFid = Utils::GetBits(eax, 0, 6);
     }
 
-    // @TODO: Implement GetFID
-    // cpuInfo.fid = GetFID();
-    cpuInfo.fid = 110;
+    cpuInfo.fid = GetFID();
 
     // FID from chipset is 4 bits and covers up to 12.5x
     // CurrFID from MSR_K7_FID_VID_STATUS is also unreliable
     // Calculate multiplier from CPU frequency and FSB (from PLL)
     if (cpuInfo.fsbFromPll > 0) {
         cpuInfo.multi = floor(((cpuInfo.frequency / cpuInfo.fsbFromPll) * 2) + 0.5) / 2;
-    }
-    else {
+    } else {
         cpuInfo.multi = fid_codes[cpuInfo.fid] / 10.0;
     }
 
     cpuInfo.fsb = cpuInfo.frequency / cpuInfo.multi;
     targetFsb = cpuInfo.fsb;
 
-    /*
     // Get FSB:DRAM ratio
-    def = GetDefByName(timingDefs, COUNT_OF(timingDefs), "FsbDramRatio");
-    pciAddress = MakePciAddress(def.bus, def.device, def.function, def.reg);
-    regValue = ReadPciReg(pciAddress);
-    value = GetBits(regValue, def.offset, def.bits);
+    def = Utils::GetDefByName(timingDefs, COUNT_OF(timingDefs), "FsbDramRatio");
+    pciAddress = Utils::MakePciAddress(def.bus, def.device, def.fn, def.reg);
+    regValue = Utils::ReadPciReg(pciAddress);
+    value = Utils::GetBits(regValue, def.offset, def.bits);
 
-    cpu_info.fsbDiv = value & 0xf;
-    cpu_info.dramDiv = value >> 4 & 0xf;
+    cpuInfo.fsbDiv = value & 0xf;
+    cpuInfo.dramDiv = value >> 4 & 0xf;
 
-    if (cpu_info.fsbDiv > 0 && cpu_info.dramDiv > 0) {
-        cpu_info.dram = cpu_info.fsb * cpu_info.dramDiv / cpu_info.fsbDiv;
+    if (cpuInfo.fsbDiv > 0 && cpuInfo.dramDiv > 0) {
+        cpuInfo.dram = cpuInfo.fsb * cpuInfo.dramDiv / cpuInfo.fsbDiv;
     }
 
-    RefreshPciFrequency();
-    */
+    // RefreshPciFrequency();
 }
 
 bool Cpu::InitSystemInfo() {
@@ -106,20 +133,20 @@ bool Cpu::InitSystemInfo() {
     }
 
     if(Rdmsr(MSR_K7_MANID, &eax, &edx)) {
-        cpuInfo.manID.minorRev = GetBits(eax, 0, 4);
-        cpuInfo.manID.majorRev = GetBits(eax, 4, 4);
-        cpuInfo.manID.reticleSite = GetBits(eax, 8, 2);
+        cpuInfo.manID.minorRev = Utils::GetBits(eax, 0, 4);
+        cpuInfo.manID.majorRev = Utils::GetBits(eax, 4, 4);
+        cpuInfo.manID.reticleSite = Utils::GetBits(eax, 8, 2);
     }
 
     // Read CPU FID and VID values
     if(Rdmsr(MSR_K7_FID_VID_STATUS, &eax, &edx)) {
-        cpuInfo.currVid = GetBits(edx, 0, 6);
-        cpuInfo.startVid = GetBits(edx, 8, 6);
-        cpuInfo.maxVid = GetBits(edx, 16, 6);
+        cpuInfo.currVid = Utils::GetBits(edx, 0, 6);
+        cpuInfo.startVid = Utils::GetBits(edx, 8, 6);
+        cpuInfo.maxVid = Utils::GetBits(edx, 16, 6);
 
-        cpuInfo.currFid = GetBits(eax, 0, 6);
-        cpuInfo.startFid = GetBits(eax, 8, 6);
-        cpuInfo.maxFid = GetBits(eax, 16, 6);
+        cpuInfo.currFid = Utils::GetBits(eax, 0, 6);
+        cpuInfo.startFid = Utils::GetBits(eax, 8, 6);
+        cpuInfo.maxFid = Utils::GetBits(eax, 16, 6);
     }
 
     cpuInfo.cpuName = GetCpuName();

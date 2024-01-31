@@ -2,8 +2,7 @@
 
 InfoPanel::InfoPanel(wxWindow* parent, Cpu* cpu)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, wxPanelNameStr),
-    cpuReference(cpu)
-{
+      cpuReference(cpu) {
     AddControls();
 }
 
@@ -13,21 +12,22 @@ void InfoPanel::OnSetFocus(wxFocusEvent& event) {
 }
 
 // Label helper
-void InfoPanel::Label(wxBoxSizer* sizer, wxWindow* parent, wxString label = wxEmptyString, int width = -1, bool expand = false) {
+void InfoPanel::Label(wxBoxSizer* sizer, wxWindow* parent, wxString label, int width, bool expand) {
     if (sizer == wxNullPtr)
         return;
 
     sizer->Add(new wxStaticText(parent, wxID_ANY, label,
-        wxDefaultPosition, wxSize(width, -1), wxALIGN_RIGHT | wxALIGN_CENTER_VERTICAL),
-        expand ? 1 : 0, wxALIGN_RIGHT | wxALIGN_CENTER_VERTICAL | wxALL, 0);
+                                wxDefaultPosition, wxSize(width, -1), wxALIGN_RIGHT | wxALIGN_CENTER_VERTICAL),
+               expand ? 1 : 0, wxALIGN_RIGHT | wxALIGN_CENTER_VERTICAL | wxALL, 0);
 }
 
 // Text field helper
-void InfoPanel::TextBox(wxBoxSizer* sizer, wxWindow* parent, wxString value = wxEmptyString, int width = -1, bool expand = false) {
+void InfoPanel::TextBox(wxBoxSizer* sizer, wxWindow* parent, wxString value, int width, bool expand, wxString name) {
     if (sizer == wxNullPtr)
         return;
 
-    wxTextCtrl* textCtrl = new wxTextCtrl(parent, wxID_ANY, value, wxDefaultPosition, wxSize(width, 18), wxTE_READONLY | wxTE_CENTER | wxBORDER_STATIC);
+    wxTextCtrl* textCtrl = new wxTextCtrl(parent, wxID_ANY, value, wxDefaultPosition, wxSize(width, 18),
+                                          wxTE_READONLY | wxTE_CENTER | wxBORDER_STATIC, wxDefaultValidator, name);
     textCtrl->Bind(wxEVT_SET_FOCUS, &InfoPanel::OnSetFocus, this);
     textCtrl->SetCursor(wxCursor(wxCURSOR_DEFAULT));
     textCtrl->SetForegroundColour(wxColour(0, 0, 128));
@@ -88,22 +88,22 @@ void InfoPanel::AddControls() {
 
     wxBoxSizer* s5 = new wxBoxSizer(wxHORIZONTAL);
     Label(s5, staticBoxClocks, _("Core"), 60);
-    TextBox(s5, staticBoxClocks, wxString::Format("%.2f MHz", cpuInfo.frequency), 80);
+    TextBox(s5, staticBoxClocks, wxString::Format("%.2f MHz", cpuInfo.frequency), 80, false, _T("FrequencyTextBox"));
     clocksGroupSizer->Add(s5, 0, wxEXPAND | wxALL, INFO_PANEL_ROW_SPACING);
 
     wxBoxSizer* s6 = new wxBoxSizer(wxHORIZONTAL);
     Label(s6, staticBoxClocks, _("Multi"), 60);
-    TextBox(s6, staticBoxClocks, wxString::Format("x %.1f", cpuInfo.multi), 80);
+    TextBox(s6, staticBoxClocks, wxString::Format("x %.1f", cpuInfo.multi), 80, false, _T("MultiTextBox"));
     clocksGroupSizer->Add(s6, 0, wxEXPAND | wxALL, INFO_PANEL_ROW_SPACING);
 
     wxBoxSizer* s7 = new wxBoxSizer(wxHORIZONTAL);
     Label(s7, staticBoxClocks, _("FSB"), 60);
-    TextBox(s7, staticBoxClocks, wxString::Format("%.2f MHz", cpuInfo.fsb), 80);
+    TextBox(s7, staticBoxClocks, wxString::Format("%.2f MHz", cpuInfo.fsb), 80, false, _T("FsbTextBox"));
     clocksGroupSizer->Add(s7, 0, wxEXPAND | wxALL, INFO_PANEL_ROW_SPACING);
 
     wxBoxSizer* s8 = new wxBoxSizer(wxHORIZONTAL);
     Label(s8, staticBoxClocks, _("DRAM"), 60);
-    TextBox(s8, staticBoxClocks, wxString::Format("%.2f MHz", cpuInfo.dram), 80);
+    TextBox(s8, staticBoxClocks, wxString::Format("%.2f MHz", cpuInfo.dram), 80, false, _T("DramTextBox"));
     clocksGroupSizer->Add(s8, 0, wxEXPAND | wxALL, INFO_PANEL_ROW_SPACING);
 
     wxBoxSizer* s9 = new wxBoxSizer(wxHORIZONTAL);
@@ -147,4 +147,16 @@ void InfoPanel::AddControls() {
 
     // Center the frame on the screen
     Center();
+}
+
+void InfoPanel::Update() {
+    cpu_info_t cpuInfo = cpuReference->GetCpuInfo();
+    wxTextCtrl* obj = static_cast<wxTextCtrl *>(FindWindowByName("FrequencyTextBox"));
+    ((wxTextCtrl *)obj)->SetValue(wxString::Format("%.2f MHz", cpuInfo.frequency));
+    obj = static_cast<wxTextCtrl *>(FindWindowByName("MultiTextBox"));
+    ((wxTextCtrl *)obj)->SetValue(wxString::Format("x %.1f", cpuInfo.multi));
+    obj = static_cast<wxTextCtrl *>(FindWindowByName("FsbTextBox"));
+    ((wxTextCtrl *)obj)->SetValue(wxString::Format("%.2f MHz", cpuInfo.fsb));
+    obj = static_cast<wxTextCtrl *>(FindWindowByName("DramTextBox"));
+    ((wxTextCtrl *)obj)->SetValue(wxString::Format("%.2f MHz", cpuInfo.dram));
 }

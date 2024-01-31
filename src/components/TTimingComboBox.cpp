@@ -1,39 +1,50 @@
 // TTimingComboBox.cpp
 
-#include "TTimingComboBox.h"
+#include "components/TTimingComboBox.h"
 
 TTimingComboBox::TTimingComboBox(wxWindow* parent,
                                  const wxString& name,
                                  const wxString& value,
-                                 const wxPoint& pos,
                                  const wxSize& size,
                                  const int min,
-                                 const int max)
-    : wxOwnerDrawnComboBox(parent, wxID_ANY, value, pos, size, wxArrayString(), 0, wxDefaultValidator, name),
+                                 const int max,
+                                 const bool editable)
+    : wxOwnerDrawnComboBox(parent, wxID_ANY, value, wxDefaultPosition, size, wxArrayString(), editable ? 0 : wxCB_READONLY, wxDefaultValidator, name),
       tMin(min),
       tMax(max),
       tValue(0),
       tIndex(0),
-      isChanged(false)
-{
+      isChanged(false),
+      isOpened(false) {
+
     originalBackground = GetBackgroundColour();
 
-    SetBackgroundColour(originalBackground);
-    SetEditable(false);
-    SetCursor(wxCursor(wxCURSOR_DEFAULT));
+    if (editable) {
+        SetBackgroundColour(originalBackground);
+        SetPopupMaxHeight(200);
+        //SetEditable(false);
+    } else {
+        Enable(false);
+    }
+
+    wxTextCtrl* textCtrl = this->GetTextCtrl();
+    if (textCtrl) {
+        textCtrl->SetEditable(false);
+        textCtrl->Bind(wxEVT_LEFT_DOWN, &TTimingComboBox::OnTextCtrlClick, this);
+        textCtrl->Bind(wxEVT_PAINT, &TTimingComboBox::OnPaint, this);
+        SetTextCtrlStyle(wxTE_READONLY | wxBORDER_NONE);
+    }
 
     CreateItems();
 
     Bind(wxEVT_COMBOBOX, &TTimingComboBox::OnComboBox, this);
     Bind(wxEVT_COMBOBOX_DROPDOWN, &TTimingComboBox::OnDropDown, this);
     Bind(wxEVT_COMBOBOX_CLOSEUP, &TTimingComboBox::OnCloseUp, this);
-    Bind(wxEVT_PAINT, &TTimingComboBox::OnPaint, this);
+    //Bind(wxEVT_PAINT, &TTimingComboBox::OnPaint, this);
 }
 
-void TTimingComboBox::CreateItems()
-{
-    for (int i = tMin; i <= tMax; i++)
-    {
+void TTimingComboBox::CreateItems() {
+    for (int i = tMin; i <= tMax; i++) {
         Append(wxString::Format("%d", i));
     }
 }
@@ -49,35 +60,29 @@ void TTimingComboBox::OnDrawItem(wxDC& dc, const wxRect& rect, int item, int fla
 }
 */
 
-void TTimingComboBox::OnDropDown(wxCommandEvent& event)
-{
+void TTimingComboBox::OnDropDown(wxCommandEvent& event) {
     SetBackgroundColour(originalBackground);
     Refresh();
     event.Skip();
 }
 
-void TTimingComboBox::OnCloseUp(wxCommandEvent& event)
-{
-    if (isChanged)
-    {
+void TTimingComboBox::OnCloseUp(wxCommandEvent& event) {
+    if (isChanged) {
         SetBackgroundColour(*wxYELLOW);
     }
     Refresh();
     event.Skip();
 }
 
-void TTimingComboBox::OnComboBox(wxCommandEvent& event)
-{
+void TTimingComboBox::OnComboBox(wxCommandEvent& event) {
     isChanged = (tIndex != GetSelection());
     SetBackgroundColour(isChanged ? *wxYELLOW : originalBackground);
     Refresh();
     event.Skip();
 }
 
-void TTimingComboBox::SetValue(int value)
-{
-    if (value >= tMin && value <= tMax)
-    {
+void TTimingComboBox::SetValue(int value) {
+    if (value >= tMin && value <= tMax) {
         SetSelection(value - tMin);
         tValue = value;
         tIndex = GetSelection();
@@ -87,19 +92,14 @@ void TTimingComboBox::SetValue(int value)
     }
 }
 
-void TTimingComboBox::SetItemValue(int value)
-{
-    if (value >= tMin && value <= tMax)
-    {
+void TTimingComboBox::SetItemValue(int value) {
+    if (value >= tMin && value <= tMax) {
         int index = FindString(wxString::Format("%d", value));
 
-        if (index == wxNOT_FOUND)
-        {
+        if (index == wxNOT_FOUND) {
             index = 0;
-            for (unsigned int i = 0; i < GetCount(); i++)
-            {
-                if (value > wxAtoi(GetString(i)))
-                {
+            for (unsigned int i = 0; i < GetCount(); i++) {
+                if (value > wxAtoi(GetString(i))) {
                     index++;
                 }
             }
@@ -116,17 +116,24 @@ void TTimingComboBox::SetItemValue(int value)
     }
 }
 
-void TTimingComboBox::SetChanged()
-{
+void TTimingComboBox::SetChanged() {
     isChanged = true;
     SetBackgroundColour(*wxYELLOW);
     Refresh();
 }
 
-void TTimingComboBox::OnPaint(wxPaintEvent& event)
-{
-    event.Skip();
+void TTimingComboBox::OnPaint(wxPaintEvent& event) {
     SetSelection(0, 0);
     HideCaret(NULL);
     SetCursor(wxCursor(wxCURSOR_DEFAULT));
+    event.Skip();
+}
+
+void TTimingComboBox::OnTextCtrlClick(wxMouseEvent& event) {
+    if (IsPopupWindowState(Hidden)) {
+        Popup();
+    } else if (IsPopupWindowState(Visible)) {
+        Dismiss();
+    }
+    event.Skip(false);
 }
