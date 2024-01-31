@@ -2,28 +2,16 @@
 
 #include "components/TAdvancedEdit.h"
 
-TAdvancedEdit::TAdvancedEdit(wxWindow* parent,
-                             const wxString& name,
-                             const wxString& value,
-                             const wxPoint& pos)
-    : wxTextCtrl(parent, wxID_ANY, value, pos, wxSize(26, 21),
-                 (wxTE_CAPITALIZE | wxTE_CENTRE | wxTE_NO_VSCROLL | wxTE_DONTWRAP) & ~wxHSCROLL,
-                 wxDefaultValidator,
-                 name) {
+TAdvancedEdit::TAdvancedEdit(wxWindow* parent, const wxString& name, const wxString& value, const wxPoint& pos)
+    : wxTextCtrl(parent, wxID_ANY, value, pos, wxSize(26, 21), (wxTE_CAPITALIZE | wxTE_CENTRE | wxTE_NO_VSCROLL | wxTE_DONTWRAP) & ~wxHSCROLL, wxDefaultValidator, name),
+      isChanged(false),
+      savedValue(value),
+      initialBackgroundColor(GetBackgroundColour()) {
 
     SetMaxLength(2);
     SetMaxSize(wxSize(26, -1));
     SetMinSize(wxSize(26, -1));
     SetModified(false);
-
-    // Decrease font size
-    // wxFont font = GetFont();
-    // font.SetPointSize(font.GetPointSize() - 1);
-    // SetFont(font);
-
-    savedValue = value.Upper();
-    initialBackgroundColor = GetBackgroundColour();
-    isChanged = false;
 
     Bind(wxEVT_TEXT, &TAdvancedEdit::OnTextChanged, this);
     Bind(wxEVT_KEY_DOWN, &TAdvancedEdit::OnKeyPress, this);
@@ -32,10 +20,9 @@ TAdvancedEdit::TAdvancedEdit(wxWindow* parent,
 }
 
 void TAdvancedEdit::OnTextChanged(wxCommandEvent& event) {
+    long insertionPoint = this->GetInsertionPoint();
     wxString newValue = event.GetString().Upper();
     isChanged = newValue != savedValue;
-
-    long insertionPoint = this->GetInsertionPoint();
     ChangeValue(newValue);
     SetInsertionPoint(insertionPoint);
 

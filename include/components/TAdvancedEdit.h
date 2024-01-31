@@ -1,5 +1,5 @@
-#ifndef TADVANCEDEDIT_H
-#define TADVANCEDEDIT_H
+#ifndef T_ADVANCED_EDIT_H
+#define T_ADVANCED_EDIT_H
 
 #pragma once
 
@@ -26,5 +26,5 @@ private:
     void OnClick(wxMouseEvent& event);
 };
 
-#endif // TADVANCEDEDIT_H
+#endif // T_ADVANCED_EDIT_H
 

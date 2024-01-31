@@ -1,5 +1,6 @@
 #include "ChipsetPanel.h"
 #include "components/TTimingComboBox.h"
+#include "components/TReadonlyTextBox.h"
 
 ChipsetPanel::ChipsetPanel(wxWindow* parent)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, wxPanelNameStr) {
@@ -82,9 +83,7 @@ void ChipsetPanel::AddControls() {
 
     wxBoxSizer* s1 = new wxBoxSizer(wxHORIZONTAL);
     wxSlider* pllSlider = new wxSlider(this, wxID_ANY, 50, 30, 350);
-    // @TODO: Replace with component
-    wxTextCtrl* pllSliderValue = new wxTextCtrl(this, wxID_ANY, wxString::Format("%.2f MHz", 222.34), wxDefaultPosition, wxSize(84, 18),
-            wxTE_READONLY | wxTE_CENTER | wxBORDER_STATIC, wxDefaultValidator, "PllSliderValue");
+    TReadonlyTextBox* pllSliderValue = new TReadonlyTextBox(this, wxString::Format("%.2f MHz", 222.34), 84, _T("PllSliderValue"));
 
     wxButton* buttonPllPrev = new wxButton(this, wxID_ANY, _T("3"), wxDefaultPosition, wxSize(18, 18));
     wxFont btnFont = buttonPllPrev->GetFont();
@@ -108,9 +107,7 @@ void ChipsetPanel::AddControls() {
 
     wxBoxSizer* s2 = new wxBoxSizer(wxHORIZONTAL);
     wxSlider* pciSlider = new wxSlider(this, wxID_ANY, 66, 0, 166);
-    // @TODO: Replace with component
-    wxTextCtrl* pciSliderValue = new wxTextCtrl(this, wxID_ANY, wxString::Format("%.2f / %.2f", 66.67, 33.33), wxDefaultPosition, wxSize(84, 18),
-            wxTE_READONLY | wxTE_CENTER | wxBORDER_STATIC, wxDefaultValidator, "PllSliderValue");
+    TReadonlyTextBox* pciSliderValue = new TReadonlyTextBox(this, wxString::Format("%.2f / %.2f", 66.67, 33.33), 84, _T("PciSliderValue"));
 
     wxButton* buttonPciPrev = new wxButton(this, wxID_ANY, _T("3"), wxDefaultPosition, wxSize(18, 18));
     //wxFont btnFont = buttonPciPrev->GetFont();

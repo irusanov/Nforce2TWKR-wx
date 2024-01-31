@@ -3037,7 +3037,7 @@
 	"panels/InfoPanel.h"
 	"panels/ChipsetPanel.h"
 
-1706656762 c:\git\nforce2twkr-wx\utils\utils.h
+1706670020 c:\git\nforce2twkr-wx\utils\utils.h
 	<windows.h>
 	"wx/string.h"
 	"Types.h"
@@ -3064,7 +3064,7 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1706669599 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1706671386 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
@@ -3095,7 +3095,7 @@
 	"Constants.h"
 	"ols/OlsApiInitExt.h"
 
-1706631011 c:\git\nforce2twkr-wx\version.h
+1706670020 c:\git\nforce2twkr-wx\version.h
 
 1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\notebook.h
 	"wx/defs.h"
@@ -3164,7 +3164,7 @@
 1706660863 c:\git\nforce2twkr-wx\include\types.h
 	<string>
 
-1706662488 c:\git\nforce2twkr-wx\include\constants.h
+1706670034 c:\git\nforce2twkr-wx\include\constants.h
 	"Types.h"
 
 1706184032 c:\git\nforce2twkr-wx\include\version.h
@@ -3315,7 +3315,7 @@
 1706401598 source:c:\git\nforce2twkr-wx\src\dialogs\profilepreloadwindow.cpp
 	"dialogs/ProfilePreloadWindow.h"
 
-1706667886 source:c:\git\nforce2twkr-wx\src\dialogs\settingswindow.cpp
+1706670020 source:c:\git\nforce2twkr-wx\src\dialogs\settingswindow.cpp
 	"dialogs/SettingsWindow.h"
 
 1706236589 c:\git\nforce2twkr-wx\include\dialogs\validationbotwindow.h
@@ -3323,7 +3323,7 @@
 	<wx/timer.h>
 	"AppSettings.h"
 
-1706237802 source:c:\git\nforce2twkr-wx\src\dialogs\validationbotwindow.cpp
+1706670020 source:c:\git\nforce2twkr-wx\src\dialogs\validationbotwindow.cpp
 	"dialogs/ValidationBotWindow.h"
 
 1706317122 source:c:\git\nforce2twkr-wx\customcombobox.cpp
@@ -3378,10 +3378,11 @@
 	"components/TAdvancedEdit.h"
 	"components/TTimingComboBox.h"
 
-1706659562 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
+1706674778 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
 	"InfoPanel.h"
+	"components/TReadonlyTextBox.h"
 
-1706659546 c:\git\nforce2twkr-wx\include\panels\infopanel.h
+1706672733 c:\git\nforce2twkr-wx\include\panels\infopanel.h
 	"wx/wx.h"
 	"Cpu.h"
 
@@ -3391,11 +3392,11 @@
 1706628629 c:\git\nforce2twkr-wx\include\panels\chipsetpanel.h
 	"wx/wx.h"
 
-1706669596 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
+1706670020 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
 	"ChipsetPanel.h"
 	"components/TTimingComboBox.h"
 
-1706464477 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
+1706672002 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
 	<wx/wx.h>
 
 1706576203 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
@@ -3406,12 +3407,18 @@
 	<wx/wx.h>
 	<wx/combo.h>
 
-1706630087 source:c:\git\nforce2twkr-wx\src\components\customcombobox.cpp
+1706670020 source:c:\git\nforce2twkr-wx\src\components\customcombobox.cpp
 	"components/CustomComboBox.h"
 
-1706630598 source:c:\git\nforce2twkr-wx\src\components\tadvancededit.cpp
+1706673212 source:c:\git\nforce2twkr-wx\src\components\tadvancededit.cpp
 	"components/TAdvancedEdit.h"
 
 1706630108 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
 	"components/TTimingComboBox.h"
+
+1706674547 source:c:\git\nforce2twkr-wx\src\components\treadonlytextbox.cpp
+	"components/TReadonlyTextBox.h"
+
+1706674526 c:\git\nforce2twkr-wx\include\components\treadonlytextbox.h
+	<wx/wx.h>
 

@@ -13,8 +13,10 @@
 				<Option type="0" />
 				<Option compiler="tdm-gcc_471_32bit" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-march=athlon" />
+					<Add option="-O3" />
 					<Add option="-Wall" />
+					<Add option="-std=gnu++11" />
 					<Add option="-std=c++11" />
 					<Add option="-m32" />
 					<Add option="-pipe" />
