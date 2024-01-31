@@ -125,7 +125,7 @@ const timing_def_t chipsetTimingDefs[] = {
     { "AGPSBA",                 0,  0,  0, 0x48,  9,  1 },
     { "AGPControllerLatency",   0, 30,  0, 0x0C,  8,  8 },
     { "AGPBusLatency",          0, 30,  0, 0x18, 24,  8 },
-    { "PCILatency",             0,  8,  0, 0x18, 24,  8 },
+    { "PCILatencyTimer",        0,  8,  0, 0x18, 24,  8 },
     { "PCIFrequency",           0,  0,  3, 0x78,  0, 16 },
     //{ "DIMM_B0_CFG",          0,  0,  2, 0x40,  0,  1 },
     //{ "DIMM_B1_CFG",          0,  0,  2, 0x44,  0,  1 },
