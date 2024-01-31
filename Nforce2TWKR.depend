@@ -3364,7 +3364,7 @@
 	"dialogs/ProfilePreloadWindow.h"
 	"dialogs/ValidationBotWindow.h"
 
-1706625319 source:c:\git\nforce2twkr-wx\src\panels\drampanel.cpp
+1706675396 source:c:\git\nforce2twkr-wx\src\panels\drampanel.cpp
 	"panels/DramPanel.h"
 	<wx/gbsizer.h>
 
@@ -3378,7 +3378,7 @@
 	"components/TAdvancedEdit.h"
 	"components/TTimingComboBox.h"
 
-1706674778 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
+1706675297 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
 	"InfoPanel.h"
 	"components/TReadonlyTextBox.h"
 
@@ -3392,9 +3392,10 @@
 1706628629 c:\git\nforce2twkr-wx\include\panels\chipsetpanel.h
 	"wx/wx.h"
 
-1706670020 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
+1706675090 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
 	"ChipsetPanel.h"
 	"components/TTimingComboBox.h"
+	"components/TReadonlyTextBox.h"
 
 1706672002 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
 	<wx/wx.h>
