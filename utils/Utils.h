@@ -8,8 +8,7 @@ using namespace std;
 #include "Types.h"
 #include "../version.h"
 
-class Utils
-{
+class Utils {
 public:
     static unsigned int SetBits(unsigned int val, int offset, int n, unsigned int newValue);
     static unsigned int GetBits(unsigned int val, int offset, int n);

@@ -13,11 +13,11 @@ private:
 
     AppSettings* settings;
 
-    wxCheckBox* CheckBoxMinimizeToTray;
-    wxCheckBox* CheckBoxSaveWindowPosition;
-    wxButton* ButtonResetSettings;
-    wxButton* ButtonClose;
-    wxButton* ButtonApplySettings;
+    wxCheckBox* checkBoxMinimizeToTray;
+    wxCheckBox* checkBoxSaveWindowPosition;
+    wxButton* buttonResetSettings;
+    wxButton* buttonClose;
+    wxButton* buttonApplySettings;
 
     void OnApplySettings(wxCommandEvent& event);
     void OnResetSettings(wxCommandEvent& event);

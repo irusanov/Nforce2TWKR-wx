@@ -34,7 +34,7 @@ public:
 
     HMODULE m_hOpenLibSys;
     wxIcon appIcon16x16;
-    wxIcon appIcon64x64;
+    wxIcon appIcon48x48;
     wxIcon appIcon;
     Cpu* cpu;
     AppSettings settings;

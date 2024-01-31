@@ -76,31 +76,33 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
         exit(-1);
     }
 
+    wxFont font = this->GetFont();
+    font.SetFaceName(_T("Tahoma"));
+    font.SetPointSize(8);
+    this->SetFont(font);
+
     settings.Load();
     profiles.Init();
 
     // App icon
     Nforce2TWKRFrame::appIcon = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, -1, -1);
     Nforce2TWKRFrame::appIcon16x16 = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, 16, 16);
-    Nforce2TWKRFrame::appIcon64x64 = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, 64, 64);
+    Nforce2TWKRFrame::appIcon48x48 = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, 48, 48);
 
     trayIcon = new wxTaskBarIcon();
     trayIcon->SetIcon(appIcon);
 
-    wxFont font = this->GetFont();
-    font.SetFaceName(_T("Tahoma"));
-    font.SetPointSize(8);
-    this->SetFont(font);
-
     // Create main frame and menu bar
     Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX), _T("id"));
     SetIcon(appIcon16x16);
-    SetClientSize(wxSize(380, 476));
+    //SetClientSize(wxSize(380, 478));
+    SetMaxClientSize(wxSize(380, -1));
     SetTitle(_("NForce2 TWKR " + Utils::GetAppVersion()));
     Center(wxCENTER_ON_SCREEN);
 
     // MainPanel
     mainTabs = new wxNotebook(this, wxID_ANY);
+    mainTabs->SetDoubleBuffered(true);
 
     wxColor bgColor = wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE);
     if (bgColor.IsOk()) {
@@ -122,14 +124,12 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
     // Buttons
     wxBoxSizer* buttonSizer = new wxBoxSizer(wxHORIZONTAL);
     buttonSizer->AddStretchSpacer();
-    wxButton* refreshButton = new wxButton(this, wxID_REFRESH , "Refresh");
+    wxButton* refreshButton = new wxButton(this, wxID_REFRESH, "Refresh");
     buttonSizer->Add(refreshButton, 0, wxRIGHT | wxLEFT, 2);
     wxButton* applyButton = new wxButton(this, wxID_APPLY, "Apply");
-    // applyButton->SetDefault();
-    buttonSizer->Add(applyButton, 0, wxRIGHT, 2);
-    mainSizer->Add(buttonSizer, 0, wxEXPAND | wxBOTTOM, 2);
-
-    SetSizer(mainSizer);
+    refreshButton->SetDefault();
+    buttonSizer->Add(applyButton, 0);
+    mainSizer->Add(buttonSizer, 0, wxEXPAND | wxALL, 2);
 
     // MenuBar
     wxMenuBar* menuBar = new wxMenuBar();
@@ -167,6 +167,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
     SetStatusBar(statusBar);
     */
 
+    SetSizerAndFit(mainSizer);
     wxLogStatus(_T("OK"));
 }
 
@@ -202,14 +203,14 @@ void Nforce2TWKRFrame::OnOpenSettings(wxCommandEvent& event) {
 
 void Nforce2TWKRFrame::OnAbout(wxCommandEvent& WXUNUSED(event)) {
     wxAboutDialogInfo aboutInfo;
-    aboutInfo.SetIcon(appIcon64x64);
+    aboutInfo.SetIcon(appIcon48x48);
     aboutInfo.SetName("NForce2 TWKR");
     aboutInfo.SetVersion(Utils::GetAppVersion());
     aboutInfo.SetDescription(wxString::Format("Build date: %s", Utils::GetBuildDate()));
     aboutInfo.SetCopyright("(C) 2021-2024 Ivan Rusanov");
     aboutInfo.SetWebSite("https://github.com/irusanov/Nforce2TWKR-wx");
 
-    wxAboutBox(aboutInfo);
+    wxAboutBox(aboutInfo, this);
 }
 
 void Nforce2TWKRFrame::OnRefreshButtonClick(wxCommandEvent& event) {
@@ -234,8 +235,7 @@ void Nforce2TWKRFrame::OnRefreshButtonClick(wxCommandEvent& event) {
     }*/
 }
 
-void Nforce2TWKRFrame::OnPageChanged(wxBookCtrlEvent& event)
-{
+void Nforce2TWKRFrame::OnPageChanged(wxBookCtrlEvent& event) {
     currentPageIndex = event.GetSelection();
 
     if (currentPageIndex > 0) {

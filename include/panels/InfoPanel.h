@@ -16,7 +16,7 @@ private:
     void AddControls();
     void Label(wxBoxSizer* sizer, wxWindow* parent, wxString label = wxEmptyString, int width = -1, bool expand = false);
     void TextBox(wxBoxSizer* sizer, wxWindow* parent, wxString value = wxEmptyString, int width = -1,
-                   bool expand = false, wxString name = wxTextCtrlNameStr);
+                 bool expand = false, wxString name = wxTextCtrlNameStr);
     void OnSetFocus(wxFocusEvent& event);
 };
 

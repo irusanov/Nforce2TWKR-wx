@@ -13,8 +13,8 @@ wxBEGIN_EVENT_TABLE(ValidationBotDialog, wxDialog)
 wxEND_EVENT_TABLE()
 
 ValidationBotDialog::ValidationBotDialog(wxWindow* parent, const wxString& title, AppSettings& appSettings)
-    : wxDialog(parent, wxID_ANY, title, wxDefaultPosition), hWndCpuz(NULL) {
-    settings = &appSettings;
+    : wxDialog(parent, wxID_ANY, title, wxDefaultPosition), hWndCpuz(NULL),
+      settings(&appSettings) {
     InitControls();
     CreateLayout();
     LoadBotSettings();
@@ -72,11 +72,10 @@ void ValidationBotDialog::CreateLayout() {
     buttonSizer->Add(buttonBotRun, 0, wxALIGN_RIGHT);
 
     sizer->Add(buttonSizer, 0, wxALIGN_CENTER | wxALL, 10);
-
     sizer->Add(statusBarBot, 0, wxEXPAND | wxALL, 5);
 
     SetSizerAndFit(sizer);
-    CentreOnParent();
+    CenterOnParent();
 }
 
 void ValidationBotDialog::LoadBotSettings() {

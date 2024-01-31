@@ -3021,7 +3021,7 @@
 	<wx/app.h>
 	<windows.h>
 
-1706660684 c:\git\nforce2twkr-wx\nforce2twkrmain.h
+1706669389 c:\git\nforce2twkr-wx\nforce2twkrmain.h
 	<string>
 	"Constants.h"
 	"Types.h"
@@ -3064,7 +3064,7 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1706660743 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1706669599 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
@@ -3308,14 +3308,14 @@
 	"../../Nforce2TWKRMain.h"
 	"../../utils/ProfilesManager.h"
 
-1706233259 c:\git\nforce2twkr-wx\include\dialogs\settingswindow.h
+1706669800 c:\git\nforce2twkr-wx\include\dialogs\settingswindow.h
 	<wx/wx.h>
 	"AppSettings.h"
 
 1706401598 source:c:\git\nforce2twkr-wx\src\dialogs\profilepreloadwindow.cpp
 	"dialogs/ProfilePreloadWindow.h"
 
-1706506038 source:c:\git\nforce2twkr-wx\src\dialogs\settingswindow.cpp
+1706667886 source:c:\git\nforce2twkr-wx\src\dialogs\settingswindow.cpp
 	"dialogs/SettingsWindow.h"
 
 1706236589 c:\git\nforce2twkr-wx\include\dialogs\validationbotwindow.h
@@ -3391,8 +3391,9 @@
 1706628629 c:\git\nforce2twkr-wx\include\panels\chipsetpanel.h
 	"wx/wx.h"
 
-1706629474 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
+1706669596 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
 	"ChipsetPanel.h"
+	"components/TTimingComboBox.h"
 
 1706464477 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
 	<wx/wx.h>

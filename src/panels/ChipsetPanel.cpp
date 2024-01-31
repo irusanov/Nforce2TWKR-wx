@@ -81,18 +81,18 @@ void ChipsetPanel::AddControls() {
     //wxStaticBox* staticBoxFsb = fsbGroupSizer->GetStaticBox();
 
     wxBoxSizer* s1 = new wxBoxSizer(wxHORIZONTAL);
-    wxSlider* pllSlider = new wxSlider(this, wxID_ANY, 50, 30, 350, wxDefaultPosition, wxSize(-1, 20));
+    wxSlider* pllSlider = new wxSlider(this, wxID_ANY, 50, 30, 350);
     // @TODO: Replace with component
-    wxTextCtrl* pllSliderValue = new wxTextCtrl(this, wxID_ANY, wxString::Format("%.2f MHz", 222.34), wxDefaultPosition, wxSize(84, 20),
-                                          wxTE_READONLY | wxTE_CENTER | wxBORDER_STATIC, wxDefaultValidator, "PllSliderValue");
+    wxTextCtrl* pllSliderValue = new wxTextCtrl(this, wxID_ANY, wxString::Format("%.2f MHz", 222.34), wxDefaultPosition, wxSize(84, 18),
+            wxTE_READONLY | wxTE_CENTER | wxBORDER_STATIC, wxDefaultValidator, "PllSliderValue");
 
-    wxButton* buttonPllPrev = new wxButton(this, wxID_ANY, _T("3"), wxDefaultPosition, wxSize(20, 20));
+    wxButton* buttonPllPrev = new wxButton(this, wxID_ANY, _T("3"), wxDefaultPosition, wxSize(18, 18));
     wxFont btnFont = buttonPllPrev->GetFont();
     btnFont.SetFaceName(_T("Webdings"));
     btnFont.SetPointSize(10);
     buttonPllPrev->SetFont(btnFont);
 
-    wxButton* buttonPllNext = new wxButton(this, wxID_ANY, "4", wxDefaultPosition, wxSize(20, 20));
+    wxButton* buttonPllNext = new wxButton(this, wxID_ANY, "4", wxDefaultPosition, wxSize(18, 18));
     buttonPllNext->SetFont(btnFont);
 
     s1->Add(pllSlider, 1, wxEXPAND | wxALL, 0);
@@ -107,18 +107,18 @@ void ChipsetPanel::AddControls() {
     //wxStaticBox* staticBoxAgp = agpGroupSizer->GetStaticBox();
 
     wxBoxSizer* s2 = new wxBoxSizer(wxHORIZONTAL);
-    wxSlider* pciSlider = new wxSlider(this, wxID_ANY, 66, 0, 166, wxDefaultPosition, wxSize(-1, 20));
+    wxSlider* pciSlider = new wxSlider(this, wxID_ANY, 66, 0, 166);
     // @TODO: Replace with component
-    wxTextCtrl* pciSliderValue = new wxTextCtrl(this, wxID_ANY, wxString::Format("%.2f / %.2f", 66.67, 33.33), wxDefaultPosition, wxSize(84, 20),
-                                          wxTE_READONLY | wxTE_CENTER | wxBORDER_STATIC, wxDefaultValidator, "PllSliderValue");
+    wxTextCtrl* pciSliderValue = new wxTextCtrl(this, wxID_ANY, wxString::Format("%.2f / %.2f", 66.67, 33.33), wxDefaultPosition, wxSize(84, 18),
+            wxTE_READONLY | wxTE_CENTER | wxBORDER_STATIC, wxDefaultValidator, "PllSliderValue");
 
-    wxButton* buttonPciPrev = new wxButton(this, wxID_ANY, _T("3"), wxDefaultPosition, wxSize(20, 20));
+    wxButton* buttonPciPrev = new wxButton(this, wxID_ANY, _T("3"), wxDefaultPosition, wxSize(18, 18));
     //wxFont btnFont = buttonPciPrev->GetFont();
     //btnFont.SetFaceName(_T("Webdings"));
     //btnFont.SetPointSize(10);
     buttonPciPrev->SetFont(btnFont);
 
-    wxButton* buttonPciNext = new wxButton(this, wxID_ANY, "4", wxDefaultPosition, wxSize(20, 20));
+    wxButton* buttonPciNext = new wxButton(this, wxID_ANY, "4", wxDefaultPosition, wxSize(18, 18));
     buttonPciNext->SetFont(btnFont);
 
     s2->Add(pciSlider, 1, wxEXPAND | wxALL, 0);

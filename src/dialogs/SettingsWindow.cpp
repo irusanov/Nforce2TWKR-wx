@@ -9,29 +9,29 @@ wxBEGIN_EVENT_TABLE(SettingsWindow, wxDialog)
 wxEND_EVENT_TABLE()
 
 SettingsWindow::SettingsWindow(wxWindow* parent, const wxString& title, AppSettings& appSettings)
-    : wxDialog(parent, wxID_ANY, title, wxDefaultPosition) {
+    : wxDialog(parent, wxID_ANY, title, wxDefaultPosition),
+      settings(&appSettings) {
+    CenterOnParent();
     wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
 
-    settings = &appSettings;
-
     // Checkboxes
-    CheckBoxMinimizeToTray = new wxCheckBox(this, wxID_ANY, "Minimize to Tray");
-    CheckBoxSaveWindowPosition = new wxCheckBox(this, wxID_ANY, "Save Window Position");
+    checkBoxMinimizeToTray = new wxCheckBox(this, wxID_ANY, "Minimize to Tray");
+    checkBoxSaveWindowPosition = new wxCheckBox(this, wxID_ANY, "Save Window Position");
 
-    mainSizer->Add(CheckBoxMinimizeToTray, 0, wxALL, 10);
-    mainSizer->Add(CheckBoxSaveWindowPosition, 0, wxALL & ~wxTOP, 10);
+    mainSizer->Add(checkBoxMinimizeToTray, 0, wxALL, 10);
+    mainSizer->Add(checkBoxSaveWindowPosition, 0, wxALL & ~wxTOP, 10);
 
     // Buttons
     wxBoxSizer* buttonSizer = new wxBoxSizer(wxHORIZONTAL);
-    ButtonResetSettings = new wxButton(this, wxID_RESET, "Reset");
-    ButtonClose = new wxButton(this, wxID_CLOSE, "Close");
-    ButtonApplySettings = new wxButton(this, wxID_APPLY, "Apply");
+    buttonResetSettings = new wxButton(this, wxID_RESET, "Reset");
+    buttonClose = new wxButton(this, wxID_CLOSE, "Close");
+    buttonApplySettings = new wxButton(this, wxID_APPLY, "Apply");
 
-    buttonSizer->Add(ButtonResetSettings, 0, wxLEFT | wxRIGHT, 10);
-    buttonSizer->Add(ButtonClose, 0, wxLEFT, 40);
-    buttonSizer->Add(ButtonApplySettings, 0, wxLEFT | wxRIGHT, 10);
+    buttonSizer->Add(buttonResetSettings, 0);
+    buttonSizer->Add(buttonClose, 0, wxLEFT, 50);
+    buttonSizer->Add(buttonApplySettings, 0, wxLEFT, 5);
 
-    mainSizer->Add(buttonSizer, 0, wxALIGN_RIGHT | wxBOTTOM | wxTOP, 5);
+    mainSizer->Add(buttonSizer, 0, wxALIGN_RIGHT | wxALL, 10);
 
     SetSizerAndFit(mainSizer);
 
@@ -39,14 +39,14 @@ SettingsWindow::SettingsWindow(wxWindow* parent, const wxString& title, AppSetti
 }
 
 void SettingsWindow::LoadOptions() {
-    CheckBoxMinimizeToTray->SetValue(settings->MinimizeToTray);
-    CheckBoxSaveWindowPosition->SetValue(settings->SaveWindowPosition);
-    ButtonApplySettings->Enable(false);
+    checkBoxMinimizeToTray->SetValue(settings->MinimizeToTray);
+    checkBoxSaveWindowPosition->SetValue(settings->SaveWindowPosition);
+    buttonApplySettings->Enable(false);
 }
 
 void SettingsWindow::OnApplySettings(wxCommandEvent& event) {
-    settings->MinimizeToTray = CheckBoxMinimizeToTray->GetValue();
-    settings->SaveWindowPosition = CheckBoxSaveWindowPosition->GetValue();
+    settings->MinimizeToTray = checkBoxMinimizeToTray->GetValue();
+    settings->SaveWindowPosition = checkBoxSaveWindowPosition->GetValue();
     settings->Save();
     LoadOptions();
 }
@@ -65,9 +65,9 @@ void SettingsWindow::OnClose(wxCommandEvent& event) {
 }
 
 void SettingsWindow::OnMinimizeToTrayClick(wxCommandEvent& event) {
-    ButtonApplySettings->Enable(true);
+    buttonApplySettings->Enable(true);
 }
 
 void SettingsWindow::OnSaveWindowPositionClick(wxCommandEvent& event) {
-    ButtonApplySettings->Enable(true);
+    buttonApplySettings->Enable(true);
 }
