@@ -14,9 +14,8 @@
 				<Option compiler="tdm-gcc_471_32bit" />
 				<Compiler>
 					<Add option="-march=athlon" />
-					<Add option="-O3" />
+					<Add option="-O2" />
 					<Add option="-Wall" />
-					<Add option="-std=gnu++11" />
 					<Add option="-std=c++11" />
 					<Add option="-m32" />
 					<Add option="-pipe" />
@@ -79,6 +78,7 @@
 		<Unit filename="include/Types.h" />
 		<Unit filename="include/components/CustomComboBox.h" />
 		<Unit filename="include/components/TAdvancedEdit.h" />
+		<Unit filename="include/components/TReadonlyTextBox.h" />
 		<Unit filename="include/components/TTimingComboBox.h" />
 		<Unit filename="include/dialogs/ProfilePreloadWindow.h" />
 		<Unit filename="include/dialogs/SettingsWindow.h" />
@@ -101,6 +101,7 @@
 		<Unit filename="src/Cpu.cpp" />
 		<Unit filename="src/components/CustomComboBox.cpp" />
 		<Unit filename="src/components/TAdvancedEdit.cpp" />
+		<Unit filename="src/components/TReadonlyTextBox.cpp" />
 		<Unit filename="src/components/TTimingComboBox.cpp" />
 		<Unit filename="src/dialogs/ProfilePreloadWindow.cpp" />
 		<Unit filename="src/dialogs/SettingsWindow.cpp" />

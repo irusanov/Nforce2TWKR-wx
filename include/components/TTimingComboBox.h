@@ -21,12 +21,12 @@ public:
 private:
     wxColour originalBackground;
 
-    bool isChanged;
-    bool isOpened;
     int tMin;
     int tMax;
     int tValue;
     int tIndex;
+    bool isChanged;
+    bool isOpened;
 
     void CreateItems();
     // void OnDrawItem(wxDC& dc, const wxRect& rect, int item, int flags) const override;

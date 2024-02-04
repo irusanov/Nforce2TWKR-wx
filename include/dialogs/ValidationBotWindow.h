@@ -16,6 +16,7 @@ private:
     void OnButtonBotRunClick(wxCommandEvent& event);
     void OnTimerBot(wxTimerEvent& event);
 
+    HANDLE hWndCpuz;
     AppSettings* settings;
     wxTimer timerBot;
     wxTextCtrl* editCpuzPath;
@@ -29,7 +30,6 @@ private:
     wxButton* buttonBotRun;
     wxButton* buttonBrowseCpuz;
     wxFileDialog* openFileDialogBot;
-    HANDLE hWndCpuz;
 
     void InitControls();
     void CreateLayout();

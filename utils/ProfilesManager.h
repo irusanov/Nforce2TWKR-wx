@@ -31,7 +31,7 @@ struct profile_metadata_t {
 
 class ProfilesManager {
 private:
-    wxString DefaultPath;
+    wxString defaultPath;
 
     void CreateDirIfNotPresent(const wxString& DirPath);
 
@@ -59,7 +59,7 @@ public:
     void Init();
 
     // Preload profile data
-    profile_metadata_t PreviewMetadata;
+    profile_metadata_t previewMetadata;
 };
 #endif // PROFILESMANAGER_H
 

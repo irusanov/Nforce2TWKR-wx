@@ -21,7 +21,7 @@ CustomComboBox::CustomComboBox(wxWindow* parent, wxWindowID id, const wxString& 
 
 void CustomComboBox::OnComboBox(wxCommandEvent& event) {
     // User changed the selection, set background to yellow
-    SetBackgroundColour(wxColour(255, 255, 0)); // Yellow
+    SetBackgroundColour(*wxYELLOW);
     Refresh();
 }
 
@@ -34,7 +34,7 @@ void CustomComboBox::OnDropDown(wxCommandEvent& event) {
 
 void CustomComboBox::OnCloseUp(wxCommandEvent& event) {
     // Dropdown closed, set background back to yellow
-    SetBackgroundColour(wxColour(255, 255, 0)); // Yellow
+    SetBackgroundColour(*wxYELLOW);
     isDropdownOpen = false;
     Refresh();
 }

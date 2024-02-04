@@ -17,11 +17,11 @@ const wxString romsip[15] = {
 };
 
 ProfilesManager::ProfilesManager() {
-    DefaultPath = wxPathOnly(wxStandardPaths::Get().GetExecutablePath()) + wxFILE_SEP_PATH + "profiles" + wxFILE_SEP_PATH;
+    defaultPath = wxPathOnly(wxStandardPaths::Get().GetExecutablePath()) + wxFILE_SEP_PATH + "profiles" + wxFILE_SEP_PATH;
 }
 
 wxString ProfilesManager::GetDefaultPath() {
-    return DefaultPath;
+    return defaultPath;
 }
 
 void ProfilesManager::CreateDirIfNotPresent(const wxString& DirPath) {
@@ -110,20 +110,20 @@ void ProfilesManager::LoadRomsipValues(wxFileConfig* ini, const wxString& sectio
 profile_metadata_t ProfilesManager::ReadMetadata(const wxString& FilePath) {
     wxFileConfig iniFile(FilePath);
 
-    PreviewMetadata.path = FilePath;
+    previewMetadata.path = FilePath;
 
-    iniFile.Read("PMVersion/Major", &PreviewMetadata.versionMajor, 0);
-    iniFile.Read("PMVersion/Minor", &PreviewMetadata.versionMinor, 0);
-    iniFile.Read("Metadata/Name", &PreviewMetadata.options.name);
-    iniFile.Read("Metadata/Author", &PreviewMetadata.options.author);
-    iniFile.Read("Metadata/Comment", &PreviewMetadata.options.comment);
+    iniFile.Read("PMVersion/Major", &previewMetadata.versionMajor, 0);
+    iniFile.Read("PMVersion/Minor", &previewMetadata.versionMinor, 0);
+    iniFile.Read("Metadata/Name", &previewMetadata.options.name);
+    iniFile.Read("Metadata/Author", &previewMetadata.options.author);
+    iniFile.Read("Metadata/Comment", &previewMetadata.options.comment);
 
-    PreviewMetadata.options.timings = iniFile.HasGroup("Timings");
-    PreviewMetadata.options.dssr = iniFile.HasGroup("DSSR");
-    PreviewMetadata.options.advanced = iniFile.HasGroup("Advanced");
-    PreviewMetadata.options.romsip = iniFile.HasGroup("ROMSIP");
+    previewMetadata.options.timings = iniFile.HasGroup("Timings");
+    previewMetadata.options.dssr = iniFile.HasGroup("DSSR");
+    previewMetadata.options.advanced = iniFile.HasGroup("Advanced");
+    previewMetadata.options.romsip = iniFile.HasGroup("ROMSIP");
 
-    return PreviewMetadata;
+    return previewMetadata;
 }
 
 void ProfilesManager::WriteMetadata(wxFileConfig* ini, const profile_options_t& Opts) {
@@ -205,5 +205,5 @@ bool ProfilesManager::Save(const wxString& FilePath, const profile_options_t& Op
 }
 
 void ProfilesManager::Init() {
-    CreateDirIfNotPresent(DefaultPath);
+    CreateDirIfNotPresent(defaultPath);
 }
