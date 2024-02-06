@@ -208,9 +208,60 @@ const vector<string> tcasChoices = {
     "2.5",
     "3.0",
 };
+
 const vector<string> tcrChoices = {
     "1T",
     "2T",
+};
+
+const vector<string> booleanChoices = {
+    "Disabled",
+    "Enabled",
+};
+
+const vector<string> booleanChoicesReversed = {
+    "Enabled",
+    "Disabled",
+};
+
+const vector<string> dataScavengedRateChoices = {
+    "Fast",
+    "Normal",
+};
+
+const vector<string> driveStrengthModeChoices = {
+    "Normal",
+    "Weak",
+};
+
+const vector<string> burstModeChoices = {
+    "Sequential",
+    "Interleave",
+};
+
+const vector<string> latencyChoices = {
+    "16",
+    "32",
+    "64",
+    "96",
+    "128",
+    "160",
+    "192",
+    "224",
+    "255",
+};
+
+const vector<string> pciLatencyChoices = {
+    "0",
+    "16",
+    "32",
+    "64",
+    "96",
+    "128",
+    "160",
+    "192",
+    "224",
+    "255",
 };
 
 #endif // CONSTANTS_H

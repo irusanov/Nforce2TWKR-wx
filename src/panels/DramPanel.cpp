@@ -105,6 +105,8 @@ void DramPanel::CreateRightStaticBoxes(wxSizer* dramPanelSizer)
     wxGridBagSizer* advancedGridSizer = new wxGridBagSizer(2, 2);
     wxStaticBox* advancedStaticBox = staticBoxTopRight->GetStaticBox();
 
+    wxArrayString booleanChoicesArray = Utils::ConvertToWxArrayString(booleanChoices);
+
     advancedGridSizer->Add(new wxStaticText(advancedStaticBox, wxID_ANY, "DIMM0 Drive Strengths", wxDefaultPosition, wxSize(130, -1)), wxGBPosition(0, 0), wxGBSpan(1, 1), wxALIGN_CENTER_VERTICAL, 0);
     advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "DIMM0DrvStrA", "2", wxSize(40, 21), 0, 15), wxGBPosition(0, 1), wxGBSpan(1, 1));
     advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "DIMM0DrvStrB", "2", wxSize(40, 21), 0, 15), wxGBPosition(0, 2), wxGBSpan(1, 1));
@@ -127,19 +129,19 @@ void DramPanel::CreateRightStaticBoxes(wxSizer* dramPanelSizer)
     advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "DIMM2SlewRate", "7", wxSize(40, 21), 0, 15), wxGBPosition(5, 1), wxGBSpan(1, 1));
 
     advancedGridSizer->Add(new wxStaticText(advancedStaticBox, wxID_ANY, "Auto Precharge"), wxGBPosition(6, 0), wxGBSpan(1, 1), wxALIGN_CENTER_VERTICAL);
-    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "AutoPrecharge", "", wxSize(85, 21), 0, 15), wxGBPosition(6, 1), wxGBSpan(1, 2));
+    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "AutoPrecharge", "", wxSize(85, 21), 0, 1, true, booleanChoicesArray), wxGBPosition(6, 1), wxGBSpan(1, 2));
 
     advancedGridSizer->Add(new wxStaticText(advancedStaticBox, wxID_ANY, "Super Bypass"), wxGBPosition(7, 0), wxGBSpan(1, 1), wxALIGN_CENTER_VERTICAL);
-    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "SuperBypass", "", wxSize(85, 21), 0, 15), wxGBPosition(7, 1), wxGBSpan(1, 2));
+    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "SuperBypass", "", wxSize(85, 21), 0, 1, true, booleanChoicesArray), wxGBPosition(7, 1), wxGBSpan(1, 2));
 
     advancedGridSizer->Add(new wxStaticText(advancedStaticBox, wxID_ANY, "Data Scavenged Rate"), wxGBPosition(8, 0), wxGBSpan(1, 1), wxALIGN_CENTER_VERTICAL);
-    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "DataScavengedRate", "", wxSize(85, 21), 0, 15), wxGBPosition(8, 1), wxGBSpan(1, 2));
+    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "DataScavengedRate", "", wxSize(85, 21), 0, 1, true, Utils::ConvertToWxArrayString(dataScavengedRateChoices)), wxGBPosition(8, 1), wxGBSpan(1, 2));
 
     advancedGridSizer->Add(new wxStaticText(advancedStaticBox, wxID_ANY, "Drive Strength Mode"), wxGBPosition(9, 0), wxGBSpan(1, 1), wxALIGN_CENTER_VERTICAL);
-    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "DriveStrengthMode", "", wxSize(85, 21), 0, 15), wxGBPosition(9, 1), wxGBSpan(1, 2));
+    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "DriveStrengthMode", "", wxSize(85, 21), 0, 1, true, Utils::ConvertToWxArrayString(driveStrengthModeChoices)), wxGBPosition(9, 1), wxGBSpan(1, 2));
 
     advancedGridSizer->Add(new wxStaticText(advancedStaticBox, wxID_ANY, "Burst Mode"), wxGBPosition(10, 0), wxGBSpan(1, 1), wxALIGN_CENTER_VERTICAL);
-    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "BurstMode", "", wxSize(85, 21), 0, 15), wxGBPosition(10, 1), wxGBSpan(1, 2));
+    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "BurstMode", "", wxSize(85, 21), 0, 1, true, Utils::ConvertToWxArrayString(burstModeChoices)), wxGBPosition(10, 1), wxGBSpan(1, 2));
 
     staticBoxTopRight->Add(advancedGridSizer, 1, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 5);
 

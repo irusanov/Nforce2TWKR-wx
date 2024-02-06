@@ -14,7 +14,7 @@ TTimingComboBox::TTimingComboBox(wxWindow* parent,
       tMin(min),
       tMax(max),
       tValue(0),
-      tIndex(0),
+      tIndex(-1),
       isChanged(false),
       customItems(choices) {
 
