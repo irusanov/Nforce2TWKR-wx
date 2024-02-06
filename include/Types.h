@@ -2,6 +2,7 @@
 #define TYPES_H
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -72,6 +73,7 @@ struct control_def_t {
     bool editable;
     unsigned int min;
     unsigned int max;
+    vector<string> customChoices;
 };
 
 #endif // TYPES_H

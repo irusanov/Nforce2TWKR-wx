@@ -1,4 +1,5 @@
 #include "panels/DramPanel.h"
+#include "Constants.h"
 #include <wx/gbsizer.h>
 
 DramPanel::DramPanel(wxWindow* parent, wxWindowID id, const wxPoint& pos,
@@ -27,22 +28,22 @@ void DramPanel::CreateLeftStaticBox(wxSizer* dramPanelSizer)
     wxFlexGridSizer* gridSizer = new wxFlexGridSizer(16, 2, 2, 0);
 
     std::vector<control_def_t> controls = {
-        { "CAS", "TCL", false, 0, 2 },
-        { "TRCDR", "TRCDR", true, 0, 15 },
-        { "TRCDW", "TRCDW", true, 0, 15 },
-        { "TRP", "TRP", true, 0, 15 },
-        { "TRAS", "TRAS", true, 0, 31 },
-        { "TRC", "TRC", true, 0, 31 },
-        { "TRFC", "TRFC", true, 0, 31 },
-        { "CR", "CR", false, 1, 2 },
-        { "TDOE", "TDOE", true, 0, 7 },
-        { "TRRD", "TRRD", true, 0, 7 },
-        { "TWTP", "TWTP", true, 0, 7 },
-        { "TWTR", "TWTR", true, 0, 7 },
-        { "TREXT", "TREXT", true, 0, 3 },
-        { "TRTP", "TRTP", true, 0, 7 },
-        { "TRTW", "TRTW", true, 0, 7 },
-        { "TREF", "TREF", true, 0, 7 },
+        { "CAS", "TCL", true, 0, 2, tcasChoices },
+        { "TRCDR", "TRCDR", true, 0, 15, {} },
+        { "TRCDW", "TRCDW", true, 0, 15, {} },
+        { "TRP", "TRP", true, 0, 15, {} },
+        { "TRAS", "TRAS", true, 0, 31, {} },
+        { "TRC", "TRC", true, 0, 31, {} },
+        { "TRFC", "TRFC", true, 0, 31, {} },
+        { "CR", "CR", true, 1, 2, tcrChoices },
+        { "TDOE", "TDOE", true, 0, 7, {} },
+        { "TRRD", "TRRD", true, 0, 7, {} },
+        { "TWTP", "TWTP", true, 0, 7, {} },
+        { "TWTR", "TWTR", true, 0, 7, {} },
+        { "TREXT", "TREXT", true, 0, 3, {} },
+        { "TRTP", "TRTP", true, 0, 7, {} },
+        { "TRTW", "TRTW", true, 0, 7, {} },
+        { "TREF", "TREF", true, 0, 7, trefChoices },
     };
 
     for (const control_def_t control : controls) {
@@ -50,7 +51,8 @@ void DramPanel::CreateLeftStaticBox(wxSizer* dramPanelSizer)
         wxStaticText* label = new wxStaticText(this, wxID_ANY, control.label);
 
         // ComboBox
-        TTimingComboBox* comboBox = new TTimingComboBox(this, control.name, "2", wxSize(52, 21), control.min, control.max, control.editable);
+        TTimingComboBox* comboBox = new TTimingComboBox(this, control.name, "2", wxSize(52, 21), control.min, control.max,
+                                                        control.editable, Utils::ConvertToWxArrayString(control.customChoices));
 
         // Add label and combobox to the grid sizer
         gridSizer->Add(label, 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
@@ -58,6 +60,8 @@ void DramPanel::CreateLeftStaticBox(wxSizer* dramPanelSizer)
 
         // std::cout << "String: " << stringPart << ", Bool: " << std::boolalpha << boolPart << std::endl;
     }
+
+
 
     // Add the grid sizer to the main sizer
     staticBoxLeft->Add(gridSizer, 1, wxEXPAND, 0);
@@ -76,6 +80,9 @@ void DramPanel::CreateLeftStaticBox(wxSizer* dramPanelSizer)
     */
 
     dramPanelSizer->Add(staticBoxLeft, 0, wxEXPAND | wxALL, 5);
+
+    // TTimingComboBox *obj = static_cast<TTimingComboBox *>(FindWindowByName("TRAS"));
+    // ((TTimingComboBox *)obj)->SetValue("7");
 }
 
 void DramPanel::CreateRightStaticBoxes(wxSizer* dramPanelSizer)
@@ -132,7 +139,7 @@ void DramPanel::CreateRightStaticBoxes(wxSizer* dramPanelSizer)
     advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "DriveStrengthMode", "", wxSize(85, 21), 0, 15), wxGBPosition(9, 1), wxGBSpan(1, 2));
 
     advancedGridSizer->Add(new wxStaticText(advancedStaticBox, wxID_ANY, "Burst Mode"), wxGBPosition(10, 0), wxGBSpan(1, 1), wxALIGN_CENTER_VERTICAL);
-    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "BurstMode", "Interleave", wxSize(85, 21), 0, 15), wxGBPosition(10, 1), wxGBSpan(1, 2));
+    advancedGridSizer->Add(new TTimingComboBox(advancedStaticBox, "BurstMode", "", wxSize(85, 21), 0, 15), wxGBPosition(10, 1), wxGBSpan(1, 2));
 
     staticBoxTopRight->Add(advancedGridSizer, 1, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 5);
 

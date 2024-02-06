@@ -3,6 +3,7 @@
 
 #include <wx/wx.h>
 #include <wx/odcombo.h>
+#include "../../utils/Utils.h"
 
 class TTimingComboBox : public wxOwnerDrawnComboBox {
 public:
@@ -12,7 +13,8 @@ public:
                     const wxSize& size = wxDefaultSize,
                     const int min = 0,
                     const int max = 7,
-                    const bool editable = true);
+                    const bool editable = true,
+                    const wxArrayString& choices = wxArrayString());
 
     void SetValue(int value);
     void SetItemValue(int value);
@@ -26,7 +28,7 @@ private:
     int tValue;
     int tIndex;
     bool isChanged;
-    bool isOpened;
+    wxArrayString customItems;
 
     void CreateItems();
     // void OnDrawItem(wxDC& dc, const wxRect& rect, int item, int flags) const override;

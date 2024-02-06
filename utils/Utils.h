@@ -5,6 +5,7 @@ using namespace std;
 
 #include <windows.h>
 #include "wx/string.h"
+#include "wx/arrstr.h"
 #include "Types.h"
 #include "../version.h"
 
@@ -22,6 +23,7 @@ public:
     static struct timing_def_t GetDefByName(const struct timing_def_t* table, int size, string name);
     static bool WritePciReg(unsigned int pciDev, unsigned int value);
     static unsigned int ReadPciReg(unsigned int pciDev);
+    static wxArrayString ConvertToWxArrayString(const std::vector<std::string>& values);
 protected:
 
 private:

@@ -8,14 +8,15 @@ TTimingComboBox::TTimingComboBox(wxWindow* parent,
                                  const wxSize& size,
                                  const int min,
                                  const int max,
-                                 const bool editable)
+                                 const bool editable,
+                                 const wxArrayString& choices)
     : wxOwnerDrawnComboBox(parent, wxID_ANY, value, wxDefaultPosition, size, wxArrayString(), editable ? 0 : wxCB_READONLY, wxDefaultValidator, name),
       tMin(min),
       tMax(max),
       tValue(0),
       tIndex(0),
       isChanged(false),
-      isOpened(false) {
+      customItems(choices) {
 
     originalBackground = GetBackgroundColour();
 
@@ -44,8 +45,12 @@ TTimingComboBox::TTimingComboBox(wxWindow* parent,
 }
 
 void TTimingComboBox::CreateItems() {
-    for (int i = tMin; i <= tMax; i++) {
-        Append(wxString::Format("%d", i));
+    if (customItems.Count() > 0) {
+        Append(customItems);
+    } else {
+        for (int i = tMin; i <= tMax; i++) {
+            Append(wxString::Format("%d", i));
+        }
     }
 }
 
@@ -81,6 +86,7 @@ void TTimingComboBox::OnComboBox(wxCommandEvent& event) {
     event.Skip();
 }
 
+// Set selected index corresponding to the value
 void TTimingComboBox::SetValue(int value) {
     if (value >= tMin && value <= tMax) {
         SetSelection(value - tMin);
@@ -92,6 +98,7 @@ void TTimingComboBox::SetValue(int value) {
     }
 }
 
+// Set selected index by value
 void TTimingComboBox::SetItemValue(int value) {
     if (value >= tMin && value <= tMax) {
         int index = FindString(wxString::Format("%d", value));
