@@ -87,3 +87,14 @@ wxArrayString Utils::ConvertToWxArrayString(const std::vector<std::string>& valu
     }
     return wxArray;
 }
+
+wxString Utils::ByteToHexString(unsigned char byte) {
+    wxString hexString;
+    hexString.Printf("%02X", static_cast<unsigned int>(byte));
+    return hexString;
+}
+
+wxString Utils::ByteToHexString(unsigned int byte) {
+    return ByteToHexString(static_cast<unsigned char>(byte));
+}
+

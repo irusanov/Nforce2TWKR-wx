@@ -52,6 +52,8 @@ private:
     void OnPageChanged(wxBookCtrlEvent& event);
     //)
 
+    void RefreshTimings();
+
     //(Identifiers(Nforce2TWKRFrame)
     static const long MENU_QUIT_ID;
     static const long MENU_ABOUT_ID;

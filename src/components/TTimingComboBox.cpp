@@ -16,7 +16,8 @@ TTimingComboBox::TTimingComboBox(wxWindow* parent,
       tValue(0),
       tIndex(-1),
       isChanged(false),
-      customItems(choices) {
+      customItems(choices),
+      isCustomValue(choices.Count() > 0) {
 
     originalBackground = GetBackgroundColour();
 

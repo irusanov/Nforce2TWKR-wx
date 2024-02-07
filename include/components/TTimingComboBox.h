@@ -19,6 +19,7 @@ public:
     void SetValue(int value);
     void SetItemValue(int value);
     void SetChanged();
+    bool isCustomValue;
 
 private:
     wxColour originalBackground;

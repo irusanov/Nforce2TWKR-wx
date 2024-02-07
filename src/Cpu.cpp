@@ -51,6 +51,41 @@ unsigned int Cpu::GetFID() {
     return value;
 }
 
+void Cpu::RefreshPciFrequency() {
+    timing_def_t def;
+    unsigned int pciAddress, regValue, value;
+
+    // Get current PCI bus frequency
+    def = Utils::GetDefByName(chipsetTimingDefs, COUNT_OF(chipsetTimingDefs), "PCIFrequency");
+    pciAddress = Utils::MakePciAddress(def.bus, def.device, def.fn, def.reg);
+    regValue = Utils::ReadPciReg(pciAddress);
+    value = Utils::GetBits(regValue, def.offset, def.bits);
+
+    cpuInfo.pciDiv = value & 0xff;
+    cpuInfo.pciMul = value >> 8 & 0xff;
+
+    // First write?
+    if (cpuInfo.pciDiv != 0xf) {
+        unsigned int newMul = (cpuInfo.pciMul * 0xf) / cpuInfo.pciDiv;
+        cpuInfo.pciDiv = 0xf;
+        cpuInfo.pciMul = newMul;
+
+        WritePciFrequency(cpuInfo.pciMul << 8 | cpuInfo.pciDiv);
+    }
+}
+
+void Cpu::WritePciFrequency(unsigned int value) {
+    timing_def_t def;
+    unsigned int pciAddress, regValue;
+
+    def = Utils::GetDefByName(chipsetTimingDefs, COUNT_OF(chipsetTimingDefs), "PCIFrequency");
+    pciAddress = Utils::MakePciAddress(def.bus, def.device, def.fn, def.reg);
+    regValue = Utils::ReadPciReg(pciAddress);
+
+    regValue = Utils::SetBits(regValue, def.offset, def.bits, value);
+    Utils::WritePciReg(pciAddress, regValue);
+}
+
 // Refresh frequency related parameters
 void Cpu::RefreshCpuSpeed() {
     unsigned long eax = 0, edx = 0;
@@ -95,7 +130,7 @@ void Cpu::RefreshCpuSpeed() {
         cpuInfo.dram = cpuInfo.fsb * cpuInfo.dramDiv / cpuInfo.fsbDiv;
     }
 
-    // RefreshPciFrequency();
+    RefreshPciFrequency();
 }
 
 bool Cpu::InitSystemInfo() {

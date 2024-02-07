@@ -16,6 +16,7 @@
 #include "dialogs/ProfilePreloadWindow.h"
 #include "dialogs/SettingsWindow.h"
 #include "dialogs/ValidationBotWindow.h"
+#include "Registers.h"
 
 //helper functions
 enum wxbuildinfoformat {
@@ -168,6 +169,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
     */
 
     SetSizerAndFit(mainSizer);
+    RefreshTimings();
     wxLogStatus(_T("OK"));
 }
 
@@ -176,6 +178,14 @@ Nforce2TWKRFrame::~Nforce2TWKRFrame() {
     trayIcon->Destroy();
     delete cpu;
     DeinitOpenLibSys(&m_hOpenLibSys);
+}
+
+void Nforce2TWKRFrame::RefreshTimings() {
+    Registers::ReadTimings(timingDefs, COUNT_OF(timingDefs));
+    Registers::ReadTimings(doubledTimingDefs, COUNT_OF(doubledTimingDefs));
+    Registers::ReadTimings(chipsetTimingDefs, COUNT_OF(chipsetTimingDefs));
+    Registers::ReadTimings(s2kTimings, COUNT_OF(s2kTimings));
+    Registers::ReadRomsipValues(romsipDefs, COUNT_OF(romsipDefs));
 }
 
 // Demo component click

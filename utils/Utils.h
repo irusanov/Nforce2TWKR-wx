@@ -24,6 +24,8 @@ public:
     static bool WritePciReg(unsigned int pciDev, unsigned int value);
     static unsigned int ReadPciReg(unsigned int pciDev);
     static wxArrayString ConvertToWxArrayString(const std::vector<std::string>& values);
+    static wxString ByteToHexString(unsigned char byte);
+    static wxString ByteToHexString(unsigned int value);
 protected:
 
 private:
