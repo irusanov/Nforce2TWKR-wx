@@ -13,8 +13,6 @@ public:
                   const wxPoint& pos = wxDefaultPosition);
 
     void SetValue(const wxString& value) override;
-
-protected:
     bool isChanged;
 
 private:

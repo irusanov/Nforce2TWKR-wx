@@ -14,12 +14,14 @@ public:
                     const int min = 0,
                     const int max = 7,
                     const bool editable = true,
-                    const wxArrayString& choices = wxArrayString());
+                    const wxArrayString& choices = wxArrayString(),
+                    const bool isCustomValue = false);
 
     void SetValue(int value);
     void SetItemValue(int value);
     void SetChanged();
-    bool isCustomValue;
+    bool tCustomValue;
+    bool isChanged;
 
 private:
     wxColour originalBackground;
@@ -28,7 +30,6 @@ private:
     int tMax;
     int tValue;
     int tIndex;
-    bool isChanged;
     wxArrayString customItems;
 
     void CreateItems();

@@ -23,28 +23,28 @@ void ChipsetPanel::AddControls() {
     wxFlexGridSizer* gridSizerGeneral = new wxFlexGridSizer(8, 2, 2, 0);
 
     gridSizerGeneral->Add(new wxStaticText(this, wxID_ANY, _("CPU Disconnect")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerGeneral->Add(new TTimingComboBox(this, _T("CPUDisconnect"), "Disabled", wxSize(76, 21), 0, 1, true, booleanChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerGeneral->Add(new TTimingComboBox(this, _T("CPUDisconnect"), "", wxSize(76, 21), 0, 1, true, booleanChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerGeneral->Add(new wxStaticText(this, wxID_ANY, _("HALT State")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerGeneral->Add(new TTimingComboBox(this, _T("HALTDisconnect"), "Disabled", wxSize(76, 21), 0, 1, true, booleanChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerGeneral->Add(new TTimingComboBox(this, _T("HALTDisconnect"), "", wxSize(76, 21), 0, 1, true, booleanChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerGeneral->Add(new wxStaticText(this, wxID_ANY, _("STPGNT State")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerGeneral->Add(new TTimingComboBox(this, _T("STPGNTDisconnect"), "Disabled", wxSize(76, 21), 0, 1, true, Utils::ConvertToWxArrayString(booleanChoicesReversed)), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerGeneral->Add(new TTimingComboBox(this, _T("STPGNTDisconnect"), "", wxSize(76, 21), 0, 1, true, Utils::ConvertToWxArrayString(booleanChoicesReversed)), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerGeneral->Add(new wxStaticText(this, wxID_ANY, _("AGP Fast Write")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerGeneral->Add(new TTimingComboBox(this, _T("AGPFastWrite"), "Disabled", wxSize(76, 21), 0, 1, true, booleanChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerGeneral->Add(new TTimingComboBox(this, _T("AGPFastWrite"), "", wxSize(76, 21), 0, 1, true, booleanChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerGeneral->Add(new wxStaticText(this, wxID_ANY, _("AGP SBA")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerGeneral->Add(new TTimingComboBox(this, _T("AGPSBA"), "Disabled", wxSize(76, 21), 0, 1, true, booleanChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerGeneral->Add(new TTimingComboBox(this, _T("AGPSBA"), "", wxSize(76, 21), 0, 1, true, booleanChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerGeneral->Add(new wxStaticText(this, wxID_ANY, _("AGP Ctrl Latency")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerGeneral->Add(new TTimingComboBox(this, _T("AGPControllerLatency"), "2", wxSize(76, 21), 0, 1, true, latencyChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerGeneral->Add(new TTimingComboBox(this, _T("AGPControllerLatency"), "", wxSize(76, 21), 0, 1, true, latencyChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerGeneral->Add(new wxStaticText(this, wxID_ANY, _("AGP Bus Latency")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerGeneral->Add(new TTimingComboBox(this, _T("AGPBusLatency"), "2", wxSize(76, 21), 0, 1, true, latencyChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerGeneral->Add(new TTimingComboBox(this, _T("AGPBusLatency"), "", wxSize(76, 21), 0, 1, true, latencyChoicesArray), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerGeneral->Add(new wxStaticText(this, wxID_ANY, _("PCI Latency Timer")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerGeneral->Add(new TTimingComboBox(this, _T("PCILatencyTimer"), "2", wxSize(76, 21), 0, 1, true, Utils::ConvertToWxArrayString(pciLatencyChoices)), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerGeneral->Add(new TTimingComboBox(this, _T("PCILatencyTimer"), "", wxSize(76, 21), 0, 1, true, Utils::ConvertToWxArrayString(pciLatencyChoices)), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     generalGroupSizer->Add(gridSizerGeneral, 1, wxEXPAND | wxBOTTOM, 5);
 
@@ -56,28 +56,28 @@ void ChipsetPanel::AddControls() {
     wxFlexGridSizer* gridSizerS2k = new wxFlexGridSizer(8, 2, 2, 0);
 
     gridSizerS2k->Add(new wxStaticText(this, wxID_ANY, _("WRCOUNT")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerS2k->Add(new TTimingComboBox(this, _T("XCAARB_WRCOUNT"), "0", wxSize(48, 21), 0, 1), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerS2k->Add(new TTimingComboBox(this, _T("XCAARB_WRCOUNT"), "", wxSize(48, 21), 0, 7), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerS2k->Add(new wxStaticText(this, wxID_ANY, _("RDCOUNT")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerS2k->Add(new TTimingComboBox(this, _T("XCAARB_RDCOUNT"), "0", wxSize(48, 21), 0, 1), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerS2k->Add(new TTimingComboBox(this, _T("XCAARB_RDCOUNT"), "", wxSize(48, 21), 0, 7), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerS2k->Add(new wxStaticText(this, wxID_ANY, _("PRCOUNT")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerS2k->Add(new TTimingComboBox(this, _T("XCAARB_PRCOUNT"), "0", wxSize(48, 21), 0, 1), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerS2k->Add(new TTimingComboBox(this, _T("XCAARB_PRCOUNT"), "", wxSize(48, 21), 0, 7), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerS2k->Add(new wxStaticText(this, wxID_ANY, _("WRDATA Delay")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerS2k->Add(new TTimingComboBox(this, _T("WRDATA_Delay"), "0", wxSize(48, 21), 0, 1), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerS2k->Add(new TTimingComboBox(this, _T("WRDATA_Delay"), "", wxSize(48, 21), 0, 7), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerS2k->Add(new wxStaticText(this, wxID_ANY, _("WRTORD Delay")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerS2k->Add(new TTimingComboBox(this, _T("WRTORD_Delay"), "0", wxSize(48, 21), 0, 1), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerS2k->Add(new TTimingComboBox(this, _T("WRTORD_Delay"), "", wxSize(48, 21), 1, 2), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerS2k->Add(new wxStaticText(this, wxID_ANY, _("RDTOWR Delay")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerS2k->Add(new TTimingComboBox(this, _T("RDTOWR_Delay"), "2", wxSize(48, 21), 0, 1), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerS2k->Add(new TTimingComboBox(this, _T("RDTOWR_Delay"), "", wxSize(48, 21), 1, 4), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerS2k->Add(new wxStaticText(this, wxID_ANY, _("SYSDCOUT Delay")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerS2k->Add(new TTimingComboBox(this, _T("SYSDCOUT_Delay"), "2", wxSize(48, 21), 0, 1), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerS2k->Add(new TTimingComboBox(this, _T("SYSDCOUT_Delay"), "", wxSize(48, 21), 0, 3), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     gridSizerS2k->Add(new wxStaticText(this, wxID_ANY, _("SYSDCIN Delay")), 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);
-    gridSizerS2k->Add(new TTimingComboBox(this, _T("SYSDCIN_Delay"), "2", wxSize(48, 21), 0, 1), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
+    gridSizerS2k->Add(new TTimingComboBox(this, _T("SYSDCIN_Delay"), "", wxSize(48, 21), 0, 15), 0, wxEXPAND | wxLEFT | wxRIGHT, 5);
 
     s2kGroupSizer->Add(gridSizerS2k, 1, wxEXPAND | wxBOTTOM, 5);
 

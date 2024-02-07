@@ -28,22 +28,22 @@ void DramPanel::CreateLeftStaticBox(wxSizer* dramPanelSizer)
     wxFlexGridSizer* gridSizer = new wxFlexGridSizer(16, 2, 2, 0);
 
     std::vector<control_def_t> controls = {
-        { "CAS", "TCL", true, 0, 2, tcasChoices },
-        { "TRCDR", "TRCDR", true, 0, 15, {} },
-        { "TRCDW", "TRCDW", true, 0, 15, {} },
-        { "TRP", "TRP", true, 0, 15, {} },
-        { "TRAS", "TRAS", true, 0, 31, {} },
-        { "TRC", "TRC", true, 0, 31, {} },
-        { "TRFC", "TRFC", true, 0, 31, {} },
-        { "CR", "CR", true, 1, 2, tcrChoices },
-        { "TDOE", "TDOE", true, 0, 7, {} },
-        { "TRRD", "TRRD", true, 0, 7, {} },
-        { "TWTP", "TWTP", true, 0, 7, {} },
-        { "TWTR", "TWTR", true, 0, 7, {} },
-        { "TREXT", "TREXT", true, 0, 3, {} },
-        { "TRTP", "TRTP", true, 0, 7, {} },
-        { "TRTW", "TRTW", true, 0, 7, {} },
-        { "TREF", "TREF", true, 0, 7, trefChoices },
+        { "CAS", "TCL", true, 0, 2, tcasChoices, false },
+        { "TRCDR", "TRCDR", true, 0, 15, {}, false },
+        { "TRCDW", "TRCDW", true, 0, 15, {}, false },
+        { "TRP", "TRP", true, 0, 15, {}, false },
+        { "TRAS", "TRAS", true, 0, 31, {}, false },
+        { "TRC", "TRC", true, 0, 31, {}, false },
+        { "TRFC", "TRFC", true, 0, 31, {}, false },
+        { "CR", "CR", true, 1, 2, tcrChoices, false },
+        { "TDOE", "TDOE", true, 0, 7, {}, false },
+        { "TRRD", "TRRD", true, 0, 7, {}, false },
+        { "TWTP", "TWTP", true, 0, 7, {}, false },
+        { "TWTR", "TWTR", true, 0, 7, {}, false },
+        { "TREXT", "TREXT", true, 0, 3, {}, false },
+        { "TRTP", "TRTP", true, 0, 7, {}, false },
+        { "TRTW", "TRTW", true, 0, 7, {}, false },
+        { "TREF", "TREF", true, 0, 7, trefChoices, true },
     };
 
     for (const control_def_t control : controls) {
@@ -52,7 +52,7 @@ void DramPanel::CreateLeftStaticBox(wxSizer* dramPanelSizer)
 
         // ComboBox
         TTimingComboBox* comboBox = new TTimingComboBox(this, control.name, "", wxSize(52, 21), control.min, control.max,
-                                                        control.editable, Utils::ConvertToWxArrayString(control.customChoices));
+                                                        control.editable, Utils::ConvertToWxArrayString(control.customChoices), control.customItems);
 
         // Add label and combobox to the grid sizer
         gridSizer->Add(label, 0, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 5);

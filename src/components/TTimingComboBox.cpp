@@ -9,7 +9,8 @@ TTimingComboBox::TTimingComboBox(wxWindow* parent,
                                  const int min,
                                  const int max,
                                  const bool editable,
-                                 const wxArrayString& choices)
+                                 const wxArrayString& choices,
+                                 const bool isCustomValue)
     : wxOwnerDrawnComboBox(parent, wxID_ANY, value, wxDefaultPosition, size, wxArrayString(), editable ? 0 : wxCB_READONLY, wxDefaultValidator, name),
       tMin(min),
       tMax(max),
@@ -17,7 +18,7 @@ TTimingComboBox::TTimingComboBox(wxWindow* parent,
       tIndex(-1),
       isChanged(false),
       customItems(choices),
-      isCustomValue(choices.Count() > 0) {
+      tCustomValue(isCustomValue) {
 
     originalBackground = GetBackgroundColour();
 
@@ -99,9 +100,47 @@ void TTimingComboBox::SetValue(int value) {
     }
 }
 
-// Set selected index by value
 void TTimingComboBox::SetItemValue(int value) {
-    if (value >= tMin && value <= tMax) {
+    if (!tCustomValue) {
+        return;
+    }
+
+    if (value >= 0) {
+        wxString valueStr = wxString::Format("%d", value);
+        int index = FindString(valueStr);
+
+        if (index != wxNOT_FOUND) {
+            SetSelection(index);
+            tIndex = index;
+        } else {
+            index = 0;
+            for (size_t i = 0; i < GetCount(); i++) {
+                long itemValue;
+                GetString(i).ToLong(&itemValue);
+                if (value > static_cast<int>(itemValue)) {
+                    index++;
+                }
+            }
+
+            Insert(valueStr, index);
+            SetSelection(index);
+        }
+
+        tValue = value;
+        isChanged = false;
+
+        SetBackgroundColour(originalBackground);
+    }
+}
+
+// Set selected index by value
+/*
+void TTimingComboBox::SetItemValue(int value) {
+    if (!tCustomValue) {
+        return;
+    }
+
+    if (value >= 0) {
         int index = FindString(wxString::Format("%d", value));
 
         if (index == wxNOT_FOUND) {
@@ -123,6 +162,7 @@ void TTimingComboBox::SetItemValue(int value) {
         Refresh();
     }
 }
+*/
 
 void TTimingComboBox::SetChanged() {
     isChanged = true;

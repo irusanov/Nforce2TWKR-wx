@@ -56,6 +56,7 @@ BEGIN_EVENT_TABLE(Nforce2TWKRFrame, wxFrame)
     EVT_MENU(MENU_SETTINGS_ID, Nforce2TWKRFrame::OnOpenSettings)
     // EVT_BUTTON(wxID_ANY, Nforce2TWKRFrame::OnButtonClick)
     EVT_BUTTON(wxID_REFRESH, Nforce2TWKRFrame::OnRefreshButtonClick)
+    EVT_BUTTON(wxID_APPLY, Nforce2TWKRFrame::OnApplyButtonClick)
     EVT_NOTEBOOK_PAGE_CHANGED(wxID_ANY, Nforce2TWKRFrame::OnPageChanged)
 END_EVENT_TABLE()
 
@@ -224,7 +225,7 @@ void Nforce2TWKRFrame::OnAbout(wxCommandEvent& WXUNUSED(event)) {
 }
 
 void Nforce2TWKRFrame::OnRefreshButtonClick(wxCommandEvent& event) {
-    // RefreshTimings();
+    RefreshTimings();
 
     if (currentPageIndex > 0) {
         cpu->RefreshCpuSpeed();
@@ -243,6 +244,31 @@ void Nforce2TWKRFrame::OnRefreshButtonClick(wxCommandEvent& event) {
         // UpdateAgpSlider(cpu_info.pciBus);
         updateFromButtons = false;
     }*/
+}
+
+void Nforce2TWKRFrame::OnApplyButtonClick(wxCommandEvent& event) {
+    if (currentPageIndex == 0) {
+        Registers::WriteTimings(timingDefs, COUNT_OF(timingDefs), false);
+        Registers::WriteTimings(doubledTimingDefs, COUNT_OF(doubledTimingDefs), true);
+        Registers::WriteRomsipValues(romsipDefs, COUNT_OF(romsipDefs));
+        Registers::WriteBurstMode(timingDefs, COUNT_OF(timingDefs));
+        Registers::WriteDriveStrengthMode(timingDefs, COUNT_OF(timingDefs));
+        RefreshTimings();
+    }
+
+    if (currentPageIndex == 1) {
+        Registers::WriteTimings(chipsetTimingDefs, COUNT_OF(chipsetTimingDefs), false);
+        Registers::WriteTimings(s2kTimings, COUNT_OF(s2kTimings), false);
+        Registers::WriteBusDisconnect();
+        // WritePciFrequency(TrackBarAgp->Position << 8 | 0xf);
+        RefreshTimings();
+        // if (targetPll != 0) {
+        //     pll.nforce2_set_fsb_pll(targetFsb, targetPll);
+        // }
+        cpu->RefreshCpuSpeed();
+        // UpdatePllSlider(cpu_info.fsb, targetPll);
+        // UpdateAgpSlider(cpu_info.pciMul);
+    }
 }
 
 void Nforce2TWKRFrame::OnPageChanged(wxBookCtrlEvent& event) {

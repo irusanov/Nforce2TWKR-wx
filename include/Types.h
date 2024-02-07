@@ -74,6 +74,7 @@ struct control_def_t {
     unsigned int min;
     unsigned int max;
     vector<string> customChoices;
+    bool customItems;
 };
 
 #endif // TYPES_H

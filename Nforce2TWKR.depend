@@ -3021,7 +3021,7 @@
 	<wx/app.h>
 	<windows.h>
 
-1707265981 c:\git\nforce2twkr-wx\nforce2twkrmain.h
+1707305942 c:\git\nforce2twkr-wx\nforce2twkrmain.h
 	<string>
 	"Constants.h"
 	"Types.h"
@@ -3163,11 +3163,11 @@
 1706184698 c:\git\nforce2twkr-wx\types.h
 	<string>
 
-1707227902 c:\git\nforce2twkr-wx\include\types.h
+1707270576 c:\git\nforce2twkr-wx\include\types.h
 	<string>
 	<vector>
 
-1707231876 c:\git\nforce2twkr-wx\include\constants.h
+1707303405 c:\git\nforce2twkr-wx\include\constants.h
 	"Types.h"
 
 1706184032 c:\git\nforce2twkr-wx\include\version.h
@@ -3367,7 +3367,7 @@
 	"dialogs/ProfilePreloadWindow.h"
 	"dialogs/ValidationBotWindow.h"
 
-1707266538 source:c:\git\nforce2twkr-wx\src\panels\drampanel.cpp
+1707270854 source:c:\git\nforce2twkr-wx\src\panels\drampanel.cpp
 	"panels/DramPanel.h"
 	"Constants.h"
 	<wx/gbsizer.h>
@@ -3396,16 +3396,16 @@
 1706628629 c:\git\nforce2twkr-wx\include\panels\chipsetpanel.h
 	"wx/wx.h"
 
-1707232672 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
+1707270290 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
 	"ChipsetPanel.h"
 	"Constants.h"
 	"components/TTimingComboBox.h"
 	"components/TReadonlyTextBox.h"
 
-1706672002 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
+1707305241 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
 	<wx/wx.h>
 
-1707265682 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
+1707304065 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
 	<wx/wx.h>
 	<wx/odcombo.h>
 	"../../utils/Utils.h"
@@ -3420,7 +3420,7 @@
 1706673212 source:c:\git\nforce2twkr-wx\src\components\tadvancededit.cpp
 	"components/TAdvancedEdit.h"
 
-1707266008 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
+1707269644 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
 	"components/TTimingComboBox.h"
 
 1706674547 source:c:\git\nforce2twkr-wx\src\components\treadonlytextbox.cpp
@@ -3433,8 +3433,9 @@
 	"wx/wx.h"
 	"../utils/Utils.h"
 
-1707267377 source:c:\git\nforce2twkr-wx\src\registers.cpp
+1707305769 source:c:\git\nforce2twkr-wx\src\registers.cpp
 	"Registers.h"
+	"Constants.h"
 	"components/TTimingComboBox.h"
 	"components/TAdvancedEdit.h"
 

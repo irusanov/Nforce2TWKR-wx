@@ -49,6 +49,7 @@ private:
     void OnOpenSettings(wxCommandEvent& event);
     void OnButtonClick(wxCommandEvent& event);
     void OnRefreshButtonClick(wxCommandEvent& event);
+    void OnApplyButtonClick(wxCommandEvent& event);
     void OnPageChanged(wxBookCtrlEvent& event);
     //)
 
