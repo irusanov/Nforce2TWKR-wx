@@ -66,7 +66,7 @@ private:
     wxTaskBarIcon* trayIcon;
     wxStatusBar* statusBar;
     wxPanel* dramPanel;
-    wxPanel* chipsetPanel;
+    ChipsetPanel* chipsetPanel;
     wxPanel* infoPanel;
     wxNotebook* mainTabs;
     TAdvancedEdit* advancedEdit;

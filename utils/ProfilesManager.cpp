@@ -1,4 +1,5 @@
 #include "ProfilesManager.h"
+#include "Constants.h"
 
 const wxString timings[14] = {
     "TRCDR", "TRCDW", "TRP", "TRAS", "TRC", "TRFC", "TDOE", "TRRD", "TWTP", "TWTR", "TREXT", "TRTP", "TRTW", "TREF"
@@ -138,19 +139,19 @@ void ProfilesManager::Load(const wxString& FilePath, const profile_options_t& Op
     wxFileConfig iniFile(FilePath);
 
     if (Opts.timings) {
-        LoadTimings(&iniFile, "Timings", timings, WXSIZEOF(timings));
+        LoadTimings(&iniFile, "Timings", timings, COUNT_OF(timings));
     }
 
     if (Opts.dssr) {
-        LoadTimings(&iniFile, "DSSR", dssr, WXSIZEOF(dssr));
+        LoadTimings(&iniFile, "DSSR", dssr, COUNT_OF(dssr));
     }
 
     if (Opts.advanced) {
-        LoadTimings(&iniFile, "Advanced", advanced, WXSIZEOF(advanced));
+        LoadTimings(&iniFile, "Advanced", advanced, COUNT_OF(advanced));
     }
 
     if (Opts.romsip) {
-        LoadRomsipValues(&iniFile, "ROMSIP", romsip, WXSIZEOF(romsip));
+        LoadRomsipValues(&iniFile, "ROMSIP", romsip, COUNT_OF(romsip));
     }
 }
 
@@ -186,19 +187,19 @@ bool ProfilesManager::Save(const wxString& FilePath, const profile_options_t& Op
     WriteMetadata(&iniFile, Opts);
 
     if (Opts.timings) {
-        SaveTimings(&iniFile, "Timings", timings, WXSIZEOF(timings));
+        SaveTimings(&iniFile, "Timings", timings, COUNT_OF(timings));
     }
 
     if (Opts.dssr) {
-        SaveTimings(&iniFile, "DSSR", dssr, WXSIZEOF(dssr));
+        SaveTimings(&iniFile, "DSSR", dssr, COUNT_OF(dssr));
     }
 
     if (Opts.advanced) {
-        SaveTimings(&iniFile, "Advanced", advanced, WXSIZEOF(advanced));
+        SaveTimings(&iniFile, "Advanced", advanced, COUNT_OF(advanced));
     }
 
     if (Opts.romsip) {
-        SaveRomsipValues(&iniFile, "ROMSIP", romsip, WXSIZEOF(romsip));
+        SaveRomsipValues(&iniFile, "ROMSIP", romsip, COUNT_OF(romsip));
     }
 
     return true;

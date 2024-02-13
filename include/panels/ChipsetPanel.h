@@ -13,9 +13,12 @@ class ChipsetPanel: public wxPanel {
 public:
     ChipsetPanel(wxWindow* parent, Cpu* cpu);
     void Update();
+    pair<double, int> GetTargetPll();
+    int GetTargetPci();
 
 private:
     Cpu* cpuReference;
+    pair<double, int> targetPll;
 
     void AddControls();
     void UpdatePllSlider();

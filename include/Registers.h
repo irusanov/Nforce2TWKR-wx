@@ -15,7 +15,6 @@ public:
     static void WriteDriveStrengthMode(const struct timing_def_t* table, int size);
     static void WriteBusDisconnect();
     static void WriteRomsipValues(const struct timing_def_t* table, int size);
-
 protected:
 
 private:

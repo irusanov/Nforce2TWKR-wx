@@ -178,3 +178,7 @@ void ChipsetPanel::OnButtonPciPrevClick(wxCommandEvent& event) {
 void ChipsetPanel::OnButtonPciNextClick(wxCommandEvent& event){
     UpdatePciSlider(pciSlider->GetValue() + 1);
 }
+
+int ChipsetPanel::GetTargetPci() {
+    return pciSlider->GetValue();
+}
