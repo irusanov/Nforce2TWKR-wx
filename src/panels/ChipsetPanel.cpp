@@ -1,11 +1,10 @@
 #include "ChipsetPanel.h"
-#include "Constants.h"
-#include "components/TTimingComboBox.h"
-#include "components/TReadonlyTextBox.h"
 
-ChipsetPanel::ChipsetPanel(wxWindow* parent)
-    : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, wxPanelNameStr) {
+ChipsetPanel::ChipsetPanel(wxWindow* parent, Cpu* cpu)
+    : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, wxPanelNameStr),
+      cpuReference(cpu) {
     AddControls();
+    Update();
 }
 
 void ChipsetPanel::AddControls() {
@@ -86,16 +85,16 @@ void ChipsetPanel::AddControls() {
     //wxStaticBox* staticBoxFsb = fsbGroupSizer->GetStaticBox();
 
     wxBoxSizer* s1 = new wxBoxSizer(wxHORIZONTAL);
-    wxSlider* pllSlider = new wxSlider(this, wxID_ANY, 50, 30, 350);
+    pllSlider = new wxSlider(this, wxID_ANY, 50, 30, 350);
     TReadonlyTextBox* pllSliderValue = new TReadonlyTextBox(this, wxString::Format("%.2f MHz", 222.34), 84, _T("PllSliderValue"));
 
-    wxButton* buttonPllPrev = new wxButton(this, wxID_ANY, _T("3"), wxDefaultPosition, wxSize(18, 18));
+    buttonPllPrev = new wxButton(this, wxID_ANY, _T("3"), wxDefaultPosition, wxSize(18, 18));
     wxFont btnFont = buttonPllPrev->GetFont();
     btnFont.SetFaceName(_T("Webdings"));
     btnFont.SetPointSize(10);
     buttonPllPrev->SetFont(btnFont);
 
-    wxButton* buttonPllNext = new wxButton(this, wxID_ANY, "4", wxDefaultPosition, wxSize(18, 18));
+    buttonPllNext = new wxButton(this, wxID_ANY, _T("4"), wxDefaultPosition, wxSize(18, 18));
     buttonPllNext->SetFont(btnFont);
 
     s1->Add(pllSlider, 1, wxEXPAND | wxALL, 0);
@@ -110,16 +109,16 @@ void ChipsetPanel::AddControls() {
     //wxStaticBox* staticBoxAgp = agpGroupSizer->GetStaticBox();
 
     wxBoxSizer* s2 = new wxBoxSizer(wxHORIZONTAL);
-    wxSlider* pciSlider = new wxSlider(this, wxID_ANY, 66, 0, 166);
-    TReadonlyTextBox* pciSliderValue = new TReadonlyTextBox(this, wxString::Format("%.2f / %.2f", 66.67, 33.33), 84, _T("PciSliderValue"));
+    pciSlider = new wxSlider(this, wxID_ANY, -1, 36, 200);
+    pciSliderValue = new TReadonlyTextBox(this, wxEmptyString, 84, _T("PciSliderValue"));
 
-    wxButton* buttonPciPrev = new wxButton(this, wxID_ANY, _T("3"), wxDefaultPosition, wxSize(18, 18));
+    buttonPciPrev = new wxButton(this, wxID_ANY, _T("3"), wxDefaultPosition, wxSize(18, 18));
     //wxFont btnFont = buttonPciPrev->GetFont();
     //btnFont.SetFaceName(_T("Webdings"));
     //btnFont.SetPointSize(10);
     buttonPciPrev->SetFont(btnFont);
 
-    wxButton* buttonPciNext = new wxButton(this, wxID_ANY, "4", wxDefaultPosition, wxSize(18, 18));
+    buttonPciNext = new wxButton(this, wxID_ANY, _T("4"), wxDefaultPosition, wxSize(18, 18));
     buttonPciNext->SetFont(btnFont);
 
     s2->Add(pciSlider, 1, wxEXPAND | wxALL, 0);
@@ -136,5 +135,46 @@ void ChipsetPanel::AddControls() {
 
     // Set the main sizer for the frame
     SetSizerAndFit(mainSizer);
+
+    pciSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &ChipsetPanel::OnPciSliderChange, this);
+    pciSlider->Bind(wxEVT_SCROLL_CHANGED, &ChipsetPanel::OnPciSliderChange, this);
+    buttonPciNext->Bind(wxEVT_BUTTON, &ChipsetPanel::OnButtonPciNextClick, this);
+    buttonPciPrev->Bind(wxEVT_BUTTON, &ChipsetPanel::OnButtonPciPrevClick, this);
 }
 
+void ChipsetPanel::UpdatePciSlider(unsigned int mul) {
+    double pci = (mul / 15.0) * 6.25;
+    double agp = pci * 2.0;
+
+    if (mul < pciSlider->GetMin()) {
+        pciSlider->SetMin(mul);
+    } else if (mul > pciSlider->GetMax()) {
+        pciSlider->SetMax(mul);
+    }
+
+    pciSlider->SetValue(mul);
+    pciSliderValue->SetValue(wxString::Format("%.2f / %.2f", agp, pci));
+
+    bool minReached = pciSlider->GetValue() <= pciSlider->GetMin();
+    bool maxReached = pciSlider->GetValue() >= pciSlider->GetMax();
+
+    buttonPciNext->Enable(!maxReached);
+    buttonPciPrev->Enable(!minReached);
+}
+
+void ChipsetPanel::Update() {
+    cpu_info_t cpuInfo = cpuReference->GetCpuInfo();
+    UpdatePciSlider(cpuInfo.pciMul);
+}
+
+void ChipsetPanel::OnPciSliderChange(wxScrollEvent& event) {
+    UpdatePciSlider(pciSlider->GetValue());
+}
+
+void ChipsetPanel::OnButtonPciPrevClick(wxCommandEvent& event) {
+    UpdatePciSlider(pciSlider->GetValue() - 1);
+}
+
+void ChipsetPanel::OnButtonPciNextClick(wxCommandEvent& event){
+    UpdatePciSlider(pciSlider->GetValue() + 1);
+}

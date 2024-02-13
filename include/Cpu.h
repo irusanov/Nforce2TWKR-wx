@@ -10,6 +10,7 @@ public:
     Cpu();
     virtual ~Cpu();
     const cpu_info_t& GetCpuInfo() const;
+    const Nforce2Pll& GetPll() const;
     void RefreshPciFrequency();
     void RefreshCpuSpeed();
     static void WritePciFrequency(unsigned int value);

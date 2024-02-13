@@ -3065,7 +3065,7 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1707267222 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1707780263 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
@@ -3184,12 +3184,12 @@
 
 1706185834 c:\git\nforce2twkr-wx\include\ols\olsdef.h
 
-1707264731 c:\git\nforce2twkr-wx\include\cpu.h
+1707781241 c:\git\nforce2twkr-wx\include\cpu.h
 	"Types.h"
 	"../utils/Nforce2Pll.h"
 	"../utils/QueryPerformance.h"
 
-1707264744 source:c:\git\nforce2twkr-wx\src\cpu.cpp
+1707782159 source:c:\git\nforce2twkr-wx\src\cpu.cpp
 	<math.h>
 	"Cpu.h"
 	"ols/OlsApiInitExt.h"
@@ -3393,14 +3393,15 @@
 1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\gbsizer.h
 	"wx/sizer.h"
 
-1706628629 c:\git\nforce2twkr-wx\include\panels\chipsetpanel.h
-	"wx/wx.h"
-
-1707270290 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
-	"ChipsetPanel.h"
+1707782287 c:\git\nforce2twkr-wx\include\panels\chipsetpanel.h
 	"Constants.h"
+	"Cpu.h"
 	"components/TTimingComboBox.h"
 	"components/TReadonlyTextBox.h"
+	"wx/wx.h"
+
+1707782599 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
+	"ChipsetPanel.h"
 
 1707305241 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
 	<wx/wx.h>

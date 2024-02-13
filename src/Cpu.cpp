@@ -201,3 +201,7 @@ bool Cpu::InitSystemInfo() {
 const cpu_info_t& Cpu::GetCpuInfo() const {
     return cpuInfo;
 }
+
+const Nforce2Pll& Cpu::GetPll() const {
+    return pll;
+}

@@ -112,7 +112,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
     }
 
     dramPanel = new DramPanel(mainTabs);
-    chipsetPanel = new ChipsetPanel(mainTabs);
+    chipsetPanel = new ChipsetPanel(mainTabs, cpu);
     infoPanel = new InfoPanel(mainTabs, cpu);
 
     mainTabs->AddPage(dramPanel, _T("DRAM"), true);
@@ -229,10 +229,14 @@ void Nforce2TWKRFrame::OnRefreshButtonClick(wxCommandEvent& event) {
 
     if (currentPageIndex > 0) {
         cpu->RefreshCpuSpeed();
-    }
 
-    if (currentPageIndex == 2) {
-        infoPanel->Update();
+        if (currentPageIndex == 1) {
+            chipsetPanel->Update();
+        }
+
+        if (currentPageIndex == 2) {
+            infoPanel->Update();
+        }
     }
 
     /*
