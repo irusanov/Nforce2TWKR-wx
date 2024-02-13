@@ -130,6 +130,7 @@ void InfoPanel::AddControls() {
 
 // TODO: Add pointers to needed controls in header
 void InfoPanel::Update() {
+    cpuReference->RefreshCpuSpeed();
     cpu_info_t cpuInfo = cpuReference->GetCpuInfo();
     wxTextCtrl* obj = static_cast<wxTextCtrl *>(FindWindowByName("FrequencyTextBox"));
     ((wxTextCtrl *)obj)->SetValue(wxString::Format("%.2f MHz", cpuInfo.frequency));

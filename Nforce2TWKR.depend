@@ -3021,7 +3021,7 @@
 	<wx/app.h>
 	<windows.h>
 
-1707784258 c:\git\nforce2twkr-wx\nforce2twkrmain.h
+1707791543 c:\git\nforce2twkr-wx\nforce2twkrmain.h
 	<string>
 	"Constants.h"
 	"Types.h"
@@ -3065,7 +3065,7 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1707787809 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1707790972 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
@@ -3383,7 +3383,7 @@
 	"components/TAdvancedEdit.h"
 	"components/TTimingComboBox.h"
 
-1707785289 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
+1707790914 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
 	"InfoPanel.h"
 	"components/TReadonlyTextBox.h"
 
@@ -3401,14 +3401,14 @@
 	"components/TReadonlyTextBox.h"
 	"wx/wx.h"
 
-1707788978 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
+1707789536 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
 	"ChipsetPanel.h"
 	"../../utils/Nforce2Pll.h"
 
 1707305241 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
 	<wx/wx.h>
 
-1707304065 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
+1707790681 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
 	<wx/wx.h>
 	<wx/odcombo.h>
 	"../../utils/Utils.h"
@@ -3423,7 +3423,7 @@
 1706673212 source:c:\git\nforce2twkr-wx\src\components\tadvancededit.cpp
 	"components/TAdvancedEdit.h"
 
-1707269644 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
+1707790674 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
 	"components/TTimingComboBox.h"
 
 1706674547 source:c:\git\nforce2twkr-wx\src\components\treadonlytextbox.cpp

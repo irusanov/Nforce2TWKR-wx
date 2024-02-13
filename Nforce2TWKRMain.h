@@ -59,6 +59,7 @@ private:
     static const long MENU_QUIT_ID;
     static const long MENU_ABOUT_ID;
     static const long MENU_SETTINGS_ID;
+    static const long MENU_REFRESH_ID;
     static const long STATUSBAR_ID;
     //)
 
