@@ -1,4 +1,5 @@
 #include "ChipsetPanel.h"
+#include "../../utils/Nforce2Pll.h"
 
 ChipsetPanel::ChipsetPanel(wxWindow* parent, Cpu* cpu)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, wxPanelNameStr),
@@ -85,8 +86,8 @@ void ChipsetPanel::AddControls() {
     //wxStaticBox* staticBoxFsb = fsbGroupSizer->GetStaticBox();
 
     wxBoxSizer* s1 = new wxBoxSizer(wxHORIZONTAL);
-    pllSlider = new wxSlider(this, wxID_ANY, 50, 30, 350);
-    TReadonlyTextBox* pllSliderValue = new TReadonlyTextBox(this, wxString::Format("%.2f MHz", 222.34), 84, _T("PllSliderValue"));
+    pllSlider = new wxSlider(this, wxID_ANY, -1, NFORCE2_MIN_FSB, NFORCE2_MAX_FSB);
+    pllSliderValue = new TReadonlyTextBox(this, wxEmptyString, 84, _T("PllSliderValue"));
 
     buttonPllPrev = new wxButton(this, wxID_ANY, _T("3"), wxDefaultPosition, wxSize(18, 18));
     wxFont btnFont = buttonPllPrev->GetFont();
@@ -138,8 +139,12 @@ void ChipsetPanel::AddControls() {
 
     pciSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &ChipsetPanel::OnPciSliderChange, this);
     pciSlider->Bind(wxEVT_SCROLL_CHANGED, &ChipsetPanel::OnPciSliderChange, this);
+    pllSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &ChipsetPanel::OnPllSliderChange, this);
+    pllSlider->Bind(wxEVT_SCROLL_CHANGED, &ChipsetPanel::OnPllSliderChange, this);
     buttonPciNext->Bind(wxEVT_BUTTON, &ChipsetPanel::OnButtonPciNextClick, this);
     buttonPciPrev->Bind(wxEVT_BUTTON, &ChipsetPanel::OnButtonPciPrevClick, this);
+    buttonPllNext->Bind(wxEVT_BUTTON, &ChipsetPanel::OnButtonPllNextClick, this);
+    buttonPllPrev->Bind(wxEVT_BUTTON, &ChipsetPanel::OnButtonPllPrevClick, this);
 }
 
 void ChipsetPanel::UpdatePciSlider(unsigned int mul) {
@@ -155,18 +160,36 @@ void ChipsetPanel::UpdatePciSlider(unsigned int mul) {
     pciSlider->SetValue(mul);
     pciSliderValue->SetValue(wxString::Format("%.2f / %.2f", agp, pci));
 
-    bool minReached = pciSlider->GetValue() <= pciSlider->GetMin();
-    bool maxReached = pciSlider->GetValue() >= pciSlider->GetMax();
+    int sliderValue = pllSlider->GetValue();
+    bool minReached = sliderValue <= pciSlider->GetMin();
+    bool maxReached = sliderValue >= pciSlider->GetMax();
 
     buttonPciNext->Enable(!maxReached);
     buttonPciPrev->Enable(!minReached);
 }
 
+void ChipsetPanel::UpdatePllSlider(double fsb) {
+    if (fsb > 0) {
+        targetFsb = fsb;
+        pllSlider->SetValue(static_cast<int>(fsb));
+        pllSliderValue->SetValue(wxString::Format("%.2f MHz", targetFsb));
+
+        int sliderValue = pllSlider->GetValue();
+        bool minReached = ceil(fsb) <= pllSlider->GetMin();
+        bool maxReached = floor(fsb) >= pllSlider->GetMax();
+
+        buttonPllNext->Enable(!maxReached);
+        buttonPllPrev->Enable(!minReached);
+    }
+}
+
 void ChipsetPanel::Update() {
     cpu_info_t cpuInfo = cpuReference->GetCpuInfo();
     UpdatePciSlider(cpuInfo.pciMul);
+    UpdatePllSlider(cpuInfo.fsb);
 }
 
+// PCI/AGP
 void ChipsetPanel::OnPciSliderChange(wxScrollEvent& event) {
     UpdatePciSlider(pciSlider->GetValue());
 }
@@ -181,4 +204,40 @@ void ChipsetPanel::OnButtonPciNextClick(wxCommandEvent& event){
 
 int ChipsetPanel::GetTargetPci() {
     return pciSlider->GetValue();
+}
+
+// Pll
+void ChipsetPanel::OnPllSliderChange(wxScrollEvent& event) {
+    int position = pllSlider->GetValue();
+    pair<double, int> p;
+
+    if (position < static_cast<int>(targetFsb)) {
+        p = cpuReference->GetPll().GetPrevPll(position);
+    } else {
+        p = cpuReference->GetPll().GetNextPll(position);
+    }
+
+    UpdatePllSlider(p.first);
+}
+
+void ChipsetPanel::OnButtonPllPrevClick(wxCommandEvent& event) {
+    pair<double, int>prevPll = cpuReference->GetPll().GetPrevPll(targetFsb);
+    double fsb = prevPll.first;
+
+    if (fsb > 0) {
+        UpdatePllSlider(fsb);
+    }
+}
+
+void ChipsetPanel::OnButtonPllNextClick(wxCommandEvent& event){
+    pair<double, int>nextPll = cpuReference->GetPll().GetNextPll(targetFsb);
+    double fsb = nextPll.first;
+
+    if (fsb > 0) {
+        UpdatePllSlider(fsb);
+    }
+}
+
+double ChipsetPanel::GetTargetFsb() {
+    return targetFsb;
 }

@@ -11,6 +11,7 @@
 #define NFORCE2_PLLREG                  0xa4
 #define NFORCE2_PLLADR                  0xa0
 #define NFORCE2_MIN_FSB                 50
+#define NFORCE2_MAX_FSB                 350
 #define NFORCE2_SAFE_DISTANCE           50
 #define NFORCE2_PLL(mul, div) (0x100000 | (mul << 8) | div)
 
@@ -38,6 +39,7 @@ public:
     static int nforce2_set_fsb_pll(double tfsb, int tpll);
     static std::pair<double, int>GetPrevPll(double fsb);
     static std::pair<double, int>GetNextPll(double fsb);
+    static int GetPllFromFsb(double fsb);
 };
 #endif // header guard
 

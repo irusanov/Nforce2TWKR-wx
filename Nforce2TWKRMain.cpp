@@ -266,11 +266,12 @@ void Nforce2TWKRFrame::OnApplyButtonClick(wxCommandEvent& event) {
         Registers::WriteBusDisconnect();
         cpu->WritePciFrequency(chipsetPanel->GetTargetPci() << 8 | 0xf);
         RefreshTimings();
-        // if (targetPll != 0) {
-        //     pll.nforce2_set_fsb_pll(targetFsb, targetPll);
-        // }
+        double targetFsb = chipsetPanel->GetTargetFsb();
+        int targetPll = cpu->GetPll().GetPllFromFsb(targetFsb);
+        if (targetPll != 0) {
+            cpu->GetPll().nforce2_set_fsb_pll(targetFsb, targetPll);
+        }
         cpu->RefreshCpuSpeed();
-        // UpdatePllSlider(cpu_info.fsb, targetPll);
         chipsetPanel->Update();
     }
 }

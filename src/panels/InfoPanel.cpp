@@ -128,6 +128,7 @@ void InfoPanel::AddControls() {
     Center();
 }
 
+// TODO: Add pointers to needed controls in header
 void InfoPanel::Update() {
     cpu_info_t cpuInfo = cpuReference->GetCpuInfo();
     wxTextCtrl* obj = static_cast<wxTextCtrl *>(FindWindowByName("FrequencyTextBox"));

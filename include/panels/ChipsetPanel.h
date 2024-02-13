@@ -13,23 +13,28 @@ class ChipsetPanel: public wxPanel {
 public:
     ChipsetPanel(wxWindow* parent, Cpu* cpu);
     void Update();
-    pair<double, int> GetTargetPll();
+    double GetTargetFsb();
     int GetTargetPci();
 
 private:
     Cpu* cpuReference;
-    pair<double, int> targetPll;
+    double targetFsb;
 
     void AddControls();
-    void UpdatePllSlider();
+    void UpdatePllSlider(double fsb);
     void UpdatePciSlider(unsigned int mul);
 
     void OnPciSliderChange(wxScrollEvent& event);
     void OnButtonPciPrevClick(wxCommandEvent& event);
     void OnButtonPciNextClick(wxCommandEvent& event);
 
+    void OnPllSliderChange(wxScrollEvent& event);
+    void OnButtonPllPrevClick(wxCommandEvent& event);
+    void OnButtonPllNextClick(wxCommandEvent& event);
+
     // controls
     TReadonlyTextBox* pciSliderValue;
+    TReadonlyTextBox* pllSliderValue;
     wxSlider* pllSlider;
     wxSlider* pciSlider;
     wxButton* buttonPllPrev;

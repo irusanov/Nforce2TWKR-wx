@@ -242,7 +242,7 @@ int Nforce2Pll::nforce2_set_fsb(double fsb) {
     if(!diff)
         return 0;
 
-    while((tfsb != fsb) && (tfsb <= 350) && (tfsb >= 50)) {
+    while((tfsb != fsb) && (tfsb <= NFORCE2_MAX_FSB) && (tfsb >= NFORCE2_MIN_FSB)) {
         if(diff < 0)
             tfsb++;
         else
@@ -275,7 +275,7 @@ map<double, int>Nforce2Pll::nforce2_gen_fsb_table() {
             int pll = NFORCE2_PLL(xmul, xdiv);
             double fsb = nforce2_calc_fsb(pll) * 1.00225;
 
-            if(fsb >= 30.0 && fsb <= 350.0) {
+            if(fsb >= NFORCE2_MIN_FSB - 1 && fsb <= NFORCE2_MAX_FSB + 1) {
                 it = fsbMap.find(fsb);
 
                 if(it == fsbMap.end()) {
@@ -317,6 +317,18 @@ pair<double, int>Nforce2Pll::GetNextPll(double fsb) {
     }
 
     return pair<double, int> (0, 0);
+}
+
+int Nforce2Pll::GetPllFromFsb(double fsb) {
+    map<double, int>::iterator it;
+
+    for(it = possibleFsb.begin(); it != possibleFsb.end(); it++) {
+        if(it->first == fsb) {
+            return it->second;
+        }
+    }
+
+    return 0;
 }
 
 Nforce2Pll::~Nforce2Pll(void) {
