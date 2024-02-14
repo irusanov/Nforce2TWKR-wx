@@ -1,34 +1,16 @@
-#ifndef PROFILEPRELOADWINDOW_H
-#define PROFILEPRELOADWINDOW_H
+#ifndef PROFILE_PRELOAD_WINDOW_H
+#define PROFILE_PRELOAD_WINDOW_H
 
-#include <wx/wx.h>
-#include "../../Nforce2TWKRMain.h"
-#include "../../utils/ProfilesManager.h"
+#include "ProfileWindowBase.h"
 
-class ProfilePreloadWindow : public wxDialog {
+class ProfilePreloadWindow : public ProfileWindowBase {
 public:
-    ProfilePreloadWindow(wxWindow* parent, const wxString& title);
+    ProfilePreloadWindow(wxWindow* parent);
     ~ProfilePreloadWindow();
 
 private:
-    void SetApplyButtonState();
-    void OnLoadButtonClick(wxCommandEvent& event);
-    void OnFormShow(wxShowEvent& event);
-    void OnSectionCheckBoxClick(wxCommandEvent& event);
-
-    profile_metadata_t data;
-
-    wxCheckBox* CheckBoxTimings;
-    wxCheckBox* CheckBoxDSSR;
-    wxCheckBox* CheckBoxAdvanced;
-    wxCheckBox* CheckBoxRomsip;
-    wxPanel* PanelName;
-    wxPanel* PanelAuthor;
-    wxPanel* PanelComment;
-    wxButton* ButtonLoadProfile;
-
-    DECLARE_EVENT_TABLE()
+    DECLARE_EVENT_TABLE();
 };
 
-#endif // PROFILEPRELOADWINDOW_H
+#endif // PROFILE_PRELOAD_WINDOW_H
 

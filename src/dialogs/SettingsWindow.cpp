@@ -11,6 +11,12 @@ wxEND_EVENT_TABLE()
 SettingsWindow::SettingsWindow(wxWindow* parent, const wxString& title, AppSettings& appSettings)
     : wxDialog(parent, wxID_ANY, title, wxDefaultPosition),
       settings(&appSettings) {
+
+    wxFont font = this->GetFont();
+    font.SetFaceName(_T("Tahoma"));
+    font.SetPointSize(8);
+    this->SetFont(font);
+
     wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
 
     // Checkboxes

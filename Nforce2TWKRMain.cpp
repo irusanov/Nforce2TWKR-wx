@@ -50,6 +50,7 @@ const long Nforce2TWKRFrame::MENU_ABOUT_ID = wxNewId();
 const long Nforce2TWKRFrame::MENU_SETTINGS_ID = wxNewId();
 const long Nforce2TWKRFrame::MENU_REFRESH_ID = wxNewId();
 const long Nforce2TWKRFrame::MENU_PROFILE_SAVE_ID = wxNewId();
+const long Nforce2TWKRFrame::MENU_PROFILE_LOAD_ID = wxNewId();
 const long Nforce2TWKRFrame::STATUSBAR_ID = wxNewId();
 
 // Static events, add menus here
@@ -58,8 +59,8 @@ BEGIN_EVENT_TABLE(Nforce2TWKRFrame, wxFrame)
     EVT_MENU(MENU_ABOUT_ID, Nforce2TWKRFrame::OnAbout)
     EVT_MENU(MENU_SETTINGS_ID, Nforce2TWKRFrame::OnOpenSettings)
     EVT_MENU(MENU_REFRESH_ID, Nforce2TWKRFrame::OnRefreshButtonClick)
-    EVT_MENU(MENU_PROFILE_SAVE_ID, Nforce2TWKRFrame::OnProfileSaveClick)
-    // EVT_BUTTON(wxID_ANY, Nforce2TWKRFrame::OnButtonClick)
+    EVT_MENU(MENU_PROFILE_SAVE_ID, Nforce2TWKRFrame::OnProfileSaveMenuClick)
+    EVT_MENU(MENU_PROFILE_LOAD_ID, Nforce2TWKRFrame::OnProfileLoadMenuClick)
     EVT_BUTTON(wxID_REFRESH, Nforce2TWKRFrame::OnRefreshButtonClick)
     EVT_BUTTON(wxID_APPLY, Nforce2TWKRFrame::OnApplyButtonClick)
     EVT_NOTEBOOK_PAGE_CHANGED(wxID_ANY, Nforce2TWKRFrame::OnPageChanged)
@@ -143,7 +144,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
 
     // File menu
     wxMenu* menuFile = new wxMenu();
-    menuFile->Append(wxID_ANY, _T("Open Profile\tCtrl+O"), _T("Open saved profile"));
+    menuFile->Append(MENU_PROFILE_LOAD_ID, _T("Open Profile\tCtrl+O"), _T("Open saved profile"));
     menuFile->Append(MENU_PROFILE_SAVE_ID, _T("Save Profile\tCtrl+S"), _T("Save current settings to a profile"));
     menuFile->Append(MENU_REFRESH_ID, _T("Refresh\tF5"), _T("Reload settings"));
     menuFile->AppendSeparator();
@@ -198,20 +199,6 @@ void Nforce2TWKRFrame::RefreshChipsetTimings() {
     Registers::ReadTimings(s2kTimings, COUNT_OF(s2kTimings));
 }
 
-// Demo component click
-void Nforce2TWKRFrame::OnButtonClick(wxCommandEvent& event) {
-    wxString value = advancedEdit->GetValue();
-    //wxMessageBox("Current Value: " + value, "TAdvancedEdit Value");
-    wxMessageBox(wxString::Format("%s", advancedEdit->IsModified() ? "true" : "false"));
-
-    ProfilePreloadWindow* preloadWindow = new ProfilePreloadWindow(this, "Load Profile");
-    preloadWindow->ShowModal();
-    //delete preloadWindow;
-
-    ValidationBotDialog* botDialog = new ValidationBotDialog(this, _("Auto Validation Bot"), settings);
-    botDialog->ShowWindowModal();
-}
-
 void Nforce2TWKRFrame::OnQuit(wxCommandEvent& event) {
     Close();
 }
@@ -226,7 +213,7 @@ void Nforce2TWKRFrame::OnAbout(wxCommandEvent& WXUNUSED(event)) {
     aboutInfo.SetIcon(appIcon48x48);
     aboutInfo.SetName("NForce2 TWKR");
     aboutInfo.SetVersion(Utils::GetAppVersion());
-    aboutInfo.SetDescription(wxString::Format("Build date: %s", Utils::GetBuildDate()));
+    aboutInfo.SetDescription(wxString::Format("Build %s, %s", Utils::GetBuildCount(), Utils::GetBuildDate()));
     aboutInfo.SetCopyright("(C) 2021-2024 Ivan Rusanov");
     aboutInfo.SetWebSite("https://github.com/irusanov/Nforce2TWKR-wx");
 
@@ -283,8 +270,12 @@ void Nforce2TWKRFrame::OnPageChanged(wxBookCtrlEvent& event) {
     }
 }
 
-void Nforce2TWKRFrame::OnProfileSaveClick(wxCommandEvent& event) {
-    ProfileSaveWindow* profileDialog = new ProfileSaveWindow(this, _("Save Profile"));
+void Nforce2TWKRFrame::OnProfileSaveMenuClick(wxCommandEvent& event) {
+    ProfileSaveWindow* profileDialog = new ProfileSaveWindow(this, profiles);
     profileDialog->ShowWindowModal();
 }
 
+void Nforce2TWKRFrame::OnProfileLoadMenuClick(wxCommandEvent& event) {
+    ProfilePreloadWindow* profileDialog = new ProfilePreloadWindow(this);
+    profileDialog->ShowWindowModal();
+}

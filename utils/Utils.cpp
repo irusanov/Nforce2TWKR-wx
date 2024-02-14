@@ -57,6 +57,10 @@ wxString Utils::GetBuildDate() {
     return wxString::Format("%s.%s.%s", AutoVersion::DATE, AutoVersion::MONTH, AutoVersion::YEAR);
 }
 
+wxString Utils::GetBuildCount() {
+    return wxString::Format("%d", AutoVersion::BUILDS_COUNT);
+}
+
 struct timing_def_t Utils::GetDefByName(const struct timing_def_t* table, int size, string name) {
     for (int i = 0; i < size; i++) {
         if (table[i].name == name) {

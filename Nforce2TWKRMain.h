@@ -47,9 +47,9 @@ private:
     void OnQuit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
     void OnOpenSettings(wxCommandEvent& event);
-    void OnButtonClick(wxCommandEvent& event);
     void OnRefreshButtonClick(wxCommandEvent& event);
-    void OnProfileSaveClick(wxCommandEvent& event);
+    void OnProfileSaveMenuClick(wxCommandEvent& event);
+    void OnProfileLoadMenuClick(wxCommandEvent& event);
     void OnApplyButtonClick(wxCommandEvent& event);
     void OnPageChanged(wxBookCtrlEvent& event);
     //)

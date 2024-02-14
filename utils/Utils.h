@@ -20,6 +20,7 @@ public:
     static bool Contains(const string* arr, int arraySize, string value) ;
     static wxString GetAppVersion();
     static wxString GetBuildDate();
+    static wxString GetBuildCount();
     static struct timing_def_t GetDefByName(const struct timing_def_t* table, int size, string name);
     static bool WritePciReg(unsigned int pciDev, unsigned int value);
     static unsigned int ReadPciReg(unsigned int pciDev);
