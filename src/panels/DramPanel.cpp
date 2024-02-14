@@ -149,14 +149,14 @@ void DramPanel::CreateRightStaticBoxes(wxSizer* dramPanelSizer)
     // Romsip controls
     wxFlexGridSizer* romsipGridSizer = new wxFlexGridSizer(4, 8, 2, 2);
 
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "48", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "4C", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "4D", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "50", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
     romsipGridSizer->AddStretchSpacer();
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "65", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "66", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "67", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 5);
 
     romsipGridSizer->Add(new TAdvancedEdit(this, "Romsip48", ""), 0);
     romsipGridSizer->Add(new TAdvancedEdit(this, "Romsip4C", ""), 0);
@@ -167,14 +167,14 @@ void DramPanel::CreateRightStaticBoxes(wxSizer* dramPanelSizer)
     romsipGridSizer->Add(new TAdvancedEdit(this, "Romsip66", ""), 0);
     romsipGridSizer->Add(new TAdvancedEdit(this, "Romsip67", ""), 0);
 
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
-    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "68", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "69", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "6A", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "6B", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "6C", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "6D", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "6F", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
+    romsipGridSizer->Add(new wxStaticText(this, wxID_ANY, "74", wxDefaultPosition, wxSize(26, -1), wxTE_CENTER), 0, wxALIGN_BOTTOM | wxTOP, 7);
 
     romsipGridSizer->Add(new TAdvancedEdit(this, "Romsip68", ""), 0);
     romsipGridSizer->Add(new TAdvancedEdit(this, "Romsip69", ""), 0);

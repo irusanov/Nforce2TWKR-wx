@@ -3448,3 +3448,6 @@
 	"../../Nforce2TWKRMain.h"
 	"../../utils/ProfilesManager.h"
 
+1707930776 source:c:\git\nforce2twkr-wx\src\dialogs\profilesavewindow.cpp
+	"dialogs/ProfileSaveWindow.h"
+
