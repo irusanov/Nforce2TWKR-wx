@@ -3065,7 +3065,7 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1707790972 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1707791520 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
@@ -3097,7 +3097,7 @@
 	"Constants.h"
 	"ols/OlsApiInitExt.h"
 
-1706670020 c:\git\nforce2twkr-wx\version.h
+1707818471 c:\git\nforce2twkr-wx\version.h
 
 1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\notebook.h
 	"wx/defs.h"
@@ -3423,7 +3423,7 @@
 1706673212 source:c:\git\nforce2twkr-wx\src\components\tadvancededit.cpp
 	"components/TAdvancedEdit.h"
 
-1707790674 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
+1707819305 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
 	"components/TTimingComboBox.h"
 
 1706674547 source:c:\git\nforce2twkr-wx\src\components\treadonlytextbox.cpp

@@ -151,16 +151,16 @@ void ChipsetPanel::UpdatePciSlider(unsigned int mul) {
     double pci = (mul / 15.0) * 6.25;
     double agp = pci * 2.0;
 
-    if (mul < pciSlider->GetMin()) {
+    if (mul < static_cast<unsigned int>(pciSlider->GetMin())) {
         pciSlider->SetMin(mul);
-    } else if (mul > pciSlider->GetMax()) {
+    } else if (mul > static_cast<unsigned int>(pciSlider->GetMax())) {
         pciSlider->SetMax(mul);
     }
 
     pciSlider->SetValue(mul);
     pciSliderValue->SetValue(wxString::Format("%.2f / %.2f", agp, pci));
 
-    int sliderValue = pllSlider->GetValue();
+    int sliderValue = pciSlider->GetValue();
     bool minReached = sliderValue <= pciSlider->GetMin();
     bool maxReached = sliderValue >= pciSlider->GetMax();
 
@@ -174,7 +174,6 @@ void ChipsetPanel::UpdatePllSlider(double fsb) {
         pllSlider->SetValue(static_cast<int>(fsb));
         pllSliderValue->SetValue(wxString::Format("%.2f MHz", targetFsb));
 
-        int sliderValue = pllSlider->GetValue();
         bool minReached = ceil(fsb) <= pllSlider->GetMin();
         bool maxReached = floor(fsb) >= pllSlider->GetMax();
 
@@ -184,6 +183,7 @@ void ChipsetPanel::UpdatePllSlider(double fsb) {
 }
 
 void ChipsetPanel::Update() {
+    cpuReference->RefreshCpuSpeed();
     cpu_info_t cpuInfo = cpuReference->GetCpuInfo();
     UpdatePciSlider(cpuInfo.pciMul);
     UpdatePllSlider(cpuInfo.fsb);
@@ -212,9 +212,9 @@ void ChipsetPanel::OnPllSliderChange(wxScrollEvent& event) {
     pair<double, int> p;
 
     if (position < static_cast<int>(targetFsb)) {
-        p = cpuReference->GetPll().GetPrevPll(position);
+        p = cpuReference->GetPll().GetPrevPll(targetFsb);
     } else {
-        p = cpuReference->GetPll().GetNextPll(position);
+        p = cpuReference->GetPll().GetNextPll(targetFsb);
     }
 
     UpdatePllSlider(p.first);

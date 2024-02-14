@@ -172,7 +172,8 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
     */
 
     SetSizerAndFit(mainSizer);
-    RefreshTimings();
+    RefreshDramTimings();
+    RefreshChipsetTimings();
     wxLogStatus(_T("OK"));
 }
 
@@ -183,12 +184,15 @@ Nforce2TWKRFrame::~Nforce2TWKRFrame() {
     DeinitOpenLibSys(&m_hOpenLibSys);
 }
 
-void Nforce2TWKRFrame::RefreshTimings() {
+void Nforce2TWKRFrame::RefreshDramTimings() {
     Registers::ReadTimings(timingDefs, COUNT_OF(timingDefs));
     Registers::ReadTimings(doubledTimingDefs, COUNT_OF(doubledTimingDefs));
+    Registers::ReadRomsipValues(romsipDefs, COUNT_OF(romsipDefs));
+}
+
+void Nforce2TWKRFrame::RefreshChipsetTimings() {
     Registers::ReadTimings(chipsetTimingDefs, COUNT_OF(chipsetTimingDefs));
     Registers::ReadTimings(s2kTimings, COUNT_OF(s2kTimings));
-    Registers::ReadRomsipValues(romsipDefs, COUNT_OF(romsipDefs));
 }
 
 // Demo component click
@@ -227,29 +231,20 @@ void Nforce2TWKRFrame::OnAbout(wxCommandEvent& WXUNUSED(event)) {
 }
 
 void Nforce2TWKRFrame::OnRefreshButtonClick(wxCommandEvent& event) {
-    RefreshTimings();
 
-    if (currentPageIndex > 0) {
-        cpu->RefreshCpuSpeed();
-
-        if (currentPageIndex == 1) {
+    switch(currentPageIndex) {
+        case 0:
+            RefreshDramTimings();
+            break;
+        case 1:
+            RefreshChipsetTimings();
             chipsetPanel->Update();
-        }
-
-        if (currentPageIndex == 2) {
+            break;
+        case 2:
             infoPanel->Update();
-        }
+            break;
+        default: ;
     }
-
-    /*
-    if (index == 1) {
-        updateFromButtons = true;
-        TrackBarPll->Position = cpu_info.fsb;
-        TrackBarAgp->Position = cpu_info.pciMul;
-        UpdatePllSlider(cpu_info.fsb, 0);
-        // UpdateAgpSlider(cpu_info.pciBus);
-        updateFromButtons = false;
-    }*/
 }
 
 void Nforce2TWKRFrame::OnApplyButtonClick(wxCommandEvent& event) {
@@ -259,7 +254,7 @@ void Nforce2TWKRFrame::OnApplyButtonClick(wxCommandEvent& event) {
         Registers::WriteRomsipValues(romsipDefs, COUNT_OF(romsipDefs));
         Registers::WriteBurstMode(timingDefs, COUNT_OF(timingDefs));
         Registers::WriteDriveStrengthMode(timingDefs, COUNT_OF(timingDefs));
-        RefreshTimings();
+        RefreshDramTimings();
     }
 
     if (currentPageIndex == 1) {
@@ -267,13 +262,12 @@ void Nforce2TWKRFrame::OnApplyButtonClick(wxCommandEvent& event) {
         Registers::WriteTimings(s2kTimings, COUNT_OF(s2kTimings), false);
         Registers::WriteBusDisconnect();
         cpu->WritePciFrequency(chipsetPanel->GetTargetPci() << 8 | 0xf);
-        RefreshTimings();
         double targetFsb = chipsetPanel->GetTargetFsb();
         int targetPll = cpu->GetPll().GetPllFromFsb(targetFsb);
         if (targetPll != 0) {
             cpu->GetPll().nforce2_set_fsb_pll(targetFsb, targetPll);
         }
-        cpu->RefreshCpuSpeed();
+        RefreshChipsetTimings();
         chipsetPanel->Update();
     }
 }
