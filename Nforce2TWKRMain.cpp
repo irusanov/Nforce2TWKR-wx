@@ -14,6 +14,7 @@
 #include <wx/string.h>
 #include "ols/OlsApiInit.h"
 #include "dialogs/ProfilePreloadWindow.h"
+#include "dialogs/ProfileSaveWindow.h"
 #include "dialogs/SettingsWindow.h"
 #include "dialogs/ValidationBotWindow.h"
 #include "Registers.h"
@@ -48,6 +49,7 @@ const long Nforce2TWKRFrame::MENU_QUIT_ID = wxNewId();
 const long Nforce2TWKRFrame::MENU_ABOUT_ID = wxNewId();
 const long Nforce2TWKRFrame::MENU_SETTINGS_ID = wxNewId();
 const long Nforce2TWKRFrame::MENU_REFRESH_ID = wxNewId();
+const long Nforce2TWKRFrame::MENU_PROFILE_SAVE_ID = wxNewId();
 const long Nforce2TWKRFrame::STATUSBAR_ID = wxNewId();
 
 // Static events, add menus here
@@ -56,6 +58,7 @@ BEGIN_EVENT_TABLE(Nforce2TWKRFrame, wxFrame)
     EVT_MENU(MENU_ABOUT_ID, Nforce2TWKRFrame::OnAbout)
     EVT_MENU(MENU_SETTINGS_ID, Nforce2TWKRFrame::OnOpenSettings)
     EVT_MENU(MENU_REFRESH_ID, Nforce2TWKRFrame::OnRefreshButtonClick)
+    EVT_MENU(MENU_PROFILE_SAVE_ID, Nforce2TWKRFrame::OnProfileSaveClick)
     // EVT_BUTTON(wxID_ANY, Nforce2TWKRFrame::OnButtonClick)
     EVT_BUTTON(wxID_REFRESH, Nforce2TWKRFrame::OnRefreshButtonClick)
     EVT_BUTTON(wxID_APPLY, Nforce2TWKRFrame::OnApplyButtonClick)
@@ -141,7 +144,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
     // File menu
     wxMenu* menuFile = new wxMenu();
     menuFile->Append(wxID_ANY, _T("Open Profile\tCtrl+O"), _T("Open saved profile"));
-    menuFile->Append(wxID_ANY, _T("Save Profile\tCtrl+S"), _T("Save current settings to a profile"));
+    menuFile->Append(MENU_PROFILE_SAVE_ID, _T("Save Profile\tCtrl+S"), _T("Save current settings to a profile"));
     menuFile->Append(MENU_REFRESH_ID, _T("Refresh\tF5"), _T("Reload settings"));
     menuFile->AppendSeparator();
     menuFile->Append(MENU_QUIT_ID, _T("Exit"), _T("Close the application"));
@@ -264,7 +267,7 @@ void Nforce2TWKRFrame::OnApplyButtonClick(wxCommandEvent& event) {
         cpu->WritePciFrequency(chipsetPanel->GetTargetPci() << 8 | 0xf);
         double targetFsb = chipsetPanel->GetTargetFsb();
         int targetPll = cpu->GetPll().GetPllFromFsb(targetFsb);
-        if (targetPll != 0) {
+        if (targetFsb != 0 && targetPll != 0) {
             cpu->GetPll().nforce2_set_fsb_pll(targetFsb, targetPll);
         }
         RefreshChipsetTimings();
@@ -279,3 +282,9 @@ void Nforce2TWKRFrame::OnPageChanged(wxBookCtrlEvent& event) {
         infoPanel->Update();
     }
 }
+
+void Nforce2TWKRFrame::OnProfileSaveClick(wxCommandEvent& event) {
+    ProfileSaveWindow* profileDialog = new ProfileSaveWindow(this, _("Save Profile"));
+    profileDialog->ShowWindowModal();
+}
+

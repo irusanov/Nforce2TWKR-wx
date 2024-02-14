@@ -11,7 +11,6 @@ wxEND_EVENT_TABLE()
 SettingsWindow::SettingsWindow(wxWindow* parent, const wxString& title, AppSettings& appSettings)
     : wxDialog(parent, wxID_ANY, title, wxDefaultPosition),
       settings(&appSettings) {
-    CenterOnParent();
     wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
 
     // Checkboxes
@@ -34,6 +33,7 @@ SettingsWindow::SettingsWindow(wxWindow* parent, const wxString& title, AppSetti
     mainSizer->Add(buttonSizer, 0, wxALIGN_RIGHT | wxALL, 10);
 
     SetSizerAndFit(mainSizer);
+    CenterOnParent();
 
     LoadOptions();
 }
