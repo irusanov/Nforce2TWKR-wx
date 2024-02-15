@@ -39,11 +39,7 @@ void Registers::ReadTimings(const struct timing_def_t* table, int size) {
 
             if (name == "CAS") {
                 ((TTimingComboBox *)combo)->SetValue(GetIndexByCAS(value));
-            }
-            else if (combo->tCustomValue) {
-                ((TTimingComboBox *)combo)->SetItemValue(value);
-            }
-            else {
+            } else {
                 ((TTimingComboBox *)combo)->SetValue(value);
             }
         }
@@ -82,9 +78,9 @@ void Registers::WriteTimings(const struct timing_def_t* table, int size, bool do
         name = table[i].name;
         combo = static_cast<TTimingComboBox *>(wxFrame::FindWindowByName(name));
 
-        if (combo != nullptr && combo != 0 && ((TTimingComboBox *)combo)->isChanged) {
+        if (combo != nullptr && combo != 0 && ((TTimingComboBox *)combo)->IsChanged()) {
             // Skip if timing requires a custom write
-            if (combo->tCustomValue) {
+            if (combo->IsCustomValue()) {
                 continue;
             }
 
@@ -111,7 +107,7 @@ void Registers::WriteBurstMode(const struct timing_def_t* table, int size) {
     unsigned int pciAddress, regValue, value;
     TTimingComboBox* combo = static_cast<TTimingComboBox *>(wxFrame::FindWindowByName(name));
 
-    if (combo != nullptr && combo != 0 && combo->isChanged) {
+    if (combo != nullptr && combo != 0 && combo->IsChanged()) {
         def = Utils::GetDefByName(table, size, name);
         value = combo->GetSelection();
 
@@ -131,7 +127,7 @@ void Registers::WriteDriveStrengthMode(const struct timing_def_t* table, int siz
     unsigned int pciAddress, regValue, value;
     TTimingComboBox* combo = static_cast<TTimingComboBox *>(wxFrame::FindWindowByName(name));
 
-    if (combo != nullptr && combo != 0 && combo->isChanged) {
+    if (combo != nullptr && combo != 0 && combo->IsChanged()) {
         def = Utils::GetDefByName(table, size, name);
         value = combo->GetSelection();
 
@@ -154,7 +150,7 @@ void Registers::WriteBusDisconnect() {
 
     combo = static_cast<TTimingComboBox *>(wxFrame::FindWindowByName("STPGNTDisconnect"));
 
-    if (combo != nullptr && combo != 0 && combo->isChanged) {
+    if (combo != nullptr && combo != 0 && combo->IsChanged()) {
         regValue = Utils::ReadPciReg(pciAddress);
         value = combo->GetSelection();
 
@@ -165,7 +161,7 @@ void Registers::WriteBusDisconnect() {
 
     combo = static_cast<TTimingComboBox *>(wxFrame::FindWindowByName("HALTDisconnect"));
 
-    if (combo != nullptr && combo != 0 && combo->isChanged) {
+    if (combo != nullptr && combo != 0 && combo->IsChanged()) {
         regValue = Utils::ReadPciReg(pciAddress);
         value = combo->GetSelection();
 

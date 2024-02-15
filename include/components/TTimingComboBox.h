@@ -17,23 +17,24 @@ public:
                     const wxArrayString& choices = wxArrayString(),
                     const bool isCustomValue = false);
 
-    void SetValue(int value);
-    void SetItemValue(int value);
-    void SetChanged();
-    bool tCustomValue;
-    bool isChanged;
+    void SetValue(int value, bool resetIndex = true);
+    int GetValue();
+    bool IsChanged();
+    bool IsCustomValue();
 
 private:
-    wxColour originalBackground;
-
+    // Variables
     int tMin;
     int tMax;
-    int tValue;
-    int tIndex;
+    int savedIndex;
+    bool tCustomValue;
+    wxColour originalBackground;
     wxArrayString customItems;
 
+    // Methods
     void CreateItems();
-    // void OnDrawItem(wxDC& dc, const wxRect& rect, int item, int flags) const override;
+
+    // Handlers
     void OnDropDown(wxCommandEvent& event);
     void OnCloseUp(wxCommandEvent& event);
     void OnComboBox(wxCommandEvent& event);

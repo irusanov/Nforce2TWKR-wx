@@ -3296,7 +3296,7 @@
 1706228940 source:c:\git\nforce2twkr-wx\src\appsettings.cpp
 	"AppSettings.h"
 
-1707950569 source:c:\git\nforce2twkr-wx\utils\profilesmanager.cpp
+1708012156 source:c:\git\nforce2twkr-wx\utils\profilesmanager.cpp
 	"ProfilesManager.h"
 	"Constants.h"
 
@@ -3382,9 +3382,11 @@
 	"components/TAdvancedEdit.h"
 	"components/TTimingComboBox.h"
 
-1707790914 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
+1708010115 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
 	"InfoPanel.h"
 	"components/TReadonlyTextBox.h"
+	"components/Custom.h"
+	"Constants.h"
 
 1707783799 c:\git\nforce2twkr-wx\include\panels\infopanel.h
 	"wx/wx.h"
@@ -3407,7 +3409,7 @@
 1707305241 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
 	<wx/wx.h>
 
-1707790681 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
+1708011844 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
 	<wx/wx.h>
 	<wx/odcombo.h>
 	"../../utils/Utils.h"
@@ -3422,7 +3424,7 @@
 1706673212 source:c:\git\nforce2twkr-wx\src\components\tadvancededit.cpp
 	"components/TAdvancedEdit.h"
 
-1707819305 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
+1708012363 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
 	"components/TTimingComboBox.h"
 
 1706674547 source:c:\git\nforce2twkr-wx\src\components\treadonlytextbox.cpp
@@ -3435,7 +3437,7 @@
 	"wx/wx.h"
 	"../utils/Utils.h"
 
-1707785030 source:c:\git\nforce2twkr-wx\src\registers.cpp
+1708011780 source:c:\git\nforce2twkr-wx\src\registers.cpp
 	"Registers.h"
 	"Constants.h"
 	"components/TTimingComboBox.h"
@@ -3453,4 +3455,12 @@
 
 1707946259 source:c:\git\nforce2twkr-wx\src\dialogs\profilewindowbase.cpp
 	"dialogs/ProfileWindowBase.h"
+
+1708011535 source:c:\git\nforce2twkr-wx\src\components\custom.cpp
+	"components/Custom.h"
+
+1708011201 c:\git\nforce2twkr-wx\include\components\custom.h
+	<wx/wx.h>
+	<wx/odcombo.h>
+	"../../utils/Utils.h"
 

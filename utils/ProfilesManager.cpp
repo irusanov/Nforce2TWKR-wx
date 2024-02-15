@@ -39,8 +39,8 @@ void ProfilesManager::SaveTimings(wxFileConfig* ini, const wxString& section, co
         combo = dynamic_cast<TTimingComboBox*>(wxWindow::FindWindowByName(names[i]));
 
         if (combo != wxNullPtr) {
-            //value = static_cast<int>(combo->GetValue());
-            ini->Write(section + wxCONFIG_PATH_SEPARATOR + names[i], combo->GetValue());
+            value = combo->GetValue();
+            ini->Write(section + wxCONFIG_PATH_SEPARATOR + names[i], value);
         }
     }
 }
@@ -54,18 +54,9 @@ void ProfilesManager::LoadTimings(wxFileConfig* ini, const wxString& section, co
             combo = dynamic_cast<TTimingComboBox*>(wxWindow::FindWindowByName(names[i]));
 
             if (combo != wxNullPtr) {
-                //if (combo->CustomValue)
-                //    currentValue = combo->ItemValue;
-                //else
-                    currentValue = wxAtoi(combo->GetValue());
-
+                currentValue = combo->GetValue();
                 if (currentValue != value) {
-                    //if (combo->CustomValue)
-                    //    combo->ItemValue = value;
-                    //else
-                        combo->SetValue(value);
-
-                    combo->SetChanged();
+                    combo->SetValue(value, false);
                 }
             }
         }

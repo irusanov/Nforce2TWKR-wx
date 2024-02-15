@@ -12,13 +12,11 @@ TTimingComboBox::TTimingComboBox(wxWindow* parent,
                                  const wxArrayString& choices,
                                  const bool isCustomValue)
     : wxOwnerDrawnComboBox(parent, wxID_ANY, value, wxDefaultPosition, size, wxArrayString(), editable ? 0 : wxCB_READONLY, wxDefaultValidator, name),
-      tMin(min),
-      tMax(max),
-      tValue(0),
-      tIndex(-1),
-      isChanged(false),
-      customItems(choices),
-      tCustomValue(isCustomValue) {
+    tMin(min),
+    tMax(max),
+    savedIndex(-1),
+    customItems(choices),
+    tCustomValue(isCustomValue) {
 
     originalBackground = GetBackgroundColour();
 
@@ -43,10 +41,17 @@ TTimingComboBox::TTimingComboBox(wxWindow* parent,
     Bind(wxEVT_COMBOBOX, &TTimingComboBox::OnComboBox, this);
     Bind(wxEVT_COMBOBOX_DROPDOWN, &TTimingComboBox::OnDropDown, this);
     Bind(wxEVT_COMBOBOX_CLOSEUP, &TTimingComboBox::OnCloseUp, this);
-    //Bind(wxEVT_PAINT, &TTimingComboBox::OnPaint, this);
 }
 
+// Methods
 void TTimingComboBox::CreateItems() {
+    Clear();
+
+    if (customItems.Count() > 0) {
+        tMin = 0;
+        tMax = customItems.Count() - 1;
+    }
+
     if (customItems.Count() > 0) {
         Append(customItems);
     } else {
@@ -56,65 +61,17 @@ void TTimingComboBox::CreateItems() {
     }
 }
 
-/*
-void TTimingComboBox::OnDrawItem(wxDC& dc, const wxRect& rect, int item, int flags) const
-{
-    dc.SetBrush(wxBrush(GetBackgroundColour()));
-    dc.SetPen(wxPen(GetBackgroundColour()));
+void TTimingComboBox::SetValue(int value, bool resetIndex) {
+    int index = -1;
 
-    // Customize the drawing of items if needed
-    wxOwnerDrawnComboBox::OnDrawItem(dc, rect, item, flags);
-}
-*/
-
-void TTimingComboBox::OnDropDown(wxCommandEvent& event) {
-    SetBackgroundColour(originalBackground);
-    Refresh();
-    event.Skip();
-}
-
-void TTimingComboBox::OnCloseUp(wxCommandEvent& event) {
-    if (isChanged) {
-        SetBackgroundColour(*wxYELLOW);
-    }
-    Refresh();
-    event.Skip();
-}
-
-void TTimingComboBox::OnComboBox(wxCommandEvent& event) {
-    isChanged = (tIndex != GetSelection());
-    SetBackgroundColour(isChanged ? *wxYELLOW : originalBackground);
-    Refresh();
-    event.Skip();
-}
-
-// Set selected index corresponding to the value
-void TTimingComboBox::SetValue(int value) {
-    if (value >= tMin && value <= tMax) {
-        SetSelection(value - tMin);
-        tValue = value;
-        tIndex = GetSelection();
-        isChanged = false;
-        SetBackgroundColour(originalBackground);
-        Refresh();
-    }
-}
-
-void TTimingComboBox::SetItemValue(int value) {
-    if (!tCustomValue) {
-        return;
-    }
-
-    if (value >= 0) {
+    // custom item different than the index, e.g. "32, 64, ..."
+    if (IsCustomValue() && customItems.Count() > 0 && value >= 0) {
         wxString valueStr = wxString::Format("%d", value);
-        int index = FindString(valueStr);
+        index = FindString(valueStr);
 
-        if (index != wxNOT_FOUND) {
-            SetSelection(index);
-            tIndex = index;
-        } else {
+        if (index == wxNOT_FOUND) {
             index = 0;
-            for (size_t i = 0; i < GetCount(); i++) {
+            for (size_t i = 0; i < customItems.Count(); i++) {
                 long itemValue;
                 GetString(i).ToLong(&itemValue);
                 if (value > static_cast<int>(itemValue)) {
@@ -122,52 +79,66 @@ void TTimingComboBox::SetItemValue(int value) {
                 }
             }
 
-            Insert(valueStr, index);
-            SetSelection(index);
+            // Insert
+            customItems.Insert(valueStr, index);
+            CreateItems();
         }
+    // usual case where values are generated from tMin and tMax or are using index, but have custom labels, e.g. "Disabled/Enabled"
+    } else if (value >= tMin && value <= tMax) {
+        index = value - tMin;
+    }
 
-        tValue = value;
-        isChanged = false;
+    SetSelection(index);
 
+    if (resetIndex) {
+        savedIndex = index;
         SetBackgroundColour(originalBackground);
     }
+
+    // Refresh();
 }
 
-// Set selected index by value
-/*
-void TTimingComboBox::SetItemValue(int value) {
-    if (!tCustomValue) {
-        return;
-    }
-
-    if (value >= 0) {
-        int index = FindString(wxString::Format("%d", value));
-
+int TTimingComboBox::GetValue() {
+    // custom value case (text like Disabled/Enabled), assuming the actual value is the index
+    if (!IsCustomValue() && customItems.Count() > 0) {
+        int index = GetSelection();
         if (index == wxNOT_FOUND) {
-            index = 0;
-            for (unsigned int i = 0; i < GetCount(); i++) {
-                if (value > wxAtoi(GetString(i))) {
-                    index++;
-                }
-            }
-
-            Insert(wxString::Format("%d", value), index);
+            return -1;
         }
-
-        SetSelection(index);
-        tIndex = index;
-        tValue = value;
-        isChanged = false;
-        SetBackgroundColour(originalBackground);
-        Refresh();
+        return index;
     }
-}
-*/
 
-void TTimingComboBox::SetChanged() {
-    isChanged = true;
-    SetBackgroundColour(*wxYELLOW);
+    // default case, get value as integer
+    return wxAtoi(wxComboCtrl::GetValue());
+}
+
+bool TTimingComboBox::IsChanged() {
+    return savedIndex != GetSelection();
+}
+
+bool TTimingComboBox::IsCustomValue() {
+    return tCustomValue;
+}
+
+// Handlers
+void TTimingComboBox::OnDropDown(wxCommandEvent& event) {
+    SetBackgroundColour(originalBackground);
     Refresh();
+    event.Skip();
+}
+
+void TTimingComboBox::OnCloseUp(wxCommandEvent& event) {
+    if (IsChanged()) {
+        SetBackgroundColour(*wxYELLOW);
+    }
+    Refresh();
+    event.Skip();
+}
+
+void TTimingComboBox::OnComboBox(wxCommandEvent& event) {
+    SetBackgroundColour(IsChanged() ? *wxYELLOW : originalBackground);
+    Refresh();
+    event.Skip();
 }
 
 void TTimingComboBox::OnPaint(wxPaintEvent& event) {
