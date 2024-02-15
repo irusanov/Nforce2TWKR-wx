@@ -3065,7 +3065,7 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1707943307 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1708022864 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
@@ -3286,7 +3286,7 @@
 
 1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\os2\stdpaths.h
 
-1707085577 c:\git\nforce2twkr-wx\utils\profilesmanager.h
+1708014846 c:\git\nforce2twkr-wx\utils\profilesmanager.h
 	<wx/wx.h>
 	<wx/fileconf.h>
 	<wx/stdpaths.h>
@@ -3296,7 +3296,7 @@
 1706228940 source:c:\git\nforce2twkr-wx\src\appsettings.cpp
 	"AppSettings.h"
 
-1708013818 source:c:\git\nforce2twkr-wx\utils\profilesmanager.cpp
+1708022244 source:c:\git\nforce2twkr-wx\utils\profilesmanager.cpp
 	"ProfilesManager.h"
 	"Constants.h"
 
@@ -3308,14 +3308,14 @@
 1706230294 source:c:\git\nforce2twkr-wx\src\profilepreloadwindow.cpp
 	"dialogs/ProfilePreloadWindow.h"
 
-1707941230 c:\git\nforce2twkr-wx\include\dialogs\profilepreloadwindow.h
+1708022853 c:\git\nforce2twkr-wx\include\dialogs\profilepreloadwindow.h
 	"ProfileWindowBase.h"
 
 1706669800 c:\git\nforce2twkr-wx\include\dialogs\settingswindow.h
 	<wx/wx.h>
 	"AppSettings.h"
 
-1707941722 source:c:\git\nforce2twkr-wx\src\dialogs\profilepreloadwindow.cpp
+1708022846 source:c:\git\nforce2twkr-wx\src\dialogs\profilepreloadwindow.cpp
 	"dialogs/ProfilePreloadWindow.h"
 
 1707935980 source:c:\git\nforce2twkr-wx\src\dialogs\settingswindow.cpp
@@ -3404,7 +3404,7 @@
 	"ChipsetPanel.h"
 	"../../utils/Nforce2Pll.h"
 
-1707305241 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
+1708023181 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
 	<wx/wx.h>
 
 1708011844 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
@@ -3422,7 +3422,7 @@
 1706673212 source:c:\git\nforce2twkr-wx\src\components\tadvancededit.cpp
 	"components/TAdvancedEdit.h"
 
-1708012783 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
+1708022628 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
 	"components/TTimingComboBox.h"
 
 1706674547 source:c:\git\nforce2twkr-wx\src\components\treadonlytextbox.cpp
@@ -3444,14 +3444,14 @@
 1707943288 c:\git\nforce2twkr-wx\include\dialogs\profilesavewindow.h
 	"ProfileWindowBase.h"
 
-1707946483 source:c:\git\nforce2twkr-wx\src\dialogs\profilesavewindow.cpp
+1708017770 source:c:\git\nforce2twkr-wx\src\dialogs\profilesavewindow.cpp
 	"dialogs/ProfileSaveWindow.h"
 
 1708013329 c:\git\nforce2twkr-wx\include\dialogs\profilewindowbase.h
 	<wx/wx.h>
 	"../../utils/ProfilesManager.h"
 
-1708013318 source:c:\git\nforce2twkr-wx\src\dialogs\profilewindowbase.cpp
+1708018136 source:c:\git\nforce2twkr-wx\src\dialogs\profilewindowbase.cpp
 	"dialogs/ProfileWindowBase.h"
 
 1708011535 source:c:\git\nforce2twkr-wx\src\components\custom.cpp

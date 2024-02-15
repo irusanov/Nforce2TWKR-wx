@@ -12,7 +12,7 @@ public:
                   const wxString& value = wxEmptyString,
                   const wxPoint& pos = wxDefaultPosition);
 
-    void SetValue(const wxString& value) override;
+    void SetValue(const wxString& value, bool resetIndex = true);
     bool isChanged;
 
 private:

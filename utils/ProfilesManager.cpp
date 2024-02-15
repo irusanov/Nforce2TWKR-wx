@@ -36,7 +36,7 @@ void ProfilesManager::SaveTimings(wxFileConfig* ini, const wxString& section, co
     TTimingComboBox* combo;
 
     for (int i = 0; i < size; i++) {
-        combo = dynamic_cast<TTimingComboBox*>(wxWindow::FindWindowByName(names[i]));
+        combo = static_cast<TTimingComboBox*>(wxFrame::FindWindowByName(names[i]));
 
         if (combo != wxNullPtr) {
             value = combo->GetValue();
@@ -51,13 +51,10 @@ void ProfilesManager::LoadTimings(wxFileConfig* ini, const wxString& section, co
 
     for (int i = 0; i < size; i++) {
         if (ini->Read(section + wxCONFIG_PATH_SEPARATOR + names[i], &value)) {
-            combo = dynamic_cast<TTimingComboBox*>(wxWindow::FindWindowByName(names[i]));
+            combo = static_cast<TTimingComboBox *>(wxFrame::FindWindowByName(names[i]));
 
             if (combo != wxNullPtr) {
-                currentValue = combo->GetValue();
-                if (currentValue != value) {
-                    combo->SetValue(value, false);
-                }
+                combo->SetValue(value, false);
             }
         }
     }
@@ -67,7 +64,7 @@ void ProfilesManager::SaveRomsipValues(wxFileConfig* ini, const wxString& sectio
     TAdvancedEdit* box;
 
     for (int i = 0; i < size; i++) {
-        box = dynamic_cast<TAdvancedEdit*>(wxWindow::FindWindowByName(names[i]));
+        box = static_cast<TAdvancedEdit*>(wxFrame::FindWindowByName(names[i]));
 
         if (box != wxNullPtr) {
             ini->Write(section + wxCONFIG_PATH_SEPARATOR + names[i].AfterFirst('Romsip'), box->GetValue());
@@ -80,19 +77,20 @@ void ProfilesManager::LoadRomsipValues(wxFileConfig* ini, const wxString& sectio
     TAdvancedEdit* box;
 
     for (int i = 0; i < size; i++) {
-        if (ini->Read(section + wxCONFIG_PATH_SEPARATOR + names[i].AfterFirst('R'), &value)) {
-            box = dynamic_cast<TAdvancedEdit*>(wxWindow::FindWindowByName(names[i]));
+        if (ini->Read(section + wxCONFIG_PATH_SEPARATOR + names[i].AfterFirst('Romsip'), &value)) {
+            box = static_cast<TAdvancedEdit*>(wxFrame::FindWindowByName(names[i]));
 
             if (box != wxNullPtr) {
-                box->SetValue(value);
+                box->SetValue(value, false);
             }
         }
     }
 }
 
 profile_metadata_t ProfilesManager::ReadMetadata(const wxString& FilePath) {
-    wxFileConfig iniFile(FilePath);
+    wxFileConfig iniFile(wxEmptyString, wxEmptyString, FilePath, wxEmptyString, wxCONFIG_USE_LOCAL_FILE);
 
+    profile_metadata_t previewMetadata;
     previewMetadata.path = FilePath;
 
     iniFile.Read("PMVersion/Major", &previewMetadata.versionMajor, 0);
@@ -118,22 +116,22 @@ void ProfilesManager::WriteMetadata(wxFileConfig* ini, const profile_options_t& 
 }
 
 void ProfilesManager::Load(const wxString& FilePath, const profile_options_t& Opts) {
-    wxFileConfig iniFile(FilePath);
+    wxFileConfig iniFile(wxEmptyString, wxEmptyString, FilePath, wxEmptyString, wxCONFIG_USE_LOCAL_FILE);
 
     if (Opts.timings) {
-        LoadTimings(&iniFile, "Timings", timings, COUNT_OF(timings));
+        LoadTimings(&iniFile, "Timings", timings, WXSIZEOF(timings));
     }
 
     if (Opts.dssr) {
-        LoadTimings(&iniFile, "DSSR", dssr, COUNT_OF(dssr));
+        LoadTimings(&iniFile, "DSSR", dssr, WXSIZEOF(dssr));
     }
 
     if (Opts.advanced) {
-        LoadTimings(&iniFile, "Advanced", advanced, COUNT_OF(advanced));
+        LoadTimings(&iniFile, "Advanced", advanced, WXSIZEOF(advanced));
     }
 
     if (Opts.romsip) {
-        LoadRomsipValues(&iniFile, "ROMSIP", romsip, COUNT_OF(romsip));
+        LoadRomsipValues(&iniFile, "ROMSIP", romsip, WXSIZEOF(romsip));
     }
 }
 

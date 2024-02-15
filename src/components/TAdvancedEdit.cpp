@@ -50,12 +50,17 @@ void TAdvancedEdit::OnKeyPress(wxKeyEvent& event) {
     }
 }
 
-void TAdvancedEdit::SetValue(const wxString& value) {
+void TAdvancedEdit::SetValue(const wxString& value, bool resetIndex) {
     if (!value.IsEmpty()) {
-        savedValue = value;
-        isChanged = false;
-        SetModified(false);
-        SetBackgroundColour(initialBackgroundColor);
+        if (resetIndex) {
+            savedValue = value;
+            SetBackgroundColour(initialBackgroundColor);
+        } else {
+            SetBackgroundColour(*wxYELLOW);
+        }
+
+        isChanged = !resetIndex;
+        SetModified(!resetIndex);
     }
     wxTextCtrl::SetValue(value);
 }

@@ -92,8 +92,9 @@ void TTimingComboBox::SetValue(int value, bool resetIndex) {
 
     if (resetIndex) {
         savedIndex = index;
-        SetBackgroundColour(originalBackground);
     }
+
+    SetBackgroundColour(IsChanged() ? *wxYELLOW : originalBackground);
 
     // Refresh();
 }

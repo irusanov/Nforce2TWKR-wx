@@ -276,6 +276,6 @@ void Nforce2TWKRFrame::OnProfileSaveMenuClick(wxCommandEvent& event) {
 }
 
 void Nforce2TWKRFrame::OnProfileLoadMenuClick(wxCommandEvent& event) {
-    ProfilePreloadWindow* profileDialog = new ProfilePreloadWindow(this);
+    ProfilePreloadWindow* profileDialog = new ProfilePreloadWindow(this, profiles);
     profileDialog->ShowWindowModal();
 }

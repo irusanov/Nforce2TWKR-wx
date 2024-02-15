@@ -11,7 +11,7 @@ ProfileSaveWindow::ProfileSaveWindow(wxWindow* parent, ProfilesManager& profiles
 }
 
 ProfileSaveWindow::~ProfileSaveWindow() {
-    // Cleanup resources
+
 }
 
 void ProfileSaveWindow::OnAction() {

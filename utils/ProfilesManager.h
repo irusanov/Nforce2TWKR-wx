@@ -59,7 +59,7 @@ public:
     void Init();
 
     // Preload profile data
-    profile_metadata_t previewMetadata;
+    // profile_metadata_t previewMetadata;
 };
 #endif // PROFILESMANAGER_H
 
