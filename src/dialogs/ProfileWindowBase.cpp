@@ -1,11 +1,5 @@
 #include "dialogs/ProfileWindowBase.h"
 
-wxBEGIN_EVENT_TABLE(ProfileWindowBase, wxDialog)
-    // EVT_BUTTON(wxID_APPLY, ProfileWindowBase::OnActionButtonClick)
-    // EVT_SHOW(ProfileWindowBase::OnFormShow)
-    EVT_CHECKBOX(wxID_ANY, ProfileWindowBase::OnSectionCheckBoxClick)
-wxEND_EVENT_TABLE()
-
 ProfileWindowBase::ProfileWindowBase(wxWindow* parent, const wxString& title, const wxString& okButtonText, const bool editable)
     : wxDialog(parent, wxID_ANY, title) {
 
@@ -55,6 +49,8 @@ ProfileWindowBase::ProfileWindowBase(wxWindow* parent, const wxString& title, co
     buttonSizer->Add(buttonCancel, 0, wxRIGHT, 5);
     buttonSizer->Add(buttonSave, 0);
     mainSizer->Add(buttonSizer, 0, wxALIGN_RIGHT | wxALL, 10);
+
+    this->Bind(wxEVT_CHECKBOX, &ProfileWindowBase::OnSectionCheckBoxClick, this);
 
     SetSizerAndFit(mainSizer);
     CenterOnParent();

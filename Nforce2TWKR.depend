@@ -3098,7 +3098,7 @@
 	"Constants.h"
 	"ols/OlsApiInitExt.h"
 
-1707931121 c:\git\nforce2twkr-wx\version.h
+1708013023 c:\git\nforce2twkr-wx\version.h
 
 1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\notebook.h
 	"wx/defs.h"
@@ -3382,11 +3382,9 @@
 	"components/TAdvancedEdit.h"
 	"components/TTimingComboBox.h"
 
-1708010115 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
+1708012904 source:c:\git\nforce2twkr-wx\src\panels\infopanel.cpp
 	"InfoPanel.h"
 	"components/TReadonlyTextBox.h"
-	"components/Custom.h"
-	"Constants.h"
 
 1707783799 c:\git\nforce2twkr-wx\include\panels\infopanel.h
 	"wx/wx.h"
@@ -3424,7 +3422,7 @@
 1706673212 source:c:\git\nforce2twkr-wx\src\components\tadvancededit.cpp
 	"components/TAdvancedEdit.h"
 
-1708012363 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
+1708012783 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
 	"components/TTimingComboBox.h"
 
 1706674547 source:c:\git\nforce2twkr-wx\src\components\treadonlytextbox.cpp
@@ -3449,7 +3447,7 @@
 1707946483 source:c:\git\nforce2twkr-wx\src\dialogs\profilesavewindow.cpp
 	"dialogs/ProfileSaveWindow.h"
 
-1707942997 c:\git\nforce2twkr-wx\include\dialogs\profilewindowbase.h
+1708013329 c:\git\nforce2twkr-wx\include\dialogs\profilewindowbase.h
 	<wx/wx.h>
 	"../../utils/ProfilesManager.h"
 

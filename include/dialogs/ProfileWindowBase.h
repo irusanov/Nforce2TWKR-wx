@@ -29,8 +29,6 @@ private:
     // void OnFormShow(wxShowEvent& event);
     void OnSectionCheckBoxClick(wxCommandEvent& event);
     void OnActionButtonClick(wxCommandEvent& event);
-
-    DECLARE_EVENT_TABLE();
 };
 
 #endif // PROFILE_WINDOW_BASE_H

@@ -14,7 +14,6 @@
 				<Option compiler="tdm-gcc_471_32bit" />
 				<Compiler>
 					<Add option="-march=athlon" />
-					<Add option="-O2" />
 					<Add option="-Wall" />
 					<Add option="-std=c++11" />
 					<Add option="-m32" />
@@ -38,7 +37,6 @@
 					<Add directory="include" />
 				</ResourceCompiler>
 				<Linker>
-					<Add option="-s" />
 					<Add option="-m32" />
 					<Add option="-mthreads" />
 					<Add library="libwxmsw30.a" />
