@@ -70,7 +70,7 @@ void ProfilesManager::SaveRomsipValues(wxFileConfig* ini, const wxString& sectio
         box = dynamic_cast<TAdvancedEdit*>(wxWindow::FindWindowByName(names[i]));
 
         if (box != wxNullPtr) {
-            ini->Write(section + wxCONFIG_PATH_SEPARATOR + names[i].AfterFirst('R'), box->GetValue());
+            ini->Write(section + wxCONFIG_PATH_SEPARATOR + names[i].AfterFirst('Romsip'), box->GetValue());
         }
     }
 }
