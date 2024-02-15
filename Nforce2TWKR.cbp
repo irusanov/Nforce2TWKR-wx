@@ -75,7 +75,6 @@
 		<Unit filename="include/Cpu.h" />
 		<Unit filename="include/Registers.h" />
 		<Unit filename="include/Types.h" />
-		<Unit filename="include/components/CustomComboBox.h" />
 		<Unit filename="include/components/TAdvancedEdit.h" />
 		<Unit filename="include/components/TReadonlyTextBox.h" />
 		<Unit filename="include/components/TTimingComboBox.h" />
@@ -101,7 +100,6 @@
 		<Unit filename="src/AppSettings.cpp" />
 		<Unit filename="src/Cpu.cpp" />
 		<Unit filename="src/Registers.cpp" />
-		<Unit filename="src/components/CustomComboBox.cpp" />
 		<Unit filename="src/components/TAdvancedEdit.cpp" />
 		<Unit filename="src/components/TReadonlyTextBox.cpp" />
 		<Unit filename="src/components/TTimingComboBox.cpp" />

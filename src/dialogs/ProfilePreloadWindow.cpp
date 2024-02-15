@@ -1,4 +1,3 @@
-
 #include "dialogs/ProfilePreloadWindow.h"
 
 wxBEGIN_EVENT_TABLE(ProfilePreloadWindow, wxDialog)
@@ -7,7 +6,7 @@ wxEND_EVENT_TABLE()
 
 ProfilePreloadWindow::ProfilePreloadWindow(wxWindow* parent, ProfilesManager& profiles)
     : ProfileWindowBase(parent, _("Preview Profile"), _("Load"), false),
-    profiles(&profiles) {
+      profiles(&profiles) {
 
     wxFileDialog openFileDialog(this, "Load Profile", profiles.GetDefaultPath(), wxEmptyString, _("Profile (*.profile)|*.profile"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 
@@ -16,8 +15,7 @@ ProfilePreloadWindow::ProfilePreloadWindow(wxWindow* parent, ProfilesManager& pr
         wxString filePath = openFileDialog.GetPath();
 
         // Check if the file exists
-        if (wxFileExists(filePath))
-        {
+        if (wxFileExists(filePath)) {
             data = profiles.ReadMetadata(filePath);
 
             checkBoxTimings->SetValue(data.options.timings);
@@ -42,8 +40,7 @@ ProfilePreloadWindow::ProfilePreloadWindow(wxWindow* parent, ProfilesManager& pr
     }
 }
 
-void ProfilePreloadWindow::OnTimerCloseWindow(wxTimerEvent& event)
-{
+void ProfilePreloadWindow::OnTimerCloseWindow(wxTimerEvent& event) {
     // Destroy the window after the timer expires
     Destroy();
 }

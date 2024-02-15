@@ -223,17 +223,18 @@ void Nforce2TWKRFrame::OnAbout(wxCommandEvent& WXUNUSED(event)) {
 void Nforce2TWKRFrame::OnRefreshButtonClick(wxCommandEvent& event) {
 
     switch(currentPageIndex) {
-        case 0:
-            RefreshDramTimings();
-            break;
-        case 1:
-            RefreshChipsetTimings();
-            chipsetPanel->Update();
-            break;
-        case 2:
-            infoPanel->Update();
-            break;
-        default: ;
+    case 0:
+        RefreshDramTimings();
+        break;
+    case 1:
+        RefreshChipsetTimings();
+        chipsetPanel->Update();
+        break;
+    case 2:
+        infoPanel->Update();
+        break;
+    default:
+        ;
     }
 }
 

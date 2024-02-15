@@ -82,11 +82,9 @@ unsigned int Utils::ReadPciReg(unsigned int pciDev) {
     return ReadIoPortDword(PCI_DATA_PORT);
 }
 
-wxArrayString Utils::ConvertToWxArrayString(const std::vector<std::string>& values)
-{
+wxArrayString Utils::ConvertToWxArrayString(const std::vector<std::string>& values) {
     wxArrayString wxArray;
-    for (const auto& value : values)
-    {
+    for (const auto& value : values) {
         wxArray.Add(wxString(value));
     }
     return wxArray;

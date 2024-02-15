@@ -12,11 +12,11 @@ TTimingComboBox::TTimingComboBox(wxWindow* parent,
                                  const wxArrayString& choices,
                                  const bool isCustomValue)
     : wxOwnerDrawnComboBox(parent, wxID_ANY, value, wxDefaultPosition, size, wxArrayString(), editable ? 0 : wxCB_READONLY, wxDefaultValidator, name),
-    tMin(min),
-    tMax(max),
-    savedIndex(-1),
-    customItems(choices),
-    tCustomValue(isCustomValue) {
+      tMin(min),
+      tMax(max),
+      savedIndex(-1),
+      customItems(choices),
+      tCustomValue(isCustomValue) {
 
     originalBackground = GetBackgroundColour();
 

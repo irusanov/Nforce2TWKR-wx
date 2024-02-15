@@ -4,8 +4,7 @@
 #include "wx/wx.h"
 #include "../utils/Utils.h"
 
-class Registers
-{
+class Registers {
 public:
     static int GetIndexByCAS(unsigned int value);
     static void ReadTimings(const struct timing_def_t* table, int size);
