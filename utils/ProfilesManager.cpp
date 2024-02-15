@@ -141,11 +141,11 @@ bool ProfilesManager::Save(const wxString& FilePath, const profile_options_t& Op
     wxFileConfig iniFile(wxEmptyString, wxEmptyString, FilePath, wxEmptyString, wxCONFIG_USE_LOCAL_FILE);
 
     if (wxFileExists(FilePath)) {
-        wxString msg = "Profile already exists. Do you want to overwrite it?";
+        //wxString msg = "Profile already exists. Do you want to overwrite it?";
 
-        if (wxMessageBox(msg, "Confirmation", wxYES_NO | wxICON_QUESTION) != wxYES) {
-            return false;
-        }
+        //if (wxMessageBox(msg, "Confirmation", wxYES_NO | wxICON_QUESTION) != wxYES) {
+        //    return false;
+        //}
 
         // Save existing name, author, and comment
         if (Opts.name.IsEmpty()) {
