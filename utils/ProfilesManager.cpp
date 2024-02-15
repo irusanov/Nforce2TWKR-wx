@@ -32,7 +32,6 @@ void ProfilesManager::CreateDirIfNotPresent(const wxString& DirPath) {
 }
 
 void ProfilesManager::SaveTimings(wxFileConfig* ini, const wxString& section, const wxString* names, int size) {
-    /*
     int value;
     TTimingComboBox* combo;
 
@@ -40,20 +39,13 @@ void ProfilesManager::SaveTimings(wxFileConfig* ini, const wxString& section, co
         combo = dynamic_cast<TTimingComboBox*>(wxWindow::FindWindowByName(names[i]));
 
         if (combo != wxNullPtr) {
-            if (combo->CustomValue) {
-                value = static_cast<int>(combo->ItemValue);
-            } else {
-                value = static_cast<int>(combo->Value);
-            }
-
-            ini->Write(section + wxCONFIG_PATH_SEPARATOR + names[i], value);
+            //value = static_cast<int>(combo->GetValue());
+            ini->Write(section + wxCONFIG_PATH_SEPARATOR + names[i], combo->GetValue());
         }
     }
-    */
 }
 
 void ProfilesManager::LoadTimings(wxFileConfig* ini, const wxString& section, const wxString* names, int size) {
-    /*
     int value, currentValue;
     TTimingComboBox* combo;
 
@@ -62,23 +54,22 @@ void ProfilesManager::LoadTimings(wxFileConfig* ini, const wxString& section, co
             combo = dynamic_cast<TTimingComboBox*>(wxWindow::FindWindowByName(names[i]));
 
             if (combo != wxNullPtr) {
-                if (combo->CustomValue)
-                    currentValue = combo->ItemValue;
-                else
-                    currentValue = combo->Value;
+                //if (combo->CustomValue)
+                //    currentValue = combo->ItemValue;
+                //else
+                    currentValue = wxAtoi(combo->GetValue());
 
                 if (currentValue != value) {
-                    if (combo->CustomValue)
-                        combo->ItemValue = value;
-                    else
-                        combo->Value = value;
+                    //if (combo->CustomValue)
+                    //    combo->ItemValue = value;
+                    //else
+                        combo->SetValue(value);
 
-                    combo->setChanged();
+                    combo->SetChanged();
                 }
             }
         }
     }
-    */
 }
 
 void ProfilesManager::SaveRomsipValues(wxFileConfig* ini, const wxString& section, const wxString* names, int size) {
@@ -156,7 +147,7 @@ void ProfilesManager::Load(const wxString& FilePath, const profile_options_t& Op
 }
 
 bool ProfilesManager::Save(const wxString& FilePath, const profile_options_t& Opts) {
-    wxFileConfig iniFile(FilePath);
+    wxFileConfig iniFile(wxEmptyString, wxEmptyString, FilePath, wxEmptyString, wxCONFIG_USE_LOCAL_FILE);
 
     if (wxFileExists(FilePath)) {
         wxString msg = "Profile already exists. Do you want to overwrite it?";
@@ -166,15 +157,15 @@ bool ProfilesManager::Save(const wxString& FilePath, const profile_options_t& Op
         }
 
         // Save existing name, author, and comment
-        if (Opts.name.empty()) {
+        if (Opts.name.IsEmpty()) {
             iniFile.Read("Metadata/Name", Opts.name);
         }
 
-        if (Opts.author.empty()) {
+        if (Opts.author.IsEmpty()) {
             iniFile.Read("Metadata/Author", Opts.author);
         }
 
-        if (Opts.comment.empty()) {
+        if (Opts.comment.IsEmpty()) {
             iniFile.Read("Metadata/Comment", Opts.comment);
         }
 
@@ -187,19 +178,19 @@ bool ProfilesManager::Save(const wxString& FilePath, const profile_options_t& Op
     WriteMetadata(&iniFile, Opts);
 
     if (Opts.timings) {
-        SaveTimings(&iniFile, "Timings", timings, COUNT_OF(timings));
+        SaveTimings(&iniFile, "Timings", timings, WXSIZEOF(timings));
     }
 
     if (Opts.dssr) {
-        SaveTimings(&iniFile, "DSSR", dssr, COUNT_OF(dssr));
+        SaveTimings(&iniFile, "DSSR", dssr, WXSIZEOF(dssr));
     }
 
     if (Opts.advanced) {
-        SaveTimings(&iniFile, "Advanced", advanced, COUNT_OF(advanced));
+        SaveTimings(&iniFile, "Advanced", advanced, WXSIZEOF(advanced));
     }
 
     if (Opts.romsip) {
-        SaveRomsipValues(&iniFile, "ROMSIP", romsip, COUNT_OF(romsip));
+        SaveRomsipValues(&iniFile, "ROMSIP", romsip, WXSIZEOF(romsip));
     }
 
     return true;
