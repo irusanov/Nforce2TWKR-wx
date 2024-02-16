@@ -212,9 +212,9 @@ void ChipsetPanel::OnPllSliderChange(wxScrollEvent& event) {
     pair<double, int> p;
 
     if (position < static_cast<int>(targetFsb)) {
-        p = cpuReference->GetPll().GetPrevPll(targetFsb);
+        p = cpuReference->GetPll().GetPrevPll(position);
     } else {
-        p = cpuReference->GetPll().GetNextPll(targetFsb);
+        p = cpuReference->GetPll().GetNextPll(position);
     }
 
     UpdatePllSlider(p.first);
