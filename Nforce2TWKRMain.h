@@ -50,6 +50,7 @@ private:
     void OnRefreshButtonClick(wxCommandEvent& event);
     void OnProfileSaveMenuClick(wxCommandEvent& event);
     void OnProfileLoadMenuClick(wxCommandEvent& event);
+    void OnBotMenuClick(wxCommandEvent& event);
     void OnApplyButtonClick(wxCommandEvent& event);
     void OnPageChanged(wxBookCtrlEvent& event);
     //)
@@ -64,6 +65,7 @@ private:
     static const long MENU_REFRESH_ID;
     static const long MENU_PROFILE_SAVE_ID;
     static const long MENU_PROFILE_LOAD_ID;
+    static const long MENU_BOT_ID;
     static const long STATUSBAR_ID;
     //)
 

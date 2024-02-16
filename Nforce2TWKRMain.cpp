@@ -51,6 +51,7 @@ const long Nforce2TWKRFrame::MENU_SETTINGS_ID = wxNewId();
 const long Nforce2TWKRFrame::MENU_REFRESH_ID = wxNewId();
 const long Nforce2TWKRFrame::MENU_PROFILE_SAVE_ID = wxNewId();
 const long Nforce2TWKRFrame::MENU_PROFILE_LOAD_ID = wxNewId();
+const long Nforce2TWKRFrame::MENU_BOT_ID = wxNewId();
 const long Nforce2TWKRFrame::STATUSBAR_ID = wxNewId();
 
 // Static events, add menus here
@@ -61,6 +62,7 @@ BEGIN_EVENT_TABLE(Nforce2TWKRFrame, wxFrame)
     EVT_MENU(MENU_REFRESH_ID, Nforce2TWKRFrame::OnRefreshButtonClick)
     EVT_MENU(MENU_PROFILE_SAVE_ID, Nforce2TWKRFrame::OnProfileSaveMenuClick)
     EVT_MENU(MENU_PROFILE_LOAD_ID, Nforce2TWKRFrame::OnProfileLoadMenuClick)
+    EVT_MENU(MENU_BOT_ID, Nforce2TWKRFrame::OnBotMenuClick)
     EVT_BUTTON(wxID_REFRESH, Nforce2TWKRFrame::OnRefreshButtonClick)
     EVT_BUTTON(wxID_APPLY, Nforce2TWKRFrame::OnApplyButtonClick)
     EVT_NOTEBOOK_PAGE_CHANGED(wxID_ANY, Nforce2TWKRFrame::OnPageChanged)
@@ -154,7 +156,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
     // Tools menu
     wxMenu* menuTools = new wxMenu();
     menuTools->Append(new wxMenuItem(menuTools, MENU_SETTINGS_ID, _T("Options\tCtrl+P"), _T("Open settings dialog"), wxITEM_NORMAL));
-    menuTools->Append(new wxMenuItem(menuTools, wxID_ANY, _T("Auto Validation Bot\tCtrl+B"), _T("Open Auto Validation Bot"), wxITEM_NORMAL));
+    menuTools->Append(new wxMenuItem(menuTools, MENU_BOT_ID, _T("Auto Validation Bot\tCtrl+B"), _T("Open Auto Validation Bot"), wxITEM_NORMAL));
     menuBar->Append(menuTools, _T("&Tools"));
 
     // Help menu
@@ -279,4 +281,9 @@ void Nforce2TWKRFrame::OnProfileSaveMenuClick(wxCommandEvent& event) {
 void Nforce2TWKRFrame::OnProfileLoadMenuClick(wxCommandEvent& event) {
     ProfilePreloadWindow* profileDialog = new ProfilePreloadWindow(this, profiles);
     profileDialog->ShowWindowModal();
+}
+
+void Nforce2TWKRFrame::OnBotMenuClick(wxCommandEvent& event) {
+    ValidationBotDialog* botDialog = new ValidationBotDialog(this, "Auto Validation Bot", settings);
+    botDialog->Show();
 }

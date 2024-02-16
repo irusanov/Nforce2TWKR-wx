@@ -27,7 +27,7 @@ void TAdvancedEdit::OnTextChanged(wxCommandEvent& event) {
     SetInsertionPoint(insertionPoint);
 
     if (isChanged) {
-        SetOwnBackgroundColour(*wxYELLOW);
+        SetOwnBackgroundColour(wxColor("#ffffcc"));
     } else {
         SetOwnBackgroundColour(initialBackgroundColor);
     }
@@ -56,7 +56,7 @@ void TAdvancedEdit::SetValue(const wxString& value, bool resetIndex) {
             savedValue = value;
             SetBackgroundColour(initialBackgroundColor);
         } else {
-            SetBackgroundColour(*wxYELLOW);
+            SetBackgroundColour(wxColor("#ffffcc"));
         }
 
         isChanged = !resetIndex;

@@ -94,7 +94,7 @@ void TTimingComboBox::SetValue(int value, bool resetIndex) {
         savedIndex = index;
     }
 
-    SetBackgroundColour(IsChanged() ? *wxYELLOW : originalBackground);
+    SetBackgroundColour(IsChanged() ? wxColor("#ffffcc") : originalBackground);
 
     // Refresh();
 }
@@ -130,14 +130,14 @@ void TTimingComboBox::OnDropDown(wxCommandEvent& event) {
 
 void TTimingComboBox::OnCloseUp(wxCommandEvent& event) {
     if (IsChanged()) {
-        SetBackgroundColour(*wxYELLOW);
+        SetBackgroundColour(wxColor("#ffffcc"));
     }
     Refresh();
     event.Skip();
 }
 
 void TTimingComboBox::OnComboBox(wxCommandEvent& event) {
-    SetBackgroundColour(IsChanged() ? *wxYELLOW : originalBackground);
+    SetBackgroundColour(IsChanged() ? wxColor("#ffffcc") : originalBackground);
     Refresh();
     event.Skip();
 }
