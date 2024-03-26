@@ -4,6 +4,7 @@
 #include <wx/wx.h>
 #include <wx/timer.h>
 #include "AppSettings.h"
+#include "components/TReadonlyTextBox.h"
 
 class ValidationBotDialog : public wxDialog {
 public:
@@ -12,37 +13,30 @@ public:
     ~ValidationBotDialog();
 
 private:
-    HWND FindCpuzWindow();
-    void OnButtonBotRunClick(wxCommandEvent& event);
-    void OnTimerBot(wxTimerEvent& event);
-
     HANDLE hWndCpuz;
     AppSettings* settings;
-    wxTimer timerBot;
-    wxTextCtrl* editCpuzPath;
-    wxTextCtrl* editBotSleep;
-    wxTextCtrl* editFsbStep;
-    wxCheckBox* checkBoxUltra;
-    wxStaticText* panelCurrentFsb;
-    wxStaticText* editCoreFrequency;
-    wxButton* buttonSaveBotSettings;
-    wxStatusBar* statusBarBot;
-    wxButton* buttonBotRun;
-    wxButton* buttonBrowseCpuz;
-    wxFileDialog* openFileDialogBot;
+
+    wxButton *buttonBotRun;
+    wxButton *buttonSaveBotSettings;
+    wxButton *buttonBrowseCpuz;
+
+    wxTextCtrl *editCpuzPath;
+    wxTextCtrl *editBotSleep;
+    TReadonlyTextBox *panelCurrentFsb;
+    wxTextCtrl *editCoreFrequency;
+    wxTextCtrl *editFsbStep;
+
+    wxStatusBar *statusBarBot;
+    wxTimer *timerBot;
+    wxFileDialog *openDialogBot;
+
+    wxCheckBox *checkBoxUltra;
+	wxCheckBox *checkBoxReverse;
 
     void InitControls();
     void CreateLayout();
-    void LoadBotSettings();
     void SaveBotSettings();
-    void UpdateBotControlsState();
-    void UpdateFrequencyDisplay();
-    void CheckUltra();
-    void CloseValidationBotDialog(wxCloseEvent& event);
-    void BrowseCpuzPath(wxCommandEvent& event);
     void SaveBotSettingsClick(wxCommandEvent& event);
-    void BotControlChange(wxCommandEvent& event);
-    void KeyUp(wxKeyEvent& event);
 
     wxDECLARE_EVENT_TABLE();
 };
