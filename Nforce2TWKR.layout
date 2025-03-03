@@ -2,59 +2,24 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="include\panels\ChipsetPanel.h" open="1" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="utils\ProfilesManager.cpp" open="1" top="0" tabpos="27" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="855" topLine="0" />
+			<Cursor1 position="2929" topLine="144" />
 		</Cursor>
 	</File>
-	<File name="src\panels\ChipsetPanel.cpp" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\dialogs\ProfilePreloadWindow.h" open="1" top="0" tabpos="32" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="10063" topLine="135" />
+			<Cursor1 position="231" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Nforce2TWKRApp.h" open="1" top="0" tabpos="24" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="utils\CPUDetection.h" open="1" top="0" tabpos="45" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="531" topLine="0" />
+			<Cursor1 position="300" topLine="28" />
 		</Cursor>
 	</File>
-	<File name="src\Registers.cpp" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\ols\OlsApi.h" open="1" top="0" tabpos="42" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2263" topLine="54" />
-		</Cursor>
-	</File>
-	<File name="Nforce2TWKRMain.h" open="1" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1980" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\dialogs\ValidationBotWindow.h" open="1" top="0" tabpos="37" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="820" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="version.h" open="1" top="0" tabpos="30" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="498" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\dialogs\ProfileSaveWindow.h" open="1" top="0" tabpos="34" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="319" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="utils\ProfilesManager.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="524" topLine="8" />
-		</Cursor>
-	</File>
-	<File name="Nforce2TWKRMain.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3869" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\components\TTimingComboBox.h" open="1" top="0" tabpos="29" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="734" topLine="0" />
+			<Cursor1 position="3610" topLine="81" />
 		</Cursor>
 	</File>
 	<File name="src\dialogs\ProfileSaveWindow.cpp" open="1" top="0" tabpos="33" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -62,14 +27,24 @@
 			<Cursor1 position="1074" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Nforce2TWKRApp.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\components\TReadonlyTextBox.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="643" topLine="0" />
+			<Cursor1 position="165" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\AppSettings.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\components\TTimingComboBox.h" open="1" top="0" tabpos="29" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1693" topLine="0" />
+			<Cursor1 position="734" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="utils\Nforce2Pll.cpp" open="1" top="0" tabpos="25" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6645" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Registers.cpp" open="1" top="1" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="751" topLine="138" />
 		</Cursor>
 	</File>
 	<File name="include\Types.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -77,14 +52,24 @@
 			<Cursor1 position="1460" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="utils\Nforce2Pll.cpp" open="1" top="0" tabpos="25" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\panels\InfoPanel.h" open="1" top="0" tabpos="22" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6645" topLine="249" />
+			<Cursor1 position="238" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\components\TTimingComboBox.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="utils\QueryPerformance.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4064" topLine="102" />
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\ols\OlsDef.h" open="1" top="0" tabpos="43" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\panels\InfoPanel.cpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="63" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="include\panels\DramPanel.h" open="1" top="0" tabpos="23" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -92,44 +77,9 @@
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\panels\DramPanel.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="885" topLine="18" />
-		</Cursor>
-	</File>
 	<File name="include\Registers.h" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="680" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\dialogs\ProfileWindowBase.cpp" open="1" top="0" tabpos="38" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3364" topLine="25" />
-		</Cursor>
-	</File>
-	<File name="include\components\TReadonlyTextBox.h" open="1" top="0" tabpos="40" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="utils\ProfilesManager.cpp" open="1" top="0" tabpos="27" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2929" topLine="36" />
-		</Cursor>
-	</File>
-	<File name="include\Constants.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2402" topLine="12" />
-		</Cursor>
-	</File>
-	<File name="src\dialogs\ValidationBotWindow.cpp" open="1" top="1" tabpos="26" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="618" topLine="11" />
-		</Cursor>
-	</File>
-	<File name="utils\Utils.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1673" topLine="10" />
 		</Cursor>
 	</File>
 	<File name="include\dialogs\SettingsWindow.h" open="1" top="0" tabpos="36" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -137,9 +87,49 @@
 			<Cursor1 position="293" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="utils\QueryPerformance.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\AppSettings.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="621" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\panels\ChipsetPanel.cpp" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10063" topLine="135" />
+		</Cursor>
+	</File>
+	<File name="Nforce2TWKRApp.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="643" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\dialogs\ProfileWindowBase.cpp" open="1" top="0" tabpos="38" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3364" topLine="25" />
+		</Cursor>
+	</File>
+	<File name="src\components\TTimingComboBox.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4064" topLine="102" />
+		</Cursor>
+	</File>
+	<File name="utils\ProfilesManager.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="524" topLine="8" />
+		</Cursor>
+	</File>
+	<File name="include\Cpu.h" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="251" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\AppSettings.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1693" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\panels\DramPanel.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="885" topLine="51" />
 		</Cursor>
 	</File>
 	<File name="include\dialogs\ProfileWindowBase.h" open="1" top="0" tabpos="39" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -149,32 +139,12 @@
 	</File>
 	<File name="utils\Nforce2Pll.h" open="1" top="0" tabpos="28" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="438" topLine="0" />
+			<Cursor1 position="78" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\dialogs\SettingsWindow.cpp" open="1" top="0" tabpos="35" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\dialogs\ValidationBotWindow.cpp" open="1" top="0" tabpos="26" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2343" topLine="12" />
-		</Cursor>
-	</File>
-	<File name="src\Cpu.cpp" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2734" topLine="39" />
-		</Cursor>
-	</File>
-	<File name="src\components\TReadonlyTextBox.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="165" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="resource.rc" open="1" top="0" tabpos="41" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="51" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\dialogs\ProfilePreloadWindow.h" open="1" top="0" tabpos="32" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="231" topLine="0" />
+			<Cursor1 position="670" topLine="3" />
 		</Cursor>
 	</File>
 	<File name="utils\Utils.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -182,19 +152,14 @@
 			<Cursor1 position="732" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\Cpu.h" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\dialogs\ProfilePreloadWindow.cpp" open="1" top="0" tabpos="31" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="251" topLine="0" />
+			<Cursor1 position="269" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\panels\InfoPanel.cpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Nforce2TWKRMain.h" open="1" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="63" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\panels\InfoPanel.h" open="1" top="0" tabpos="22" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="238" topLine="0" />
+			<Cursor1 position="1980" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src\components\TAdvancedEdit.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -202,24 +167,74 @@
 			<Cursor1 position="2076" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="utils\Utils.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="237" topLine="56" />
+		</Cursor>
+	</File>
+	<File name="src\Cpu.cpp" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4333" topLine="107" />
+		</Cursor>
+	</File>
+	<File name="Nforce2TWKRApp.h" open="1" top="0" tabpos="24" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="531" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\ols\OlsApiInitDef.h" open="1" top="0" tabpos="44" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1221" topLine="57" />
+		</Cursor>
+	</File>
 	<File name="include\components\TAdvancedEdit.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="414" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\AppSettings.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="version.h" open="1" top="0" tabpos="30" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="621" topLine="0" />
+			<Cursor1 position="498" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="utils\CPUDetection.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\panels\ChipsetPanel.h" open="1" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="300" topLine="0" />
+			<Cursor1 position="855" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\dialogs\ProfilePreloadWindow.cpp" open="1" top="0" tabpos="31" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\Constants.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="269" topLine="0" />
+			<Cursor1 position="2767" topLine="57" />
+		</Cursor>
+	</File>
+	<File name="include\dialogs\ValidationBotWindow.h" open="1" top="0" tabpos="37" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="820" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Nforce2TWKRMain.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3869" topLine="57" />
+		</Cursor>
+	</File>
+	<File name="src\dialogs\SettingsWindow.cpp" open="1" top="0" tabpos="35" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2343" topLine="12" />
+		</Cursor>
+	</File>
+	<File name="include\dialogs\ProfileSaveWindow.h" open="1" top="0" tabpos="34" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="319" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="resource.rc" open="1" top="0" tabpos="41" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="51" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\components\TReadonlyTextBox.h" open="1" top="0" tabpos="40" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
