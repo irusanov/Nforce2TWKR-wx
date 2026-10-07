@@ -6,8 +6,10 @@
 #include "../utils/Utils.h"
 
 Cpu::Cpu() {
+    // init() detects the nForce2 PLL device and builds the FSB/PLL table used by
+    // GetNextPll/GetPrevPll (PLL slider and Auto Validation Bot).
     if (!pll.init()) {
-        throw "Not a nForce2 chipset!";
+        // throw "Not a nForce2 chipset!";
     }
     InitSystemInfo();
 }

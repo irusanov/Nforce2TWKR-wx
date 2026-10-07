@@ -25,6 +25,7 @@ public:
     int Sleep;
     int Step;
     bool Ultra;
+    bool Reverse;
 
     AppSettings();
 

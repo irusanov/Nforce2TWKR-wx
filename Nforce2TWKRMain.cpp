@@ -284,6 +284,10 @@ void Nforce2TWKRFrame::OnProfileLoadMenuClick(wxCommandEvent& event) {
 }
 
 void Nforce2TWKRFrame::OnBotMenuClick(wxCommandEvent& event) {
-    ValidationBotDialog* botDialog = new ValidationBotDialog(this, "Auto Validation Bot", settings);
-    botDialog->Show();
+    ValidationBotDialog botDialog(this, "Auto Validation Bot", settings, cpu);
+    botDialog.ShowModal();
+
+    // The bot may have changed the FSB, refresh the chipset tab
+    RefreshChipsetTimings();
+    chipsetPanel->Update();
 }
