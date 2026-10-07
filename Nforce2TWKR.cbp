@@ -24,7 +24,6 @@
 					<Add option="-DwxUSE_UNICODE=0" />
 					<Add option="-DNDEBUG" />
 					<Add option="-DwxDEBUG_LEVEL=0" />
-					<Add option="-D_DEBUG" />
 					<Add directory="$(#wx30)/include" />
 					<Add directory="$(#wx30)/lib/gcc_lib/msw" />
 					<Add directory="include" />
