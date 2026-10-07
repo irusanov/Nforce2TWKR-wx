@@ -3021,7 +3021,7 @@
 	<wx/app.h>
 	<windows.h>
 
-1708042393 c:\git\nforce2twkr-wx\nforce2twkrmain.h
+1791340876 c:\git\nforce2twkr-wx\nforce2twkrmain.h
 	<string>
 	"Constants.h"
 	"Types.h"
@@ -3056,7 +3056,7 @@
 
 1706189669 c:\git\nforce2twkr-wx\utils\queryperformance.h
 
-1706186069 c:\git\nforce2twkr-wx\utils\cpudetection.h
+1706189669 c:\git\nforce2twkr-wx\utils\cpudetection.h
 	<algorithm>
 	<string>
 	<cctype>
@@ -3098,7 +3098,7 @@
 	"Constants.h"
 	"ols/OlsApiInitExt.h"
 
-1737848671 c:\git\nforce2twkr-wx\version.h
+1791340879 c:\git\nforce2twkr-wx\version.h
 
 1587560968 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\notebook.h
 	"wx/defs.h"
@@ -3190,7 +3190,7 @@
 	"../utils/Nforce2Pll.h"
 	"../utils/QueryPerformance.h"
 
-1764232450 source:c:\git\nforce2twkr-wx\src\cpu.cpp
+1791340181 source:c:\git\nforce2twkr-wx\src\cpu.cpp
 	<math.h>
 	"Cpu.h"
 	"ols/OlsApiInitExt.h"
@@ -3394,7 +3394,7 @@
 1587560968 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\gbsizer.h
 	"wx/sizer.h"
 
-1707789652 c:\git\nforce2twkr-wx\include\panels\chipsetpanel.h
+1791340613 c:\git\nforce2twkr-wx\include\panels\chipsetpanel.h
 	"Constants.h"
 	"Cpu.h"
 	"components/TTimingComboBox.h"
@@ -3408,7 +3408,7 @@
 1708026781 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
 	<wx/wx.h>
 
-1708015444 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
+1791340878 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
 	<wx/wx.h>
 	<wx/odcombo.h>
 	"../../utils/Utils.h"

@@ -68,6 +68,12 @@ void Registers::ReadRomsipValues(const struct timing_def_t* table, int size) {
     }
 }
 
+// Timings that are read-only or need a custom write (WriteBusDisconnect, WriteBurstMode,
+// WriteDriveStrengthMode), same list as in the VCL version
+static const string timingsToSkip[] = {
+    "CAS", "CR", "HALTDisconnect", "STPGNTDisconnect", "BurstMode", "DriveStrengthMode"
+};
+
 void Registers::WriteTimings(const struct timing_def_t* table, int size, bool doubled) {
     timing_def_t def;
     unsigned int pciAddress, regValue, value, bits;
@@ -76,6 +82,12 @@ void Registers::WriteTimings(const struct timing_def_t* table, int size, bool do
 
     for (int i = 0; i < size; i++) {
         name = table[i].name;
+
+        // Skip if timing requires a custom write
+        if (Utils::Contains(timingsToSkip, COUNT_OF(timingsToSkip), name)) {
+            continue;
+        }
+
         combo = static_cast<TTimingComboBox *>(wxFrame::FindWindowByName(name));
 
         if (combo != nullptr && combo != 0 && ((TTimingComboBox *)combo)->IsChanged()) {

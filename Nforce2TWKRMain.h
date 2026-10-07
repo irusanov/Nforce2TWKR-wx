@@ -27,6 +27,24 @@ using namespace std;
 #include "panels/InfoPanel.h"
 #include "panels/ChipsetPanel.h"
 
+class Nforce2TWKRFrame;
+
+// System tray icon, shown only while the app is minimized to tray
+class AppTrayIcon : public wxTaskBarIcon {
+public:
+    AppTrayIcon(Nforce2TWKRFrame* frame);
+
+protected:
+    virtual wxMenu* CreatePopupMenu();
+
+private:
+    Nforce2TWKRFrame* m_frame;
+
+    void OnLeftDoubleClick(wxTaskBarIconEvent& event);
+    void OnMenuShow(wxCommandEvent& event);
+    void OnMenuExit(wxCommandEvent& event);
+};
+
 class Nforce2TWKRFrame: public wxFrame {
 public:
     Nforce2TWKRFrame(wxWindow* parent, wxWindowID id = -1);
@@ -39,6 +57,8 @@ public:
     Cpu* cpu;
     AppSettings settings;
     ProfilesManager profiles;
+
+    void RestoreFromTray();
 
 private:
     int currentPageIndex;
@@ -53,10 +73,15 @@ private:
     void OnBotMenuClick(wxCommandEvent& event);
     void OnApplyButtonClick(wxCommandEvent& event);
     void OnPageChanged(wxBookCtrlEvent& event);
+    void OnIconize(wxIconizeEvent& event);
+    void OnMove(wxMoveEvent& event);
+    void OnClose(wxCloseEvent& event);
     //)
 
     void RefreshDramTimings();
     void RefreshChipsetTimings();
+    void RestoreWindowPosition();
+    void StoreWindowPosition();
 
     //(Identifiers(Nforce2TWKRFrame)
     static const long MENU_QUIT_ID;
@@ -70,7 +95,7 @@ private:
     //)
 
     //(Declarations(Nforce2TWKRFrame)
-    wxTaskBarIcon* trayIcon;
+    AppTrayIcon* trayIcon;
     wxStatusBar* statusBar;
     wxPanel* dramPanel;
     ChipsetPanel* chipsetPanel;

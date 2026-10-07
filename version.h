@@ -10,8 +10,8 @@ namespace AutoVersion{
 	static const char UBUNTU_VERSION_STYLE[] =  "25.01";
 
 	//Software Status
-	static const char STATUS[] =  "Alpha";
-	static const char STATUS_SHORT[] =  "a";
+	static const char STATUS[] =  "Release";
+	static const char STATUS_SHORT[] =  "r";
 
 	//Standard Version Type
 	static const long MAJOR  = 1;

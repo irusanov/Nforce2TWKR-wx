@@ -16,7 +16,8 @@ TTimingComboBox::TTimingComboBox(wxWindow* parent,
       tMax(max),
       savedIndex(-1),
       customItems(choices),
-      tCustomValue(isCustomValue) {
+      tCustomValue(isCustomValue),
+      tReadOnly(!editable) {
 
     originalBackground = GetBackgroundColour();
 
@@ -63,6 +64,12 @@ void TTimingComboBox::CreateItems() {
 
 void TTimingComboBox::SetValue(int value, bool resetIndex) {
     int index = -1;
+
+    // Read-only (display only) timings only accept values read from the hardware,
+    // e.g. loading a profile must not change them
+    if (tReadOnly && !resetIndex) {
+        return;
+    }
 
     // custom item different than the index, e.g. "32, 64, ..."
     if (IsCustomValue() && customItems.Count() > 0 && value >= 0) {
@@ -114,6 +121,11 @@ int TTimingComboBox::GetValue() {
 }
 
 bool TTimingComboBox::IsChanged() {
+    // Read-only timings are never written back
+    if (tReadOnly) {
+        return false;
+    }
+
     return savedIndex != GetSelection();
 }
 

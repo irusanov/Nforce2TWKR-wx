@@ -50,6 +50,7 @@ ValidationBotDialog::ValidationBotDialog(wxWindow* parent, const wxString& title
     timerBot.SetOwner(this);
     Bind(wxEVT_TIMER, &ValidationBotDialog::OnTimerBot, this, timerBot.GetId());
     Bind(wxEVT_CLOSE_WINDOW, &ValidationBotDialog::OnClose, this);
+    Bind(wxEVT_CHAR_HOOK, &ValidationBotDialog::OnCharHook, this);
 
     buttonBotRun->Bind(wxEVT_BUTTON, &ValidationBotDialog::OnBotRunClick, this);
     buttonBrowseCpuz->Bind(wxEVT_BUTTON, &ValidationBotDialog::OnBrowseCpuzClick, this);
@@ -123,6 +124,10 @@ void ValidationBotDialog::CreateLayout() {
 
     SetSizerAndFit(sizer);
     CenterOnParent();
+}
+
+void ValidationBotDialog::SetFsbChangedCallback(const std::function<void(double)>& callback) {
+    fsbChangedCallback = callback;
 }
 
 // ---------------------------------------------------------------------------
@@ -384,8 +389,13 @@ void ValidationBotDialog::BotStep() {
         return;
     }
 
-    // In Ultra mode skip the CPU frequency measurement
-    UpdateFrequencyDisplay(!checkBoxUltra->GetValue());
+    // In Ultra mode skip the CPU frequency measurement and the main window update
+    bool ultra = checkBoxUltra->GetValue();
+    UpdateFrequencyDisplay(!ultra);
+
+    if (!ultra && fsbChangedCallback) {
+        fsbChangedCallback(targetFsb);
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -454,5 +464,15 @@ void ValidationBotDialog::OnBotControlChange(wxCommandEvent& event) {
 
 void ValidationBotDialog::OnClose(wxCloseEvent& event) {
     StopBot(wxEmptyString);
+    event.Skip();
+}
+
+void ValidationBotDialog::OnCharHook(wxKeyEvent& event) {
+    // The dialog has no Cancel button, so ESC wouldn't close it by default
+    if (event.GetKeyCode() == WXK_ESCAPE) {
+        Close();
+        return;
+    }
+
     event.Skip();
 }

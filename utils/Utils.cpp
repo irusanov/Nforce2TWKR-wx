@@ -50,6 +50,13 @@ bool Utils::Contains(const string* arr, int arraySize, string value) {
 }
 
 wxString Utils::GetAppVersion() {
+    // Release builds show the plain version number, pre-release builds get the status suffix (e.g. "Beta")
+    wxString status(AutoVersion::STATUS);
+
+    if (status.IsEmpty() || status.IsSameAs("Release", false) || status.IsSameAs("Stable", false)) {
+        return wxString(AutoVersion::FULLVERSION_STRING);
+    }
+
     return wxString::Format("%s %s", AutoVersion::FULLVERSION_STRING, AutoVersion::STATUS);
 }
 

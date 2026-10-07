@@ -14,6 +14,7 @@ public:
     ChipsetPanel(wxWindow* parent, Cpu* cpu);
     void Update();
     double GetTargetFsb();
+    void SetTargetFsb(double fsb);
     int GetTargetPci();
 
 private:

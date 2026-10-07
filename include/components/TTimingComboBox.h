@@ -30,6 +30,7 @@ private:
     bool tCustomValue;
     wxColour originalBackground;
     wxArrayString customItems;
+    bool tReadOnly;
 
     // Methods
     void CreateItems();

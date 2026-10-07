@@ -20,7 +20,6 @@ void AppSettings::Load() {
     Settings.Read("Bot/Sleep", &Sleep, 6);
     Settings.Read("Bot/Step", &Step, 0);
     Ultra = Settings.ReadBool("Bot/Ultra", false);
-    Reverse = Settings.ReadBool("Bot/Reverse", false);
 }
 
 void AppSettings::Save() {
@@ -30,16 +29,13 @@ void AppSettings::Save() {
     Settings.Write("Options/MinimizeHintShown", MinimizeHintShown);
     Settings.Write("Options/SaveWindowPosition", SaveWindowPosition);
 
-    if (WindowTop != 0 || WindowLeft != 0) {
-        Settings.Write("Options/WindowTop", WindowTop);
-        Settings.Write("Options/WindowLeft", WindowLeft);
-    }
+    Settings.Write("Options/WindowTop", SaveWindowPosition ? WindowTop : 0);
+    Settings.Write("Options/WindowLeft", SaveWindowPosition ? WindowLeft : 0);
 
     Settings.Write("Bot/CpuzPath", CpuzPath);
     Settings.Write("Bot/Sleep", Sleep);
     Settings.Write("Bot/Step", Step);
     Settings.Write("Bot/Ultra", Ultra);
-    Settings.Write("Bot/Reverse", Reverse);
 }
 
 void AppSettings::Reset() {

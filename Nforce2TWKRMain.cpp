@@ -12,6 +12,7 @@
 #include <wx/aboutdlg.h>
 #include <wx/intl.h>
 #include <wx/string.h>
+#include <wx/display.h>
 #include "ols/OlsApiInit.h"
 #include "dialogs/ProfilePreloadWindow.h"
 #include "dialogs/ProfileSaveWindow.h"
@@ -66,7 +67,43 @@ BEGIN_EVENT_TABLE(Nforce2TWKRFrame, wxFrame)
     EVT_BUTTON(wxID_REFRESH, Nforce2TWKRFrame::OnRefreshButtonClick)
     EVT_BUTTON(wxID_APPLY, Nforce2TWKRFrame::OnApplyButtonClick)
     EVT_NOTEBOOK_PAGE_CHANGED(wxID_ANY, Nforce2TWKRFrame::OnPageChanged)
+    EVT_ICONIZE(Nforce2TWKRFrame::OnIconize)
+    EVT_MOVE(Nforce2TWKRFrame::OnMove)
+    EVT_CLOSE(Nforce2TWKRFrame::OnClose)
 END_EVENT_TABLE()
+
+// ---------------------------------------------------------------------------
+// Tray icon
+// ---------------------------------------------------------------------------
+
+static const long TRAY_MENU_SHOW_ID = wxNewId();
+static const long TRAY_MENU_EXIT_ID = wxNewId();
+
+AppTrayIcon::AppTrayIcon(Nforce2TWKRFrame* frame) : m_frame(frame) {
+    Bind(wxEVT_TASKBAR_LEFT_DCLICK, &AppTrayIcon::OnLeftDoubleClick, this);
+    Bind(wxEVT_MENU, &AppTrayIcon::OnMenuShow, this, TRAY_MENU_SHOW_ID);
+    Bind(wxEVT_MENU, &AppTrayIcon::OnMenuExit, this, TRAY_MENU_EXIT_ID);
+}
+
+wxMenu* AppTrayIcon::CreatePopupMenu() {
+    wxMenu* menu = new wxMenu();
+    menu->Append(TRAY_MENU_SHOW_ID, _T("Show"));
+    menu->AppendSeparator();
+    menu->Append(TRAY_MENU_EXIT_ID, _T("Exit"));
+    return menu;
+}
+
+void AppTrayIcon::OnLeftDoubleClick(wxTaskBarIconEvent& event) {
+    m_frame->RestoreFromTray();
+}
+
+void AppTrayIcon::OnMenuShow(wxCommandEvent& event) {
+    m_frame->RestoreFromTray();
+}
+
+void AppTrayIcon::OnMenuExit(wxCommandEvent& event) {
+    m_frame->Close(true);
+}
 
 Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), currentPageIndex(-1) {
     if(!InitOpenLibSys(&m_hOpenLibSys)) {
@@ -99,8 +136,8 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
     Nforce2TWKRFrame::appIcon16x16 = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, 16, 16);
     Nforce2TWKRFrame::appIcon48x48 = wxIcon("MAINICON", wxBITMAP_TYPE_ICO_RESOURCE, 48, 48);
 
-    trayIcon = new wxTaskBarIcon();
-    trayIcon->SetIcon(appIcon);
+    // The tray icon is only shown while minimized to tray
+    trayIcon = new AppTrayIcon(this);
 
     // Create main frame and menu bar
     Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX), _T("id"));
@@ -108,7 +145,6 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
     //SetClientSize(wxSize(380, 478));
     SetMaxClientSize(wxSize(380, -1));
     SetTitle(_("NForce2 TWKR " + Utils::GetAppVersion()));
-    Center(wxCENTER_ON_SCREEN);
 
     // MainPanel
     mainTabs = new wxNotebook(this, wxID_ANY);
@@ -178,6 +214,7 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
     */
 
     SetSizerAndFit(mainSizer);
+    RestoreWindowPosition();
     RefreshDramTimings();
     RefreshChipsetTimings();
     wxLogStatus(_T("OK"));
@@ -188,6 +225,88 @@ Nforce2TWKRFrame::~Nforce2TWKRFrame() {
     trayIcon->Destroy();
     delete cpu;
     DeinitOpenLibSys(&m_hOpenLibSys);
+}
+
+// ---------------------------------------------------------------------------
+// Window position
+// ---------------------------------------------------------------------------
+
+void Nforce2TWKRFrame::RestoreWindowPosition() {
+    if (settings.SaveWindowPosition && (settings.WindowTop != 0 || settings.WindowLeft != 0)) {
+        wxPoint pos(settings.WindowLeft, settings.WindowTop);
+
+        // Only restore if the title bar is on a connected display (e.g. a monitor was removed)
+        if (wxDisplay::GetFromPoint(pos + wxPoint(20, 10)) != wxNOT_FOUND) {
+            Move(pos);
+            return;
+        }
+    }
+
+    Center(wxCENTER_ON_SCREEN);
+}
+
+void Nforce2TWKRFrame::StoreWindowPosition() {
+    // Position is meaningless while minimized or hidden in the tray
+    if (!IsShown() || IsIconized()) {
+        return;
+    }
+
+    wxPoint pos = GetPosition();
+
+    // Windows moves minimized windows to -32000
+    if (pos.x <= -32000 || pos.y <= -32000) {
+        return;
+    }
+
+    settings.WindowLeft = pos.x;
+    settings.WindowTop = pos.y;
+}
+
+void Nforce2TWKRFrame::OnMove(wxMoveEvent& event) {
+    StoreWindowPosition();
+    event.Skip();
+}
+
+void Nforce2TWKRFrame::OnClose(wxCloseEvent& event) {
+    StoreWindowPosition();
+    event.Skip();
+}
+
+// ---------------------------------------------------------------------------
+// Minimize to tray
+// ---------------------------------------------------------------------------
+
+void Nforce2TWKRFrame::OnIconize(wxIconizeEvent& event) {
+    event.Skip();
+
+    if (!event.IsIconized() || !settings.MinimizeToTray) {
+        return;
+    }
+
+    trayIcon->SetIcon(appIcon16x16, _T("NForce2 TWKR"));
+    Hide();
+
+    if (!settings.MinimizeHintShown) {
+        trayIcon->ShowBalloon(_T("NForce2 TWKR is minimized in the tray."),
+                              _T("Double click the system tray icon to restore the application."),
+                              5000, wxICON_INFORMATION);
+    }
+}
+
+void Nforce2TWKRFrame::RestoreFromTray() {
+    Show(true);
+    Iconize(false);
+    Raise();
+    SetFocus();
+
+    if (trayIcon->IsIconInstalled()) {
+        trayIcon->RemoveIcon();
+    }
+
+    if (!settings.MinimizeHintShown) {
+        settings.MinimizeHintShown = true;
+        settings.Save();
+    }
 }
 
 void Nforce2TWKRFrame::RefreshDramTimings() {
@@ -285,6 +404,13 @@ void Nforce2TWKRFrame::OnProfileLoadMenuClick(wxCommandEvent& event) {
 
 void Nforce2TWKRFrame::OnBotMenuClick(wxCommandEvent& event) {
     ValidationBotDialog botDialog(this, "Auto Validation Bot", settings, cpu);
+
+    // Keep the Chipset tab FSB display in sync while the bot runs (not in Ultra mode)
+    ChipsetPanel* panel = chipsetPanel;
+    botDialog.SetFsbChangedCallback([panel](double fsb) {
+        panel->SetTargetFsb(fsb);
+    });
+
     botDialog.ShowModal();
 
     // The bot may have changed the FSB, refresh the chipset tab

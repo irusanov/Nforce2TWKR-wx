@@ -28,14 +28,14 @@ void DramPanel::CreateLeftStaticBox(wxSizer* dramPanelSizer)
     wxFlexGridSizer* gridSizer = new wxFlexGridSizer(16, 2, 2, 0);
 
     std::vector<control_def_t> controls = {
-        { "CAS", "TCL", true, 0, 2, tcasChoices, false },
+        { "CAS", "TCL", false, 0, 2, tcasChoices, false }, // read-only, can't be changed at runtime
         { "TRCDR", "TRCDR", true, 0, 15, {}, false },
         { "TRCDW", "TRCDW", true, 0, 15, {}, false },
         { "TRP", "TRP", true, 0, 15, {}, false },
         { "TRAS", "TRAS", true, 0, 31, {}, false },
         { "TRC", "TRC", true, 0, 31, {}, false },
         { "TRFC", "TRFC", true, 0, 31, {}, false },
-        { "CR", "CR", true, 1, 2, tcrChoices, false },
+        { "CR", "CR", false, 1, 2, tcrChoices, false },     // read-only, can't be changed at runtime
         { "TDOE", "TDOE", true, 0, 7, {}, false },
         { "TRRD", "TRRD", true, 0, 7, {}, false },
         { "TWTP", "TWTP", true, 0, 7, {}, false },

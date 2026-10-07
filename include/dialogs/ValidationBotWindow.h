@@ -2,6 +2,7 @@
 #define VALIDATIONBOTDIALOG_H
 
 #include <windows.h>
+#include <functional>
 #include <wx/wx.h>
 #include <wx/timer.h>
 #include "AppSettings.h"
@@ -13,6 +14,9 @@ public:
     ValidationBotDialog(wxWindow* parent, const wxString& title, AppSettings& appSettings, Cpu* cpu);
 
     ~ValidationBotDialog();
+
+    // Called after each FSB change when Ultra mode is off (keeps the main window in sync)
+    void SetFsbChangedCallback(const std::function<void(double)>& callback);
 
 private:
     enum BotState {
@@ -29,6 +33,7 @@ private:
     int launchAttempts;
     double targetFsb;
     int targetPll;
+    std::function<void(double)> fsbChangedCallback;
 
     wxButton *buttonBotRun;
     wxButton *buttonSaveBotSettings;
@@ -67,6 +72,7 @@ private:
     void OnBotControlChange(wxCommandEvent& event);
     void OnTimerBot(wxTimerEvent& event);
     void OnClose(wxCloseEvent& event);
+    void OnCharHook(wxKeyEvent& event);
 };
 
 #endif // VALIDATIONBOTDIALOG_H
