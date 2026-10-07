@@ -2974,7 +2974,7 @@
 
 1587560968 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\msw\rcdefs.h
 
-1587557368 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\aboutdlg.h
+1587560968 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\aboutdlg.h
 	"wx/defs.h"
 	"wx/app.h"
 	"wx/icon.h"
@@ -3021,7 +3021,7 @@
 	<wx/app.h>
 	<windows.h>
 
-1791340876 c:\git\nforce2twkr-wx\nforce2twkrmain.h
+1791341497 c:\git\nforce2twkr-wx\nforce2twkrmain.h
 	<string>
 	"Constants.h"
 	"Types.h"
@@ -3065,12 +3065,13 @@
 
 1706133948 c:\git\nforce2twkr-wx\constants.h
 
-1708038842 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
+1791341497 source:c:\git\nforce2twkr-wx\nforce2twkrmain.cpp
 	<windows.h>
 	"Nforce2TWKRMain.h"
 	<wx/aboutdlg.h>
 	<wx/intl.h>
 	<wx/string.h>
+	<wx/display.h>
 	"ols/OlsApiInit.h"
 	"dialogs/ProfilePreloadWindow.h"
 	"dialogs/ProfileSaveWindow.h"
@@ -3093,12 +3094,12 @@
 	"Nforce2Pll.h"
 	<System.SysUtils.hpp>
 
-1708035972 source:c:\git\nforce2twkr-wx\utils\utils.cpp
+1791341497 source:c:\git\nforce2twkr-wx\utils\utils.cpp
 	"Utils.h"
 	"Constants.h"
 	"ols/OlsApiInitExt.h"
 
-1791340879 c:\git\nforce2twkr-wx\version.h
+1791341497 c:\git\nforce2twkr-wx\version.h
 
 1587560968 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\notebook.h
 	"wx/defs.h"
@@ -3164,7 +3165,7 @@
 1706184698 c:\git\nforce2twkr-wx\types.h
 	<string>
 
-1708519830 c:\git\nforce2twkr-wx\include\types.h
+1791341896 c:\git\nforce2twkr-wx\include\types.h
 	<string>
 	<vector>
 
@@ -3179,11 +3180,11 @@
 1706189669 c:\git\nforce2twkr-wx\include\ols\olsapiinitdef.h
 	<windows.h>
 
-1706186175 c:\git\nforce2twkr-wx\include\ols\olsapiinit.h
+1706189775 c:\git\nforce2twkr-wx\include\ols\olsapiinit.h
 	"OlsDef.h"
 	"OlsApiInitDef.h"
 
-1706185834 c:\git\nforce2twkr-wx\include\ols\olsdef.h
+1706189434 c:\git\nforce2twkr-wx\include\ols\olsdef.h
 
 1707784841 c:\git\nforce2twkr-wx\include\cpu.h
 	"Types.h"
@@ -3293,7 +3294,7 @@
 	"components/TAdvancedEdit.h"
 	"components/TTimingComboBox.h"
 
-1706228940 source:c:\git\nforce2twkr-wx\src\appsettings.cpp
+1791341497 source:c:\git\nforce2twkr-wx\src\appsettings.cpp
 	"AppSettings.h"
 
 1708026774 source:c:\git\nforce2twkr-wx\utils\profilesmanager.cpp
@@ -3321,14 +3322,21 @@
 1707939580 source:c:\git\nforce2twkr-wx\src\dialogs\settingswindow.cpp
 	"dialogs/SettingsWindow.h"
 
-1711487600 c:\git\nforce2twkr-wx\include\dialogs\validationbotwindow.h
+1791341497 c:\git\nforce2twkr-wx\include\dialogs\validationbotwindow.h
+	<windows.h>
+	<functional>
 	<wx/wx.h>
 	<wx/timer.h>
 	"AppSettings.h"
+	"Cpu.h"
 	"components/TReadonlyTextBox.h"
 
-1711487600 source:c:\git\nforce2twkr-wx\src\dialogs\validationbotwindow.cpp
+1791341497 source:c:\git\nforce2twkr-wx\src\dialogs\validationbotwindow.cpp
 	"dialogs/ValidationBotWindow.h"
+	<shellapi.h>
+	<wx/filedlg.h>
+	<wx/filename.h>
+	<wx/valtext.h>
 
 1706317122 source:c:\git\nforce2twkr-wx\customcombobox.cpp
 	"CustomComboBox.h"
@@ -3368,7 +3376,7 @@
 	"dialogs/ProfilePreloadWindow.h"
 	"dialogs/ValidationBotWindow.h"
 
-1707934535 source:c:\git\nforce2twkr-wx\src\panels\drampanel.cpp
+1791341497 source:c:\git\nforce2twkr-wx\src\panels\drampanel.cpp
 	"panels/DramPanel.h"
 	"Constants.h"
 	<wx/gbsizer.h>
@@ -3394,21 +3402,21 @@
 1587560968 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\gbsizer.h
 	"wx/sizer.h"
 
-1791340613 c:\git\nforce2twkr-wx\include\panels\chipsetpanel.h
+1791341497 c:\git\nforce2twkr-wx\include\panels\chipsetpanel.h
 	"Constants.h"
 	"Cpu.h"
 	"components/TTimingComboBox.h"
 	"components/TReadonlyTextBox.h"
 	"wx/wx.h"
 
-1708120002 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
+1791341497 source:c:\git\nforce2twkr-wx\src\panels\chipsetpanel.cpp
 	"ChipsetPanel.h"
 	"../../utils/Nforce2Pll.h"
 
 1708026781 c:\git\nforce2twkr-wx\include\components\tadvancededit.h
 	<wx/wx.h>
 
-1791340878 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
+1791341497 c:\git\nforce2twkr-wx\include\components\ttimingcombobox.h
 	<wx/wx.h>
 	<wx/odcombo.h>
 	"../../utils/Utils.h"
@@ -3423,7 +3431,7 @@
 1708041208 source:c:\git\nforce2twkr-wx\src\components\tadvancededit.cpp
 	"components/TAdvancedEdit.h"
 
-1708038916 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
+1791341497 source:c:\git\nforce2twkr-wx\src\components\ttimingcombobox.cpp
 	"components/TTimingComboBox.h"
 
 1708036011 source:c:\git\nforce2twkr-wx\src\components\treadonlytextbox.cpp
@@ -3436,7 +3444,7 @@
 	"wx/wx.h"
 	"../utils/Utils.h"
 
-1708015380 source:c:\git\nforce2twkr-wx\src\registers.cpp
+1791341497 source:c:\git\nforce2twkr-wx\src\registers.cpp
 	"Registers.h"
 	"Constants.h"
 	"components/TTimingComboBox.h"
@@ -6555,4 +6563,8 @@
 	<aygshell.h>
 
 1587557368 c:\cb-legacy-dev\codeblocks\wxwidgets-3.0.5\include\wx\msw\rcdefs.h
+
+1587560968 c:\git\legacy\cb-legacy-dev_v18nov2023\codeblocks\wxwidgets-3.0.5\include\wx\display.h
+	"wx/dynarray.h"
+	"wx/vidmode.h"
 

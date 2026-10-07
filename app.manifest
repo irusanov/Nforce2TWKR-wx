@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+<assemblyIdentity
+    version="1.0.0.0"
+    processorArchitecture="x86"
+    name="Nforce2TWKR"
+    type="win32"
+/>
+<description>NForce2 TWKR</description>
+<!-- Common Controls v6 (visual styles), same as the default wxWidgets manifest -->
+<dependency>
+    <dependentAssembly>
+        <assemblyIdentity
+            type="win32"
+            name="Microsoft.Windows.Common-Controls"
+            version="6.0.0.0"
+            processorArchitecture="X86"
+            publicKeyToken="6595b64144ccf1df"
+            language="*"
+        />
+    </dependentAssembly>
+</dependency>
+<!-- Run as administrator on Vista and newer (WinRing0 driver needs it).
+     The asm.v2 namespace is used for Windows XP compatibility, XP ignores this section. -->
+<trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
+    <security>
+        <requestedPrivileges>
+            <requestedExecutionLevel level="requireAdministrator" uiAccess="false"/>
+        </requestedPrivileges>
+    </security>
+</trustInfo>
+</assembly>

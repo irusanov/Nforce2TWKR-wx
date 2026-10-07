@@ -33,9 +33,13 @@ void InfoPanel::AddControls() {
 
     wxBoxSizer* s2 = new wxBoxSizer(wxHORIZONTAL);
     Label(s2, staticBoxCPU, _("Core"), 60);
-    s2->Add(new TReadonlyTextBox(staticBoxCPU, cpuInfo.codeName), 1, wxEXPAND | wxLEFT, 5);
+    wxString coreName(cpuInfo.codeName);
+    if (!cpuInfo.technology.empty()) {
+        coreName += wxString::Format(" (%s)", cpuInfo.technology);
+    }
+    s2->Add(new TReadonlyTextBox(staticBoxCPU, coreName), 1, wxEXPAND | wxLEFT, 5);
     Label(s2, staticBoxCPU, _("Revision"), 80);
-    s2->Add(new TReadonlyTextBox(staticBoxCPU, wxEmptyString, 35), 0, wxEXPAND | wxLEFT, 5);
+    s2->Add(new TReadonlyTextBox(staticBoxCPU, cpuInfo.revision, 35), 0, wxEXPAND | wxLEFT, 5);
     cpuGroupSizer->Add(s2, 0, wxEXPAND | wxALL, INFO_PANEL_ROW_SPACING);
 
     wxBoxSizer* s3 = new wxBoxSizer(wxHORIZONTAL);

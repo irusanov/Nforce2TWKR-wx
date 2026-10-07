@@ -6,6 +6,8 @@
 #include "../utils/Utils.h"
 
 Cpu::Cpu() {
+    cpuInfo = cpu_info_t();
+
     // init() detects the nForce2 PLL device and builds the FSB/PLL table used by
     // GetNextPll/GetPrevPll (PLL slider and Auto Validation Bot).
     if (!pll.init()) {
@@ -32,9 +34,7 @@ string Cpu::GetCpuName() {
     if(Cpuid(0x80000004, &eax, &ebx, &ecx, &edx))
         model = model + Utils::IntToStr(eax) + Utils::IntToStr(ebx) + Utils::IntToStr(ecx) + Utils::IntToStr(edx);
 
-    Utils::trim(model);
-
-    return model;
+    return Utils::trim(model);
 }
 
 unsigned int Cpu::GetFID() {
@@ -138,6 +138,13 @@ void Cpu::RefreshCpuSpeed() {
 bool Cpu::InitSystemInfo() {
     unsigned long eax = 0, ebx = 0, ecx = 0, edx = 0;
 
+    // Vendor string
+    cpuInfo.vendor = "";
+    if(Cpuid(0x00000000, &eax, &ebx, &ecx, &edx)) {
+        cpuInfo.vendor = Utils::IntToStr(ebx) + Utils::IntToStr(edx) + Utils::IntToStr(ecx);
+    }
+    cpuInfo.isAmd = cpuInfo.vendor == "AuthenticAMD";
+
     // CPUID information
     if(Cpuid(0x00000001, &eax, &ebx, &ecx, &edx)) {
         cpuInfo.cpuid = eax;
@@ -169,6 +176,9 @@ bool Cpu::InitSystemInfo() {
         cpuInfo.l2Cache = (ecx >> 16 & 0xffff);
     }
 
+    // Early Duron/Thunderbird report a wrong L2 size (AMD errata T13)
+    cpuInfo.l2Cache = fix_k7_l2_cache(cpuInfo.isAmd, cpuInfo.family, cpuInfo.model, cpuInfo.stepping, cpuInfo.l2Cache);
+
     if(Rdmsr(MSR_K7_MANID, &eax, &edx)) {
         cpuInfo.manID.minorRev = Utils::GetBits(eax, 0, 4);
         cpuInfo.manID.majorRev = Utils::GetBits(eax, 4, 4);
@@ -187,8 +197,14 @@ bool Cpu::InitSystemInfo() {
     }
 
     cpuInfo.cpuName = GetCpuName();
-    decode_amd_model_string(cpuInfo.cpuName);
-    // decode_amd_model_string("Athlon XP-M");
+
+    // Core name and revision
+    cpuInfo.modelBits = decode_amd_model_string(cpuInfo.cpuName);
+    k7_core_t core = identify_k7_core(cpuInfo.isAmd, cpuInfo.family, cpuInfo.model, cpuInfo.stepping,
+                                      cpuInfo.l2Cache, cpuInfo.modelBits);
+    cpuInfo.codeName = core.codeName;
+    cpuInfo.revision = core.revision;
+    cpuInfo.technology = core.technology;
 
     RefreshCpuSpeed();
 

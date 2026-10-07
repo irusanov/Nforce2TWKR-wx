@@ -35,7 +35,12 @@ struct man_id_t {
 
 struct cpu_info_t {
     unsigned int cpuid;
+    string vendor;
+    bool isAmd;
     string codeName;
+    string revision;
+    string technology;
+    unsigned int modelBits;
     string cpuName;
     unsigned char family;
     unsigned char model;
