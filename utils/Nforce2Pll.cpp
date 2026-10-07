@@ -135,7 +135,7 @@ double Nforce2Pll::nforce2_fsb_read(int bootfsb) {
     /* Get chipset boot FSB from subdevice 5 (FSB at boot-time) */
     nforce2_sub5 = FindPciDeviceById(PCI_VENDOR_ID_NVIDIA, 0x01EF, 0);
 
-    if(!nforce2_sub5)
+    if(nforce2_sub5 == 0xFFFFFFFF)
         return 0;
 
     ReadPciConfigDwordEx(nforce2_sub5, NFORCE2_BOOTFSB, (DWORD *) &fsb);
@@ -157,9 +157,12 @@ double Nforce2Pll::nforce2_fsb_read(int bootfsb) {
 
 int Nforce2Pll::nforce2_set_fsb_pll(double tfsb, int tpll) {
     unsigned int temp = 0;
-    double fsb, diff;
+    double fsb;
     int pll = -1;
     pair<double, int>p;
+
+    if(tpll <= 0)
+        return -1;
 
     /* First write? Then set actual value */
     ReadPciConfigByteEx(nforce2_dev, NFORCE2_PLLENABLE, (BYTE *) &temp);
@@ -178,14 +181,24 @@ int Nforce2Pll::nforce2_set_fsb_pll(double tfsb, int tpll) {
     temp = 0x01;
     WritePciConfigByteEx(nforce2_dev, NFORCE2_PLLENABLE, temp);
 
-    fsb = nforce2_fsb_read(0);
-    diff = tfsb - fsb;
+    /*
+     * Walk through the PLL table towards the target in small steps.
+     *
+     * Table keys are nforce2_calc_fsb(pll) * 1.00225, while nforce2_fsb_read()
+     * returns the plain nforce2_calc_fsb() value, so convert the current FSB to
+     * table units before comparing, otherwise the direction can be wrong.
+     * Stop at the target, if the next step would pass it, or at the end of the
+     * table (never write an empty PLL value).
+     */
+    fsb = nforce2_fsb_read(0) * 1.00225;
+    bool up = tfsb > fsb;
+    size_t guard = possibleFsb.size() + 1;
 
-    while(pll != tpll) {
-        if(diff > 0) {
-            p = GetNextPll(fsb);
-        } else {
-            p = GetPrevPll(fsb);
+    while(pll != tpll && guard-- > 0) {
+        p = up ? GetNextPll(fsb) : GetPrevPll(fsb);
+
+        if(p.second == 0 || (up ? p.first >= tfsb : p.first <= tfsb)) {
+            p = pair<double, int> (tfsb, tpll);
         }
 
         fsb = p.first;
@@ -332,5 +345,5 @@ int Nforce2Pll::GetPllFromFsb(double fsb) {
 }
 
 Nforce2Pll::~Nforce2Pll(void) {
-    delete &nforce2_dev;
+    // nforce2_dev is a static variable, nothing to free
 }

@@ -99,7 +99,7 @@ private:
     wxStatusBar* statusBar;
     wxPanel* dramPanel;
     ChipsetPanel* chipsetPanel;
-    wxPanel* infoPanel;
+    InfoPanel* infoPanel;
     wxNotebook* mainTabs;
     TAdvancedEdit* advancedEdit;
     //)

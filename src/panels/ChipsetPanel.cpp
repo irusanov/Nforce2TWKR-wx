@@ -5,7 +5,7 @@ ChipsetPanel::ChipsetPanel(wxWindow* parent, Cpu* cpu)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, wxPanelNameStr),
       cpuReference(cpu) {
     AddControls();
-    Update();
+    RefreshData();
 }
 
 void ChipsetPanel::AddControls() {
@@ -194,7 +194,7 @@ void ChipsetPanel::UpdatePllSlider(double fsb) {
     }
 }
 
-void ChipsetPanel::Update() {
+void ChipsetPanel::RefreshData() {
     cpuReference->RefreshCpuSpeed();
     cpu_info_t cpuInfo = cpuReference->GetCpuInfo();
     UpdatePciSlider(cpuInfo.pciMul);

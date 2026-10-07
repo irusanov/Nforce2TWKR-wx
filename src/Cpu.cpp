@@ -17,8 +17,7 @@ Cpu::Cpu() {
 }
 
 Cpu::~Cpu() {
-    delete &pll;
-    delete &qpc;
+    // pll and qpc are members, they are destroyed automatically
 }
 
 string Cpu::GetCpuName() {
@@ -67,7 +66,7 @@ void Cpu::RefreshPciFrequency() {
     cpuInfo.pciMul = value >> 8 & 0xff;
 
     // First write?
-    if (cpuInfo.pciDiv != 0xf) {
+    if (cpuInfo.pciDiv != 0xf && cpuInfo.pciDiv != 0) {
         unsigned int newMul = (cpuInfo.pciMul * 0xf) / cpuInfo.pciDiv;
         cpuInfo.pciDiv = 0xf;
         cpuInfo.pciMul = newMul;
@@ -116,7 +115,7 @@ void Cpu::RefreshCpuSpeed() {
         cpuInfo.multi = fid_codes[cpuInfo.fid] / 10.0;
     }
 
-    cpuInfo.fsb = cpuInfo.frequency / cpuInfo.multi;
+    cpuInfo.fsb = cpuInfo.multi > 0 ? cpuInfo.frequency / cpuInfo.multi : 0;
     targetFsb = cpuInfo.fsb;
 
     // Get FSB:DRAM ratio

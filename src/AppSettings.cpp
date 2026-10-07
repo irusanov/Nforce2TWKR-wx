@@ -20,6 +20,15 @@ void AppSettings::Load() {
     Settings.Read("Bot/Sleep", &Sleep, 6);
     Settings.Read("Bot/Step", &Step, 0);
     Ultra = Settings.ReadBool("Bot/Ultra", false);
+
+    // Sanitize values (older versions could save garbage)
+    if (Sleep < 1 || Sleep > 3600) {
+        Sleep = 6;
+    }
+
+    if (Step < 0 || Step > 100) {
+        Step = 0;
+    }
 }
 
 void AppSettings::Save() {

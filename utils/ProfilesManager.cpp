@@ -46,7 +46,7 @@ void ProfilesManager::SaveTimings(wxFileConfig* ini, const wxString& section, co
 }
 
 void ProfilesManager::LoadTimings(wxFileConfig* ini, const wxString& section, const wxString* names, int size) {
-    int value, currentValue;
+    int value;
     TTimingComboBox* combo;
 
     for (int i = 0; i < size; i++) {
@@ -67,7 +67,7 @@ void ProfilesManager::SaveRomsipValues(wxFileConfig* ini, const wxString& sectio
         box = static_cast<TAdvancedEdit*>(wxFrame::FindWindowByName(names[i]));
 
         if (box != wxNullPtr) {
-            ini->Write(section + wxCONFIG_PATH_SEPARATOR + names[i].AfterFirst('Romsip'), box->GetValue());
+            ini->Write(section + wxCONFIG_PATH_SEPARATOR + names[i].Mid(6), box->GetValue());
         }
     }
 }
@@ -77,7 +77,7 @@ void ProfilesManager::LoadRomsipValues(wxFileConfig* ini, const wxString& sectio
     TAdvancedEdit* box;
 
     for (int i = 0; i < size; i++) {
-        if (ini->Read(section + wxCONFIG_PATH_SEPARATOR + names[i].AfterFirst('Romsip'), &value)) {
+        if (ini->Read(section + wxCONFIG_PATH_SEPARATOR + names[i].Mid(6), &value)) {
             box = static_cast<TAdvancedEdit*>(wxFrame::FindWindowByName(names[i]));
 
             if (box != wxNullPtr) {
@@ -135,8 +135,9 @@ void ProfilesManager::Load(const wxString& FilePath, const profile_options_t& Op
     }
 }
 
-bool ProfilesManager::Save(const wxString& FilePath, const profile_options_t& Opts) {
+bool ProfilesManager::Save(const wxString& FilePath, const profile_options_t& Options) {
     wxFileConfig iniFile(wxEmptyString, wxEmptyString, FilePath, wxEmptyString, wxCONFIG_USE_LOCAL_FILE);
+    profile_options_t Opts = Options;
 
     if (wxFileExists(FilePath)) {
         //wxString msg = "Profile already exists. Do you want to overwrite it?";
@@ -147,15 +148,15 @@ bool ProfilesManager::Save(const wxString& FilePath, const profile_options_t& Op
 
         // Save existing name, author, and comment
         if (Opts.name.IsEmpty()) {
-            iniFile.Read("Metadata/Name", Opts.name);
+            iniFile.Read("Metadata/Name", &Opts.name);
         }
 
         if (Opts.author.IsEmpty()) {
-            iniFile.Read("Metadata/Author", Opts.author);
+            iniFile.Read("Metadata/Author", &Opts.author);
         }
 
         if (Opts.comment.IsEmpty()) {
-            iniFile.Read("Metadata/Comment", Opts.comment);
+            iniFile.Read("Metadata/Comment", &Opts.comment);
         }
 
         iniFile.DeleteGroup("Timings");

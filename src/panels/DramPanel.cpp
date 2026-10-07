@@ -46,7 +46,7 @@ void DramPanel::CreateLeftStaticBox(wxSizer* dramPanelSizer)
         { "TREF", "TREF", true, 0, 7, trefChoices, true },
     };
 
-    for (const control_def_t control : controls) {
+    for (const control_def_t& control : controls) {
         // Static text label
         wxStaticText* label = new wxStaticText(this, wxID_ANY, control.label);
 

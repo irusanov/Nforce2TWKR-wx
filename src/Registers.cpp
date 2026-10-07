@@ -154,8 +154,6 @@ void Registers::WriteDriveStrengthMode(const struct timing_def_t* table, int siz
 }
 
 void Registers::WriteBusDisconnect() {
-    bool busDisconnect;
-    timing_def_t def;
     unsigned int pciAddress = Utils::MakePciAddress(0, 0, 0, 0x6C);
     unsigned int regValue, value;
     TTimingComboBox* combo;

@@ -113,13 +113,15 @@ Nforce2TWKRFrame::Nforce2TWKRFrame(wxWindow* parent, wxWindowID id): cpu(NULL), 
 
     if(GetDllStatus() != 0x0) {
         wxMessageBox(_T("Error loading WinRing.dll"), _T("Error"), wxOK_DEFAULT | wxICON_ERROR);
+        DeinitOpenLibSys(&m_hOpenLibSys);
         exit(-1);
     }
 
     try {
         cpu = new Cpu();
     } catch (const char* s) {
-        wxMessageBox(_T(s), _T("Error"), wxOK_DEFAULT | wxICON_ERROR);
+        wxMessageBox(wxString(s), _T("Error"), wxOK_DEFAULT | wxICON_ERROR);
+        DeinitOpenLibSys(&m_hOpenLibSys);
         exit(-1);
     }
 
@@ -325,8 +327,8 @@ void Nforce2TWKRFrame::OnQuit(wxCommandEvent& event) {
 }
 
 void Nforce2TWKRFrame::OnOpenSettings(wxCommandEvent& event) {
-    SettingsWindow* settingsDialog = new SettingsWindow(this, _("Options"), settings);
-    settingsDialog->ShowWindowModal();
+    SettingsWindow settingsDialog(this, _("Options"), settings);
+    settingsDialog.ShowModal();
 }
 
 void Nforce2TWKRFrame::OnAbout(wxCommandEvent& WXUNUSED(event)) {
@@ -349,10 +351,10 @@ void Nforce2TWKRFrame::OnRefreshButtonClick(wxCommandEvent& event) {
         break;
     case 1:
         RefreshChipsetTimings();
-        chipsetPanel->Update();
+        chipsetPanel->RefreshData();
         break;
     case 2:
-        infoPanel->Update();
+        infoPanel->RefreshData();
         break;
     default:
         ;
@@ -380,7 +382,7 @@ void Nforce2TWKRFrame::OnApplyButtonClick(wxCommandEvent& event) {
             cpu->GetPll().nforce2_set_fsb_pll(targetFsb, targetPll);
         }
         RefreshChipsetTimings();
-        chipsetPanel->Update();
+        chipsetPanel->RefreshData();
     }
 }
 
@@ -388,18 +390,25 @@ void Nforce2TWKRFrame::OnPageChanged(wxBookCtrlEvent& event) {
     currentPageIndex = event.GetSelection();
 
     if (currentPageIndex == 2) {
-        infoPanel->Update();
+        infoPanel->RefreshData();
     }
 }
 
 void Nforce2TWKRFrame::OnProfileSaveMenuClick(wxCommandEvent& event) {
-    ProfileSaveWindow* profileDialog = new ProfileSaveWindow(this, profiles);
-    profileDialog->ShowWindowModal();
+    ProfileSaveWindow profileDialog(this, profiles);
+    profileDialog.ShowModal();
 }
 
 void Nforce2TWKRFrame::OnProfileLoadMenuClick(wxCommandEvent& event) {
-    ProfilePreloadWindow* profileDialog = new ProfilePreloadWindow(this, profiles);
-    profileDialog->ShowWindowModal();
+    wxFileDialog openFileDialog(this, _("Load Profile"), profiles.GetDefaultPath(), wxEmptyString,
+                                _("Profile (*.profile)|*.profile"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+
+    if (openFileDialog.ShowModal() != wxID_OK || !wxFileExists(openFileDialog.GetPath())) {
+        return;
+    }
+
+    ProfilePreloadWindow profileDialog(this, profiles, openFileDialog.GetPath());
+    profileDialog.ShowModal();
 }
 
 void Nforce2TWKRFrame::OnBotMenuClick(wxCommandEvent& event) {
@@ -415,5 +424,5 @@ void Nforce2TWKRFrame::OnBotMenuClick(wxCommandEvent& event) {
 
     // The bot may have changed the FSB, refresh the chipset tab
     RefreshChipsetTimings();
-    chipsetPanel->Update();
+    chipsetPanel->RefreshData();
 }

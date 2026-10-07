@@ -27,9 +27,9 @@ private:
     int tMin;
     int tMax;
     int savedIndex;
-    bool tCustomValue;
     wxColour originalBackground;
     wxArrayString customItems;
+    bool tCustomValue;
     bool tReadOnly;
 
     // Methods

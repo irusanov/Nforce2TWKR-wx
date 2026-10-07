@@ -12,7 +12,8 @@
 class ChipsetPanel: public wxPanel {
 public:
     ChipsetPanel(wxWindow* parent, Cpu* cpu);
-    void Update();
+    // Re-read values from hardware (not named Update(), that would override wxWindow::Update())
+    void RefreshData();
     double GetTargetFsb();
     void SetTargetFsb(double fsb);
     int GetTargetPci();
